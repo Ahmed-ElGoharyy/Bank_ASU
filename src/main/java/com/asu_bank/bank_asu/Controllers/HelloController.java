@@ -1,4 +1,4 @@
-package com.asu_bank.bank_asu;
+package com.asu_bank.bank_asu.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

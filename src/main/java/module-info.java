@@ -12,4 +12,6 @@ module com.asu_bank.bank_asu {
 
     opens com.asu_bank.bank_asu to javafx.fxml;
     exports com.asu_bank.bank_asu;
+    exports com.asu_bank.bank_asu.Controllers;
+    opens com.asu_bank.bank_asu.Controllers to javafx.fxml;
 }
