@@ -1,6 +1,6 @@
-package com.asu_bank.bank_asu.Classes;
+package com.asu_bank.bank_asu.Model;
 
-public class creditCard {
+public class CreditCard {
     protected int cardNumber;
     private int cvv;
     public boolean isActive;
@@ -8,9 +8,9 @@ public class creditCard {
     public static final double limit = 20000;
     protected double spending = 0;
 
-    // Constructor with validation
+       // Constructor with validation
 
-    public creditCard(int cardNumber, int cvv, boolean isActive) {
+    public CreditCard(int cardNumber, int cvv, boolean isActive) {
         if (!isValidCardNumber(cardNumber)) {
             throw new IllegalArgumentException("Invalid card number");
         }
@@ -30,7 +30,7 @@ public class creditCard {
 
     // CVV validation method
     private boolean isValidCVV(int cvv) {
-        // CVV should be 3
+        // CVV should be 3 digits
         return cvv > 99 && cvv < 1000;
     }
 
@@ -46,17 +46,17 @@ public class creditCard {
     // Payment method with enhanced error handling
     public void pay(double amount) throws CreditCardException {
         // Check if card is active
-        if (!isActive) {
+        if ( !isActive) {
             throw new CreditCardException("Card is not active");
         }
 
         // Validate payment amount
-        if (amount <= 0) {
+        if ( amount <= 0) {
             throw new CreditCardException("Invalid payment amount");
         }
 
         // Check credit limit
-        if (spending + amount > limit) {
+        if ( spending + amount > limit ) {
             throw new CreditCardException("Credit card limit exceeded");
         }
 
