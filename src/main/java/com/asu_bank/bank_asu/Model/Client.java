@@ -11,7 +11,7 @@ public class Client extends User {
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
 
     public Client(long id, String firstName, String lastName, String userName, String password, long telephoneNumber) {
-        super(id, firstName, lastName, userName, password, telephoneNumber);
+        super( firstName, lastName, userName, password, telephoneNumber);
         this.client_id = super.getId();
     }
 
