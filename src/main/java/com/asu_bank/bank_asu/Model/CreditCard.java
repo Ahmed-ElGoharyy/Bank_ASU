@@ -1,37 +1,31 @@
 package com.asu_bank.bank_asu.Model;
 
 public class CreditCard {
-    protected int cardNumber;
-    private int cvv;
+    private final String cardNumber;
+    private final int cvv;
     public boolean isActive;
     protected double loyaltyPoints = 0;
     public static final double limit = 20000;
     protected double spending = 0;
+    private final long client_id;
+    public String cardholdername;
 
-       // Constructor with validation
 
-    public CreditCard(int cardNumber, int cvv, boolean isActive) {
-        if (!isValidCardNumber(cardNumber)) {
-            throw new IllegalArgumentException("Invalid card number");
-        }
-        if (!isValidCVV(cvv)) {
-            throw new IllegalArgumentException("Invalid CVV");
-        }
-        this.cardNumber = cardNumber;
-        this.cvv = cvv;
-        this.isActive = isActive;
-    }
+// Constructor with validation
 
-    // Card number validation method
-    private boolean isValidCardNumber(int cardNumber) {
-        // Basic validation: check length and non-zero
-        return cardNumber > 0 ;
-    }
-
-    // CVV validation method
-    private boolean isValidCVV(int cvv) {
-        // CVV should be 3 digits
-        return cvv > 99 && cvv < 1000;
+    public CreditCard(long id, String holdername){
+        this.client_id=id;
+        this.cardholdername=holdername;
+        this.isActive=true;
+        // Generate Random Card Number
+        String part1;
+        part1="2879 4687 3279 ";
+        int cardmax=9999,cardmin=1000;
+        int part2=cardmin + (int)(Math.random() * ((cardmax - cardmin) + 1));
+        this.cardNumber=part1 + part2;
+        // Generate Random Cvv
+        int cvvmax=999,cvvmin=100;
+        this.cvv=cvvmin + (int)(Math.random() * ((cvvmax - cvvmin) + 1));
     }
 
     // Custom exception class
@@ -46,17 +40,17 @@ public class CreditCard {
     // Payment method with enhanced error handling
     public void pay(double amount) throws CreditCardException {
         // Check if card is active
-        if ( !isActive) {
+        if (!isActive) {
             throw new CreditCardException("Card is not active");
         }
 
         // Validate payment amount
-        if ( amount <= 0) {
+        if (amount <= 0) {
             throw new CreditCardException("Invalid payment amount");
         }
 
         // Check credit limit
-        if ( spending + amount > limit ) {
+        if (spending + amount > limit) {
             throw new CreditCardException("Credit card limit exceeded");
         }
 
@@ -67,24 +61,19 @@ public class CreditCard {
     }
 
 
-    // if you want to de activate card
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
     public int getCvv() {
         return cvv;
     }
 
 
-    // Getters for other attributes
-    public double getLoyaltyPoints() {
-        return loyaltyPoints;
-    }
-
     public double getSpending() {
         return spending;
     }
+    public long getClient_id() {
+        return client_id;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
 }
-//comm
