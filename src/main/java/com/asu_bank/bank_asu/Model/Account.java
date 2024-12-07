@@ -29,6 +29,8 @@ abstract public class Account {
  public void setBalance(double balance) {
   this.balance = balance;
  }
+
+
  public static class NegativeAmountException extends Exception {
   public NegativeAmountException(String message) {
    super(message);

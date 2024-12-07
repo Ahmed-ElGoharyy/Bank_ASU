@@ -19,7 +19,7 @@ public class CreditCard {
         this.isActive=true;
         // Generate Random Card Number
         String part1;
-        part1="2879 4687 3279 ";
+        part1="1111 1111 1111 ";
         int cardmax=9999,cardmin=1000;
         int part2=cardmin + (int)(Math.random() * ((cardmax - cardmin) + 1));
         this.cardNumber=part1 + part2;
@@ -57,7 +57,7 @@ public class CreditCard {
         // Process payment
         spending += amount;
         loyaltyPoints += spending * 0.1;
-        System.out.println("Payment successful!");
+        System.out.println("Payment successful! your sepending is now : " +spending);
     }
 
 
