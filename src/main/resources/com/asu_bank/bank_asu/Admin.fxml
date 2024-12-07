@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-border-width: 7px; -fx-border-color: grey; -fx-background-color: #bfa5d7;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.AdminController">
+   <children>
+      <Text fill="WHITE" layoutX="21.0" layoutY="43.0" stroke="#434343" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold; -fx-font-style: sens-serif;" text="Admin Panel">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
