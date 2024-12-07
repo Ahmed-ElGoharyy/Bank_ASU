@@ -27,7 +27,7 @@ abstract public class User {
         this.password = password;
     }
 
-    public User(long id, String firstName, String lastName, String userName, String password, long telephoneNumber) {
+    public User( String firstName, String lastName, String userName, String password, long telephoneNumber) {
         counter++;
         this.id =counter;
         this.firstName = firstName;
