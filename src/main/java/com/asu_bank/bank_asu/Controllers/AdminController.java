@@ -15,4 +15,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AdminController {
+
+    @FXML
+    private void logoutButtonClicked(ActionEvent event) {
+        utility.LogOut(event);
+    }
+
 }

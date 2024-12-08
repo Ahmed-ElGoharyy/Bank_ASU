@@ -27,20 +27,20 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (username.isEmpty() || password.isEmpty()) {
-            utility.ShowErrorAlert("Please enter username and password.");
+            utility.ShowErrorAlert("Username or Password can't be empty!");
             return;
         }
 
         if (username.equals("admin") && password.equals("admin")) {
             switchToAdmin(event);
-            utility.ShowSuccessAlert("Welcome, Admin!");
+
 
         } else {
-            utility.ShowErrorAlert("Invalid username or password.");
+            utility.ShowErrorAlert("Username or Password is incorrect");
         }
     }
 
-    private void switchToAdmin(ActionEvent event)  {
+    public void switchToAdmin(ActionEvent event)  {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Admin.fxml"));
             Parent root = fxmlLoader.load();
