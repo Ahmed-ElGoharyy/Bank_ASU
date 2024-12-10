@@ -54,7 +54,7 @@ public class LoginController {
 //
 //            // #########  CLIENT CHECK ############
 //
-//          else if(check if user exists   ){                                      //client Check
+//          else if(check if user exists  ){                                      //client Check
 //                if(checkif password is right ){
 //                    CurrentUser = new Client();                    //    to set the current user
 //                    CurrentUser = (Client)CurrentUser;            //Downcasting to make the current user a client
