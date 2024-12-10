@@ -24,7 +24,7 @@ public class LoginController {
     protected TextField usernameTextField;
     @FXML
     private PasswordField passwordField;
-
+    @FXML
     protected User CurrentUser;
 
     @FXML
@@ -37,22 +37,24 @@ public class LoginController {
 
         if (username.isEmpty() || password.isEmpty()) {                          //to check both are typed
             utility.ShowErrorAlert("Username or Password can't be empty!");
+            usernameTextField.clear();      // Clear Text Boxes After trying
+            passwordField.clear();
         }
 
 
         //      ##########  ADMIN CHECK #############
 
 
-        if (username.equals("admin") && password.equals("admin")) {            //admin check
+        else if (username.equals("admin") && password.equals("admin")) {            //admin check
 
             // there is only one admin Acc so it doesn't matter to create an object for it
             Switch(event, "Admin");
 
-
+        }
 //
 //            // #########  CLIENT CHECK ############
 //
-//        if(check if user exists   ){                                      //client Check
+//          else if(check if user exists   ){                                      //client Check
 //                if(checkif password is right ){
 //                    CurrentUser = new Client();                    //    to set the current user
 //                    CurrentUser = (Client)CurrentUser;            //Downcasting to make the current user a client
@@ -61,17 +63,17 @@ public class LoginController {
 //                }
 //                else{
 //                    utility.ShowErrorAlert("Password is Wrong!");
+//                        usernameTextField.clear();      // Clear Text Boxes After trying
+//                        passwordField.clear();
 //                }
 //            }
-//        } else {
-//            utility.ShowErrorAlert("Username is not found!");
 //        }
 //
 //
 //        //   ######### EMPLOYEE CHECK #####################
 //
 //
-//        if(check if user exists   ){                                      //emp Check
+//        else if(check if user exists   ){                                      //emp Check
 //            if(checkif password is right ){
 //                CurrentUser = new Employee();                    //    to set the current user
 //                CurrentUser = (Client)CurrentUser;            //Downcasting to make the current user an emp
@@ -80,16 +82,22 @@ public class LoginController {
 //            }
 //                else{
 //                utility.ShowErrorAlert("Password is Wrong!");
-//            }
+//                    usernameTextField.clear();      // Clear Text Boxes After trying
+//                    passwordField.clear();
+//            //            }
 //        }
-//    } else {
-//        utility.ShowErrorAlert("Username is not found!");
-//
+//    }
 //
 
 
+
+
+        else {
+            utility.ShowErrorAlert("User is not found!");
+
+            usernameTextField.clear();      // Clear Text Boxes After trying
+            passwordField.clear();
         }
-
 }
 
     public void Switch(ActionEvent event,String View)  {

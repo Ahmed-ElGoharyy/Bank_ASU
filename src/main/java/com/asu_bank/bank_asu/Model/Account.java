@@ -11,6 +11,7 @@ abstract public class Account {
  protected String AccountState;
  protected String AccountType;
  private double balance;
+
  public Account(double balance){
   int min=100,max=999;
   this.accountnumber=min + (int)(Math.random() * ((max - min) + 1));

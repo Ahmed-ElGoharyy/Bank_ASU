@@ -13,14 +13,14 @@ public class Bank {
 
 
 
-           // Constructor Private to not make any objects (only by getInstace() below )
+           // Constructor Private to not make any objects except one "below" (only by getInstace() )
 
     private Bank() {
         BankClients = new ArrayList<>();
         BankEmployees = new ArrayList<>();
     }
 
-    //       Singleton Design Pattern (DO NOT CHANGE THIS YA DAHY HAAA)
+    //       Singleton Design Pattern (DO NOT CHANGE THIS YA DAHY YA ASFAR HAAA)
 
     public static Bank getInstance() {
         if (instance == null) {
