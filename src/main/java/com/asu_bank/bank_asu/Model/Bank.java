@@ -8,16 +8,19 @@ public class Bank {
 
     public final String BankName = "ASU Bank";
     protected static Bank instance;
-    protected   List<Client> BankClients;
-    protected   List<Employee> BankEmployees;
+    protected    List<Client> BankClients;
+    protected    List<Employee> BankEmployees;
 
 
 
-           // Constructor Private to not make any objects except one "below" (only by getInstace() )
+    // Constructor Private to not make any objects except one "below" (only by getInstace() )
 
     private Bank() {
         BankClients = new ArrayList<>();
         BankEmployees = new ArrayList<>();
+
+
+
     }
 
     //       Singleton Design Pattern (DO NOT CHANGE THIS YA DAHY YA ASFAR HAAA)
@@ -28,4 +31,6 @@ public class Bank {
         }
         return instance;
     }
+
+
 }

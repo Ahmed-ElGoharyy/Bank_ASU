@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 public class Employee extends User {
 
-    protected String address,position,graduatedCollege;
+    protected String address;
+    protected String position;
+    protected String graduatedCollege;
     protected int yearOfGraduation;
     protected char totalGrade;
     protected ArrayList<CurrentAccount> current = new ArrayList<>();
