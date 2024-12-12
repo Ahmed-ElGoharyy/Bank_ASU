@@ -23,6 +23,9 @@ public class Main extends Application {
     public static void main(String[] args) {
         Bank bank = Bank.getInstance();
 
+        DataLoader dl=new DataLoader();
+        dl.loadData(bank);
         launch();
+
     }
 }

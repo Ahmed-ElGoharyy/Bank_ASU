@@ -1,74 +1,164 @@
 package com.asu_bank.bank_asu;
 
+import com.asu_bank.bank_asu.Model.Account;
 import com.asu_bank.bank_asu.Model.Bank;
+import com.asu_bank.bank_asu.Model.Client;
 import com.asu_bank.bank_asu.Model.Employee;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 
-import java.io.Reader;
-import java.net.URL;
-import java.nio.file.Files;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class DataLoader {
 
-    public static final String EMP_CLASS = "Employee";
-
-   // Map<Long,Object> datamap = new HashMap<Long,Object>();
 
 
+    public void loadData(Bank bank) {
+
+        Map<String, Map<Long, Object>> datamap = new HashMap<String, Map<Long, Object>>();
+
+        Map<Long, Object> empMap = new HashMap<Long, Object>();
+        Map<Long, List<Account>> accountMap = new HashMap<Long, List<Account>>();
+        Map<Long, Client> clientMap = new HashMap<Long, Client>();
+
+        List<Employee> emps = readFile("Employee.csv", Employee.class);
+
+        bank.BankEmployees = emps;
+
+        System.out.println("Id:"+ emps.get(0).getId() + "  firstname:"+ emps.get(0).getFirstName());
 
 
-    public   void   loadData( Bank bank){
 
-        Map<String,Map<Long,Object>> datamap = new HashMap<String,Map<Long,Object>>();
+        //List<Client> clients = readFile("Client.csv", Client.class);
+        // List<Account> accounts = readFile("Account.csv", Account.class);
 
-        Map<Long,Object> empMap = new HashMap<Long,Object>();
-        datamap.put(EMP_CLASS,empMap);
-        try {
-            String currentPath = new java.io.File(".").getCanonicalPath();
-            System.out.println("Current dir:"+currentPath);
-
-
-            Path path = Paths.get("Employee.csv");
-
-            List<Employee> emps = new ArrayList<Employee>();
-            emps = readCsvToBeanList(path, Employee.class, emps);
-            for (Employee emp : emps) {
-                System.out.println(emp.getId() + " - " + emp.getFirstName() );
-            }
+        //set account client relation
+        /*for(Client client : clients) {
+              clientMap.put(client.getId(), client);
         }
-        catch (Exception e){
+        for(Account acc : accounts) {
+           Long clientId= 10L;// acc.getClientId();
+           Client client = clientMap.get(clientId);
+           //client.get
+        }*/
+    }
+
+    public <T> List<T> readFile(String filename,Class<T> clazz) {
+        String filepath = "";
+        List<T> objects = new ArrayList<T>();
+        try {
+
+            filepath = this.getClass().getResource(filename).toURI().getPath();
+            System.out.println(filepath);
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
-    private static <T> List<T> readCsvToBeanList(Path path, Class clazz, List<T> list) throws Exception {
-        HeaderColumnNameMappingStrategy ms = new HeaderColumnNameMappingStrategy();
-        ms.setType(clazz);
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
 
-        try (Reader reader = Files.newBufferedReader(path)) {
-            CsvToBean cb = new CsvToBeanBuilder(reader)
-                    .withType(clazz)
-                    .withMappingStrategy(ms)
-                    .build();
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
 
-            list = cb.parse();
+            List objAttributes = null;
+
+            if (line != null) {
+
+                objAttributes = getTokens(line, clazz,null, objAttributes);
+                System.out.println("objAttributes:"+objAttributes);
+            }
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+                if(line !=null) {
+                    T obj = clazz.newInstance();
+                    getTokens(line, clazz, obj, objAttributes);
+                    objects.add(obj);
+                    System.out.println("Line :" + line);
+                }
+            }
+            String everything = sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return list;
+        return objects;
     }
 
+    public List<Object> getTokens(String line,Class clazz,Object obj,List<String> fieldNames){
+        List<Object> tokens =new ArrayList<>();
+
+        try {
+
+            StringTokenizer st = new StringTokenizer(line, ",");
+
+            int index = 0;
+            String fieldName = null;
+            Field field = null;
+
+
+            while (st.hasMoreTokens()) {
+                String token = st.nextToken();
+                if(fieldNames != null) {
+                    fieldName = fieldNames.get(index);
+                    if(fieldName != null ) {
+                        setFieldValue(obj,fieldName, token);
+                    }
+                }
+
+                System.out.println("token :" + token);
+                tokens.add(token);
+                index++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tokens;
+    }
+
+
+
+    private static Field getField(Class mClass, String fieldName) throws NoSuchFieldException {
+        try {
+            System.out.println("fieldName::"+fieldName);
+            return mClass.getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            Class superClass = mClass.getSuperclass();
+            if (superClass == null) {
+                throw e;
+            } else {
+                return getField(superClass, fieldName);
+            }
+        }
+    }
+
+    public static Field setFieldValue(Object object, String fieldName, String valueString) throws NoSuchFieldException, IllegalAccessException {
+        Field field = getField(object.getClass(), fieldName);
+        Object objVal = null;
+        String fieldClassName = field.getType().getCanonicalName();
+
+        System.out.println("fieldClassName:"+fieldClassName);
+        if(fieldClassName.equals(Long.class.getCanonicalName())) {
+            objVal = Long.valueOf(valueString);
+        } else  if(fieldClassName.equals(Integer.class.getCanonicalName())) {
+            objVal = Integer.valueOf(valueString);
+        } else  if(fieldClassName.equals(String.class.getCanonicalName())) {
+            objVal = valueString;
+        } else  if(fieldClassName.equals(Character.class.getCanonicalName())) {
+            objVal = Character.valueOf(valueString.charAt(0));
+        }
+        field.setAccessible(true);
+        System.out.println("set field name: "+fieldName + "   val:"+objVal);
+        field.set(object, objVal);
+        return field;
+    }
 
     public static void main(String[] args) {
         Bank bank = Bank.getInstance();
-       DataLoader dl=new DataLoader();
-        dl.loadData(bank);
+
+
     }
 }

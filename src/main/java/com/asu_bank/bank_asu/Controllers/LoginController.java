@@ -1,10 +1,7 @@
 package com.asu_bank.bank_asu.Controllers;
 
 import com.asu_bank.bank_asu.Main;
-import com.asu_bank.bank_asu.Model.Admin;
-import com.asu_bank.bank_asu.Model.Client;
-import com.asu_bank.bank_asu.Model.Employee;
-import com.asu_bank.bank_asu.Model.User;
+import com.asu_bank.bank_asu.Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,77 +25,83 @@ public class LoginController {
     protected User CurrentUser;
 
     @FXML
-    private void handleLogin(ActionEvent event) {                   //method to execute when login button presses
-
+    private void handleLogin(ActionEvent event) {
+        Bank bank = Bank.getInstance();
         String username = usernameTextField.getText().trim();
         String password = passwordField.getText();
 
-
-
-        if (username.isEmpty() || password.isEmpty()) {                          //to check both are typed
+        // Empty field check
+        if (username.isEmpty() || password.isEmpty()) {
             utility.ShowErrorAlert("Username or Password can't be empty!");
-            usernameTextField.clear();      // Clear Text Boxes After trying
+            usernameTextField.clear();
             passwordField.clear();
+            return;  // Important: exit method if fields are empty
         }
 
 
-        //      ##########  ADMIN CHECK #############
 
 
-        else if (username.equals("admin") && password.equals("admin")) {            //admin check
-
-            // there is only one admin Acc so it doesn't matter to create an object for it
+        // Admin check
+        boolean AdminFound=false;
+        if (username.equals("admin") && password.equals("admin")) {
             Switch(event, "Admin");
-
+            AdminFound=true;
         }
-//
-//            // #########  CLIENT CHECK ############
-//
-//          else if(check if user exists  ){                                      //client Check
-//                if(checkif password is right ){
-//                    CurrentUser = new Client();                    //    to set the current user
-//                    CurrentUser = (Client)CurrentUser;            //Downcasting to make the current user a client
-//                    Switch(event, "Client");                // switch to client scene
-//
-//                }
-//                else{
-//                    utility.ShowErrorAlert("Password is Wrong!");
-//                        usernameTextField.clear();      // Clear Text Boxes After trying
-//                        passwordField.clear();
-//                }
-//            }
-//        }
-//
-//
-//        //   ######### EMPLOYEE CHECK #####################
-//
-//
-//        else if(check if user exists   ){                                      //emp Check
-//            if(checkif password is right ){
-//                CurrentUser = new Employee();                    //    to set the current user
-//                CurrentUser = (Client)CurrentUser;            //Downcasting to make the current user an emp
-//                Switch(event, "Employee");                // switch to client scene
-//
-//            }
-//                else{
-//                utility.ShowErrorAlert("Password is Wrong!");
-//                    usernameTextField.clear();      // Clear Text Boxes After trying
+
+
+
+
+        // Employee Check
+
+
+        boolean employeeFound = false;
+        for (Employee employee : bank.BankEmployees) {
+            if (employee.getUserName().equals(username)) {
+                employeeFound = true;
+                if (employee.getPassword().equals(password)) {
+                    CurrentUser = employee;
+                    Switch(event, "Employee");
+                    return;
+                } else {
+                    utility.ShowErrorAlert("Incorrect password!");
+                    usernameTextField.clear();
+                    passwordField.clear();
+                    return;
+                }
+            }
+        }
+
+
+
+
+
+//        // Client Check (uncommented and fixed)
+//        boolean clientFound = false;
+//        for (Client client : bank.BankClients) {
+//            if (client.getUserName().equals(username)) {
+//                clientFound = true;
+//                if (client.getPassword().equals(password)) {
+//                    CurrentUser = client;
+//                    Switch(event, "Client");
+//                    return;
+//                } else {
+//                    utility.ShowErrorAlert("Incorrect password!");
+//                    usernameTextField.clear();
 //                    passwordField.clear();
-//            //            }
+//                    return;
+//                }
+//            }
 //        }
-//    }
-//
+
+      if(!AdminFound && !employeeFound )  // If no user found
+        utility.ShowErrorAlert("User is not found!");
+        usernameTextField.clear();
+        passwordField.clear();
+    }
 
 
 
 
-        else {
-            utility.ShowErrorAlert("User is not found!");
-
-            usernameTextField.clear();      // Clear Text Boxes After trying
-            passwordField.clear();
-        }
-}
 
     public void Switch(ActionEvent event,String View)  {
         try {

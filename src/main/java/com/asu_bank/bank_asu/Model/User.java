@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 abstract public class User {
 
-    protected final long id;
+    protected  Long id;
     protected String firstName;
     protected String lastName;
     private String userName;
     private String password;
-    protected long telephoneNumber;
+    protected Long telephoneNumber;
     private static int counter=0;
     User employeesArr[] = new User[10];
     User clientsArr[] = new User[10];
@@ -26,10 +26,12 @@ abstract public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    public User() {
+                // DONT CHANGE THIS !!!!!!!!!!! (needed for data loading)
+    }
     public User( String firstName, String lastName, String userName, String password, long telephoneNumber) {
         counter++;
-        this.id =counter;
+        this.id = Long.valueOf(counter);
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -39,7 +41,7 @@ abstract public class User {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -51,9 +53,7 @@ abstract public class User {
         return lastName;
     }
 
-    public String getUsertName() {
-        return userName;
-    }
+
 
     public String getPassword() {
         return password;

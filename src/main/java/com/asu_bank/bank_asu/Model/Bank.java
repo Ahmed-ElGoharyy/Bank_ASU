@@ -8,8 +8,10 @@ public class Bank {
 
     public final String BankName = "ASU Bank";
     protected static Bank instance;
-    protected    List<Client> BankClients;
-    protected    List<Employee> BankEmployees;
+    public List<Client> BankClients;
+
+    public List<Employee> BankEmployees;
+
 
 
 

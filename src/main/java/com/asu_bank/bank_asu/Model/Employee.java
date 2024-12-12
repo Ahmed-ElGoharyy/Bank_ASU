@@ -9,8 +9,8 @@ public class Employee extends User {
     protected String address;
     protected String position;
     protected String graduatedCollege;
-    protected int yearOfGraduation;
-    protected char totalGrade;
+    protected Integer yearOfGraduation;
+    protected Character totalGrade;
     protected ArrayList<CurrentAccount> current = new ArrayList<>();
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
     protected ArrayList<Client> clients = new ArrayList<>();
@@ -24,6 +24,10 @@ public class Employee extends User {
         this.graduatedCollege=graduatedCollege;
         this.yearOfGraduation=yearOfGraduation;
         this.totalGrade=totalGrade;
+    }
+
+    public  Employee(){
+        super();
     }
     //Getters
     public String getAddress() {return address;}
@@ -256,8 +260,8 @@ public class Employee extends User {
             String newGraduatedCollege = s.next();
 
             //Enter Year Of Graduation
-                System.out.println("Enter Your Year Of Graduation : ");
-                int newYearOfGraduation = s.nextInt();
+            System.out.println("Enter Your Year Of Graduation : ");
+            int newYearOfGraduation = s.nextInt();
 
             //Enter Total Grade
             System.out.println("Enter Your Total Grade : ");
