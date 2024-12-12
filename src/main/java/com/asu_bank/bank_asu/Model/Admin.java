@@ -1,23 +1,42 @@
 package com.asu_bank.bank_asu.Model;
 import java.util.ArrayList;
 public class Admin extends Employee {
-    protected ArrayList<Employee> employees = new ArrayList<>();
-    protected ArrayList<Client> clients = new ArrayList<>();
-    protected ArrayList<Transaction> transactions = new ArrayList<>();
 
-    public Admin(long id, String firstName, String lastName, String userName, String password, long telephoneNumber, String address, String position, String graduatedCollege, int yearOfGraduation, char totalGrade) {
-        super(id, firstName, lastName, userName, password, telephoneNumber, address, position, graduatedCollege, yearOfGraduation, totalGrade);
+    protected static Admin instance;
+    Bank bank = Bank.getInstance();
+
+    //singleton design pattern (because there is only 1 admin)
+
+    private Admin(long id, String firstName, String lastName,
+                  String userName, String password, long telephoneNumber,
+                  String address, String position, String graduatedCollege,
+                  int yearOfGraduation, char totalGrade) {
+
+        super(id, firstName, lastName, userName, password, telephoneNumber,
+                address, position, graduatedCollege, yearOfGraduation, totalGrade);
     }
+
+    //       Singleton Design Pattern (DO NOT CHANGE THIS YA DAHY YA ASFAR HAAA)
+
+    public static Admin getInstance() {
+        if (instance == null) {
+            instance = new Admin(1000, "Amr","Ahmed","admin","admin"
+            ,01111122454, "10 Wow st","System Admin","Cairo",
+                    2010,'C');
+        }
+        return instance;
+    }
+
 
     public void authorizeEmployeeAccounts(Employee employee) {
         try {
             if (employee == null) {
                 throw new IllegalArgumentException("Employee cannot be null.");
             }
-            if (employees.contains(employee)) {
+            if (bank.BankEmployees.contains(employee)) {
                 throw new IllegalStateException("Employee account is already authorized: " + employee.getFirstName() + " " + employee.getLasttName());
             }
-            employees.add(employee);
+            bank.BankEmployees.add(employee);
             System.out.println("Employee account authorized for: " + employee.getFirstName() + " " + employee.getLasttName());
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.out.println("Error authorizing employee account: " + e.getMessage());
@@ -29,11 +48,11 @@ public class Admin extends Employee {
     public void displayAllEmployees() {
         try {
             System.out.println("List of Employees:");
-            if (employees.isEmpty()) {
+            if (bank.BankEmployees.isEmpty()) {
                 throw new NullPointerException("Employee not found.");
             }
             //Prints all employees in the ArrayList
-            for (Employee employee : employees) {
+            for (Employee employee : bank.BankEmployees) {
                 System.out.println(employee);
             }
         } catch (Exception e) {
@@ -56,19 +75,19 @@ public class Admin extends Employee {
         }
     }
 
-    public void showTransactions() {
-        try {
-            System.out.println("List of Transactions:");
-            if (transactions.isEmpty()) {
-                throw new NullPointerException("Client not found.");
-            }
-            for (Transaction transaction : transactions) {
-                System.out.println(transaction);
-            }
-        } catch (Exception e) {
-            System.err.println("An error occurred while showing transactions: " + e.getMessage());
-        }
-
-    }
+//    public void showTransactions() {
+//        try {
+//            System.out.println("List of Transactions:");
+//            if (bank.BankClients.isEmpty()) {
+//                throw new NullPointerException("Client not found.");
+//            }
+//            for (Transaction transaction : transactions) {
+//                System.out.println(transaction);
+//            }
+//        } catch (Exception e) {
+//            System.err.println("An error occurred while showing transactions: " + e.getMessage());
+//        }
+//
+//    }
 }
 
