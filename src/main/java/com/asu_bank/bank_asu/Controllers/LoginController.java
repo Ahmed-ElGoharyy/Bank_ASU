@@ -41,7 +41,8 @@ public class LoginController {
 
 
 
-        // Admin check
+        // ##############   Admin check ################
+
         boolean AdminFound=false;
         if (username.equals("admin") && password.equals("admin")) {
             Switch(event, "Admin");
@@ -51,7 +52,7 @@ public class LoginController {
 
 
 
-        // Employee Check
+        // ################  Employee Check  #################
 
 
         boolean employeeFound = false;
@@ -60,6 +61,7 @@ public class LoginController {
                 employeeFound = true;
                 if (employee.getPassword().equals(password)) {
                     CurrentUser = employee;
+                    CurrentUser  =(Employee) CurrentUser;     //Down Casting USER
                     Switch(event, "Employee");
                     return;
                 } else {
@@ -82,6 +84,7 @@ public class LoginController {
 //                clientFound = true;
 //                if (client.getPassword().equals(password)) {
 //                    CurrentUser = client;
+//                    CurrentUser  =(Client) CurrentUser;     //Down Casting USER
 //                    Switch(event, "Client");
 //                    return;
 //                } else {
