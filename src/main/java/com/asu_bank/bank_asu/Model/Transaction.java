@@ -10,6 +10,30 @@ public class Transaction {
     protected String type;
     protected Date Date;
 
+    public long getAccnumber() {
+        return accnumber;
+    }
+
+    public int getTransid() {
+        return transid;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public java.util.Date getDate() {
+        return Date;
+    }
+
     public Transaction(long accnumber, double amount, String type, Date Date){
         counter++;
         this.transid=counter;
