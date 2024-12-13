@@ -400,6 +400,6 @@ public class Client extends User {
             throw new AccountException("Input error. No information provided.");
         } catch (IllegalArgumentException e) {
             throw new AccountException("Validation Error: " + e.getMessage());
-        }
     }
+  }
 }

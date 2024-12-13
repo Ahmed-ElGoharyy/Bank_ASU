@@ -10,7 +10,7 @@ abstract public class User {
     private String userName;
     private String password;
     protected Long telephoneNumber;
-    private static int counter=0;
+    private static int counter=1004;
     User employeesArr[] = new User[10];
     User clientsArr[] = new User[10];
     User adminsArr[] = new User[10];

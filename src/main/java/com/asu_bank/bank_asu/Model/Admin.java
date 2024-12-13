@@ -7,12 +7,12 @@ public class Admin extends Employee {
 
     //singleton design pattern (because there is only 1 admin)
 
-    private Admin(long id, String firstName, String lastName,
+    private Admin( String firstName, String lastName,
                   String userName, String password, long telephoneNumber,
                   String address, String position, String graduatedCollege,
                   int yearOfGraduation, char totalGrade) {
 
-        super(id, firstName, lastName, userName, password, telephoneNumber,
+        super( firstName, lastName, userName, password, telephoneNumber,
                 address, position, graduatedCollege, yearOfGraduation, totalGrade);
     }
 
@@ -20,7 +20,7 @@ public class Admin extends Employee {
 
     public static Admin getInstance() {
         if (instance == null) {
-            instance = new Admin(1000, "Amr","Ahmed","admin","admin"
+            instance = new Admin( "Amr","Ahmed","admin","admin"
             ,01111122454, "10 Wow st","System Admin","Cairo",
                     2010,'C');
         }
@@ -53,12 +53,15 @@ public class Admin extends Employee {
             }
             //Prints all employees in the ArrayList
             for (Employee employee : bank.BankEmployees) {
-                System.out.println(employee);
+                System.out.println( "Name :" +employee.firstName+ "Position : " +employee.position);
             }
         } catch (Exception e) {
             System.out.println("An error occurred while displaying employees: " + e.getMessage());
         }
     }
+
+
+
 
     public void displayAllClients() {
         try {

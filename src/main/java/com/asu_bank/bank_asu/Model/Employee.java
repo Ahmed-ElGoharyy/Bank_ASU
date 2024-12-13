@@ -14,9 +14,10 @@ public class Employee extends User {
     protected ArrayList<CurrentAccount> current = new ArrayList<>();
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
     protected ArrayList<Client> clients = new ArrayList<>();
+
     Scanner s=new Scanner(System.in);
     //Constructor
-    public Employee (long id, String firstName, String lastName, String userName, String password, long telephoneNumber,
+    public Employee ( String firstName, String lastName, String userName, String password, long telephoneNumber,
                      String address,String position,String graduatedCollege,int yearOfGraduation,char totalGrade) {
         super( firstName, lastName, userName, password, telephoneNumber);
         this.address=address;

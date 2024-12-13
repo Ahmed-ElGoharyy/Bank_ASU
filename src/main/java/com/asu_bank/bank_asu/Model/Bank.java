@@ -9,11 +9,13 @@ public class Bank {
     public final String BankName = "ASU Bank";
     protected static Bank instance;
     public List<Client> BankClients;
-
     public List<Employee> BankEmployees;
+    public List<Transaction>  BankATMTrans;
+    public List<Moneytrans>   BankMoneyTransfers;
 
-
-
+    public List<Employee> getBankEmployees() {
+        return BankEmployees;
+    }
 
     // Constructor Private to not make any objects except one "below" (only by getInstace() )
 
