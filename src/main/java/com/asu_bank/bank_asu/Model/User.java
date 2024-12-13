@@ -7,16 +7,17 @@ abstract public class User {
     protected  Long id;
     protected String firstName;
     protected String lastName;
-    private String userName;
-    private String password;
+    protected String userName;
+    protected String password;
     protected Long telephoneNumber;
     private static int counter=1004;
-    User employeesArr[] = new User[10];
-    User clientsArr[] = new User[10];
-    User adminsArr[] = new User[10];
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public void setUserName(String userName) {
@@ -130,46 +131,6 @@ abstract public class User {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid telephone number format.");
         }
-    }
-
-    public void login() {
-
-        Scanner input = new Scanner(System.in);
-        boolean authenticator = false;
-
-        while (!authenticator) {
-            System.out.print("Enter Username: ");
-            String username = input.nextLine();
-            System.out.print("Enter Password: ");
-            String Password = input.nextLine();
-
-            for (int i = 0; i < employeesArr.length; i++) {
-
-                if (employeesArr[i].userName.equals(username) && employeesArr[i].password.equals(Password)) {
-
-                    authenticator = true;
-                    System.out.println("You are successfully logged in!");
-                    break;
-                } else if (clientsArr[i].userName.equals(username) && clientsArr[i].password.equals(Password)) {
-                    authenticator = true;
-                    System.out.println("You are successfully logged in!");
-                    break;
-                } else if (adminsArr[i].userName.equals(username) && adminsArr[i].password.equals(Password)) {
-                    authenticator = true;
-                    System.out.println("You are successfully logged in!");
-                    break;
-                } else {
-                    System.out.println("Invalid username or password, please try again");
-
-                }
-
-
-            }
-
-
-        }
-
-
     }
 
 }

@@ -71,7 +71,6 @@ public class Client extends User {
         }
     }
 
-
     public void showtransactionhistory() throws AccountException, EmptyAccountListException, TransactionException {
         Scanner s = new Scanner(System.in);
 
@@ -324,9 +323,9 @@ public class Client extends User {
                 // Handle money transfer
                 if (c == 'M' || c == 'm') {
                     if (x == 'S') {
-                        saving.get(index).transfermoney(clients);
+                        saving.get(index).transfermoney(clients,"Client");
                     } else if (x == 'C') {
-                        current.get(index).transfermoney(clients);
+                        current.get(index).transfermoney(clients,"Client");
                     }
                 }
                 // Handle withdrawal

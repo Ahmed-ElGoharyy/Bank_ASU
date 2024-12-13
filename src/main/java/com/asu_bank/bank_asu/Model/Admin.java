@@ -64,10 +64,7 @@ public class Admin extends Employee {
         }
     }
 
-
-
-
-    public void displayAllClients() {
+    public void displayAllClients(ArrayList<Client> clients) {
         try {
             System.out.println("List of Clients:");
             if (clients.isEmpty()) {
@@ -84,76 +81,93 @@ public class Admin extends Employee {
 
     public void showTransactions(ArrayList<Client> clients) {
         try {
-            if (clients == null || clients.isEmpty()) {
-                throw new IllegalArgumentException("No clients available for transaction search.");
+
+            Scanner s = new Scanner(System.in);
+            System.out.println("Press (C:Search By Client, E:Search By Employee):");
+
+            // Validate search type input
+            char c;
+            try {
+                c = s.next().charAt(0);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new IllegalArgumentException("Invalid input. Please enter a valid search option.");
             }
 
-            char c;
-            Scanner s = new Scanner(System.in);
-            System.out.println("Press (C:Search By Client,E:Search By Employee) :");
-            c = s.next().charAt(0);
-
+            // Client search
             if (c == 'C' || c == 'c') {
+                // Validate and retrieve client ID
                 long id;
-                System.out.println("Enter Client ID: ");
-                id = s.nextLong();
+                try {
+                    System.out.println("Enter Client ID: ");
+                    id = s.nextLong();
+                } catch (InputMismatchException e) {
+                    s.nextLine(); // Clear invalid input
+                    throw new IllegalArgumentException("Invalid Client ID. Please enter a numeric value.");
+                }
+
                 boolean clientFound = false;
 
-                for (int i = 0; i < clients.size(); i++) {
-                    if (clients.get(i).id == id) {
+                // Enhanced client search with comprehensive error checking
+                for (Client client : clients) {
+                    if (client.id == id) {
                         clientFound = true;
 
-                        if (clients.get(i).current == null || clients.get(i).saving == null || clients.get(i).credittrans == null) {
+                        if (client.current == null || client.saving == null || client.credittrans == null) {
                             throw new NullPointerException("Client account information is incomplete.");
                         }
 
-                        for (int j = 0; j < clients.get(i).current.size(); j++) {
-                            if (clients.get(i).current.get(j) != null && clients.get(i).current.get(j).trasactions != null) {
-                                System.out.println(clients.get(i).current.get(j).trasactions);
-                            }
-                        }
-                        for (int j = 0; j < clients.get(i).saving.size(); j++) {
-                            if (clients.get(i).saving.get(j) != null && clients.get(i).saving.get(j).trasactions != null) {
-                                System.out.println(clients.get(i).saving.get(j).trasactions);
-                            }
-                        }
-                        for (int j = 0; j < clients.get(i).credittrans.size(); j++) {
-                            if (clients.get(i).credittrans.get(j) != null) {
-                                System.out.println(clients.get(i).credittrans);
-                            }
-                        }
+                        // Print transactions with null checks
+                        printClientTransactions(client);
+                        break;
                     }
-                    break;
                 }
 
+                // Check if client was found
                 if (!clientFound) {
                     throw new NoSuchElementException("No client found with the given ID: " + id);
                 }
             }
+            // Employee search
             else if (c == 'E' || c == 'e') {
-                String empsearch;
-                System.out.println("Enter Employee Name :");
-                empsearch = s.next();
+                // Input employee name
+                String empFirstName, empLastName, empSearch;
+                try {
+                    System.out.println("Enter Employee First Name:");
+                    empFirstName = s.next();
+
+                    System.out.println("Enter Employee Last Name:");
+                    empLastName = s.next();
+
+                    empSearch = empFirstName + " " + empLastName;
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Invalid employee name input.");
+                }
+
                 boolean transactionFound = false;
 
-                for (int i = 0; i < clients.size(); i++) {
-                    if (clients.get(i).current != null) {
-                        for (int j = 0; j < clients.get(i).current.size(); j++) {
-                            if (clients.get(i).current.get(j) != null && clients.get(i).current.get(j).moneytransfer != null) {
-                                for (int k = 0; k < clients.get(i).current.get(j).moneytransfer.size(); k++) {
-                                    if (clients.get(i).current.get(j).moneytransfer.get(k).made_by.equals(empsearch)) {
-                                        System.out.println(clients.get(i).current.get(j).moneytransfer.get(k));
+                // Search through clients and accounts
+                for (Client client : clients) {
+                    // Null checks for current accounts
+                    if (client.current != null) {
+                        for (CurrentAccount currentAccount : client.current) {
+                            if (currentAccount != null && currentAccount.moneytransfer != null) {
+                                for (Moneytrans transfer : currentAccount.moneytransfer) {
+                                    if (transfer != null && empSearch.equals(transfer.made_by)) {
+                                        System.out.println(transfer);
                                         transactionFound = true;
                                     }
                                 }
                             }
+                        }
+                    }
 
-                            if (j < clients.get(i).saving.size() &&
-                                    clients.get(i).saving.get(j) != null &&
-                                    clients.get(i).saving.get(j).moneytransfer != null) {
-                                for (int k = 0; k < clients.get(i).saving.get(j).moneytransfer.size(); k++) {
-                                    if (clients.get(i).saving.get(j).moneytransfer.get(k).made_by.equals(empsearch)) {
-                                        System.out.println(clients.get(i).saving.get(j).moneytransfer.get(k));
+                    // Null checks for saving accounts
+                    if (client.saving != null) {
+                        for (SavingAccount savingAccount : client.saving) {
+                            if (savingAccount != null && savingAccount.moneytransfer != null) {
+                                for (Moneytrans transfer : savingAccount.moneytransfer) {
+                                    if (transfer != null && empSearch.equals(transfer.made_by)) {
+                                        System.out.println(transfer);
                                         transactionFound = true;
                                     }
                                 }
@@ -162,40 +176,53 @@ public class Admin extends Employee {
                     }
                 }
 
+                // Check if any transaction was found
                 if (!transactionFound) {
-                    throw new NoSuchElementException("No transactions found for employee: " + empsearch);
+                    throw new NoSuchElementException("No transactions found for employee: " + empSearch);
                 }
             }
+            // Invalid search option
             else {
                 throw new IllegalArgumentException("Invalid search option. Use 'C' or 'E'.");
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter the correct data type.");
+        }
+        // Comprehensive exception handling
+        catch (InputMismatchException e) {
+            System.err.println("Input error: Please enter the correct data type.");
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.err.println("Input validation error: " + e.getMessage());
         } catch (NullPointerException e) {
-            System.out.println("Null object encountered: " + e.getMessage());
+            System.err.println("Null object error: " + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error accessing account or transaction information.");
+            System.err.println("Index error: Unable to access account or transaction information.");
         } catch (NoSuchElementException e) {
-            System.out.println(e.getMessage());
+            System.err.println("Search error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
+            System.err.println("Unexpected error occurred: " + e.getMessage());
         }
     }
-//    public void showTransactions() {
-//        try {
-//            System.out.println("List of Transactions:");
-//            if (bank.BankClients.isEmpty()) {
-//                throw new NullPointerException("Client not found.");
-//            }
-//            for (Transaction transaction : transactions) {
-//                System.out.println(transaction);
-//            }
-//        } catch (Exception e) {
-//            System.err.println("An error occurred while showing transactions: " + e.getMessage());
-//        }
-//
-//    }
+
+    private void printClientTransactions(Client client) {
+        // Print current account transactions
+        for (Account currentAccount : client.current) {
+            if (currentAccount != null && currentAccount.trasactions != null) {
+                System.out.println(currentAccount.trasactions);
+            }
+        }
+
+        // Print saving account transactions
+        for (Account savingAccount : client.saving) {
+            if (savingAccount != null && savingAccount.trasactions != null) {
+                System.out.println(savingAccount.trasactions);
+            }
+        }
+
+        // Print credit transactions
+        for (Object creditTransaction : client.credittrans) {
+            if (creditTransaction != null) {
+                System.out.println(creditTransaction);
+            }
+        }
+    }
 }
 

@@ -93,7 +93,7 @@ abstract public class Account {
   }
  }
 
- public void transfermoney(ArrayList<Client> clients) throws TransferException,
+ public void transfermoney(ArrayList<Client> clients,String maker) throws TransferException,
          NegativeAmountException, InsufficientFundsException {
 
   // Validate input parameters
@@ -136,7 +136,7 @@ abstract public class Account {
    for (Client clientObj : clients) {
     for (CurrentAccount receiverAccount : clientObj.current) {
      if (receiverAccount.getAccountnumber() == recaccnum) {
-      performTransfer(receiverAccount, transamount);
+      performTransfer(receiverAccount, transamount,maker);
       isfound = true;
       return;
      }
@@ -147,7 +147,7 @@ abstract public class Account {
    for (Client clientObj : clients) {
     for (SavingAccount receiverAccount : clientObj.saving) {
      if (receiverAccount.getAccountnumber() == recaccnum) {
-      performTransfer(receiverAccount, transamount);
+      performTransfer(receiverAccount, transamount,maker);
       isfound = true;
       return;
      }
@@ -165,7 +165,7 @@ abstract public class Account {
  }
 
  // Helper method to perform the actual transfer
- private void performTransfer(Account receiverAccount, double transamount) throws TransferException {
+ private void performTransfer(Account receiverAccount, double transamount, String maker) throws TransferException {
   try {
    // Deduct amount from sender's account
    this.balance -= transamount;
@@ -175,7 +175,7 @@ abstract public class Account {
 
    Date d = new Date();
    // Create transfer transaction
-   Moneytrans trans = new Moneytrans(this.accountnumber, receiverAccount.getAccountnumber(), transamount, "Money Transfer", d);
+   Moneytrans trans = new Moneytrans(this.accountnumber, receiverAccount.getAccountnumber(), transamount, "Money Transfer", d,maker);
 
    // Add transaction for both sender and receiver
    this.moneytransfer.add(trans);

@@ -11,9 +11,6 @@ public class Employee extends User {
     protected String graduatedCollege;
     protected Integer yearOfGraduation;
     protected Character totalGrade;
-    protected ArrayList<CurrentAccount> current = new ArrayList<>();
-    protected ArrayList<SavingAccount> saving = new ArrayList<>();
-    protected ArrayList<Client> clients = new ArrayList<>();
 
     Scanner s=new Scanner(System.in);
     //Constructor
@@ -41,118 +38,227 @@ public class Employee extends User {
 
     public int getYearOfGradutaion() {return yearOfGraduation;}
 
-    public void createClientAccount() throws Client.AccountException
-    {
+    public void createClientBankAccount(ArrayList<Client> clients) {
         try {
-            //take new client account info
-
-            System.out.println("Enter the required details for the new account: ");
-
-            //Account type
-            System.out.println("Account type(Saving/Current): ");
-            String accountType=s.next();
-            if((!accountType.equalsIgnoreCase("saving"))&&(!accountType.equalsIgnoreCase("current")))
-            {
-                throw new Client.AccountException("invalid Account type!");
+            // Validate input parameters
+            if (clients == null || clients.isEmpty()) {
+                System.out.println("No clients available to create an account.");
+                return;
             }
 
-            //Balance
-            System.out.println("Balance: ");
-            double balance=s.nextDouble();
-            if(balance<0)
-            {
-                throw new Account.NegativeAmountException("balance can't be a negative number..");
-
-            }
-            if(accountType.equalsIgnoreCase("current"))
-            {
-                CurrentAccount newAccount= new CurrentAccount(balance);
-                current.add(newAccount);
-            } else {
-                SavingAccount newAccount = new SavingAccount(balance);
-                saving.add(newAccount);
-            }
-            System.out.println("Account added successfully.");
-        } catch(Exception e)
-        {
-            System.out.println(e.getMessage());
-
-        }
-    }
-
-    public void editAccountInfo() throws Exception
-    {
-        try {
-            Account oldAccount = null;
-            boolean isfound = false;
-            boolean isCurrentAccount=false;
-
-            //search by account number
-            System.out.println("Enter Account number you want to edit : ");
-            long accountnumber = s.nextLong();
-            if (accountnumber <= 0) {
-                throw new Exception("invalid account number");
+            // Input client ID
+            long clientid;
+            try {
+                System.out.println("Enter Client ID:");
+                clientid = s.nextLong();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid client ID.");
+                s.nextLine(); // Clear the invalid input
+                return;
             }
 
+            // Find client
+            boolean clientFound = false;
+            for (Client client : clients) {
+                if (client.id == clientid) {
+                    clientFound = true;
 
-            //search for account number in current accounts
-            for (CurrentAccount account : current) {
-                if (accountnumber == account.getAccountnumber()) {
-                    isfound = true;
-                    oldAccount = account;
-                    isCurrentAccount=true;
-                    break;
-                }
-            }
+                    // Validate account details
+                    try {
+                        System.out.println("Enter the required details for the new account:");
+                        System.out.println("Enter Account Type (C:Current, S:Saving):");
 
+                        char c;
+                        try {
+                            c = s.next().charAt(0);
+                        } catch (StringIndexOutOfBoundsException e) {
+                            System.out.println("Invalid account type. Please enter C or S.");
+                            return;
+                        }
 
-            //search for account number in saving accounts
-            if(!isfound) {
-                for (SavingAccount account : saving) {
-                    if (accountnumber == account.getAccountnumber()) {
-                        isfound = true;
-                        isCurrentAccount = false;
-                        oldAccount = account;
+                        System.out.println("Enter Account Balance:");
+                        int bal;
+                        try {
+                            bal = s.nextInt();
+                            if (bal < 0) {
+                                throw new IllegalArgumentException("Initial balance cannot be negative.");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid balance. Please enter a valid number.");
+                            s.nextLine(); // Clear the invalid input
+                            return;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                            return;
+                        }
+
+                        // Create account based on type
+                        if (c == 'c' || c == 'C') {
+                            CurrentAccount curr = new CurrentAccount(bal);
+                            client.current.add(curr);
+                            System.out.println("Current Account Added Successfully");
+                        } else if (c == 'S' || c == 's') {
+                            SavingAccount sav = new SavingAccount(bal);
+                            client.saving.add(sav);
+                            System.out.println("Saving Account Added Successfully");
+                        } else {
+                            System.out.println("Invalid account type. Please choose C or S.");
+                        }
                         break;
+
+                    } catch (Exception e) {
+                        System.out.println("Error creating account: " + e.getMessage());
+                        return;
                     }
                 }
             }
 
-            //if account doesn't exist
-            if(!isfound)
-            {
-                throw new Client.EmptyAccountListException("No accounts found!");
+            // Handle case where client is not found
+            if (!clientFound) {
+                System.out.println("Client with ID " + clientid + " not found.");
             }
 
-            Account updatedAccount=null;
-            System.out.print("Enter new Balance: ");
-            double newBalance = s.nextDouble();
-            if (newBalance < 0) {
-                throw new Client.AccountException ("Balance cannot be negative ");
-            }
-
-
-
-            if (isCurrentAccount) {
-                CurrentAccount currentAccount = (CurrentAccount) oldAccount;
-                currentAccount.setBalance(newBalance);
-            } else
-            {
-                SavingAccount savingAccount = (SavingAccount) oldAccount;
-                savingAccount.setBalance(newBalance);
-            }
-
-            System.out.println("Account updated successfully.");
-        } catch( Exception e)
-        {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
         }
-
     }
 
+    public void editAccountInfo(ArrayList<Client> clients) {
+        try {
+            // Validate input parameters
+            if (clients == null || clients.isEmpty()) {
+                System.out.println("No clients available to edit account information.");
+                return;
+            }
 
+            // Input client ID
+            long clientid;
+            try {
+                System.out.println("Enter Client ID:");
+                clientid = s.nextLong();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid client ID.");
+                s.nextLine(); // Clear the invalid input
+                return;
+            }
 
-    public void removeAccount() throws Exception {
+            // Find client
+            boolean clientFound = false;
+            for (Client client : clients) {
+                if (client.id == clientid) {
+                    clientFound = true;
+
+                    // Display current and saving accounts
+                    System.out.println("Current Accounts:");
+                    if (client.current == null || client.current.isEmpty()) {
+                        System.out.println("No current accounts found.");
+                    } else {
+                        for (CurrentAccount curr : client.current) {
+                            System.out.println(curr);
+                        }
+                    }
+
+                    System.out.println("Saving Accounts:");
+                    if (client.saving == null || client.saving.isEmpty()) {
+                        System.out.println("No saving accounts found.");
+                    } else {
+                        for (SavingAccount sav : client.saving) {
+                            System.out.println(sav);
+                        }
+                    }
+
+                    // Input account number to modify
+                    long accnum;
+                    try {
+                        System.out.println("Enter the Account Number You Want to Modify:");
+                        accnum = s.nextLong();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter a valid account number.");
+                        s.nextLine(); // Clear the invalid input
+                        return;
+                    }
+
+                    // Flag to track if account was modified
+                    boolean accountModified = false;
+
+                    // Check and modify current accounts
+                    if (client.current != null) {
+                        for (CurrentAccount curr : client.current) {
+                            if (curr.getAccountnumber() == accnum) {
+                                try {
+                                    System.out.println("Enter New Balance:");
+                                    int bal = s.nextInt();
+
+                                    // Validate balance
+                                    if (bal < 0) {
+                                        throw new IllegalArgumentException("Balance cannot be negative.");
+                                    }
+
+                                    curr.setBalance(bal);
+                                    System.out.println("Current Account Balance Updated Successfully");
+                                    accountModified = true;
+                                    break;
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Invalid input. Please enter a valid balance.");
+                                    s.nextLine(); // Clear the invalid input
+                                    return;
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println(e.getMessage());
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
+                    // If not modified in current accounts, try saving accounts
+                    if (!accountModified && client.saving != null) {
+                        for (SavingAccount sav : client.saving) {
+                            if (sav.getAccountnumber() == accnum) {
+                                try {
+                                    System.out.println("Enter New Balance:");
+                                    int bal = s.nextInt();
+
+                                    // Validate balance
+                                    if (bal < 0) {
+                                        throw new IllegalArgumentException("Balance cannot be negative.");
+                                    }
+
+                                    sav.setBalance(bal);
+                                    System.out.println("Saving Account Balance Updated Successfully");
+                                    accountModified = true;
+                                    break;
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Invalid input. Please enter a valid balance.");
+                                    s.nextLine(); // Clear the invalid input
+                                    return;
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println(e.getMessage());
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
+                    // Provide feedback if no matching account found
+                    if (!accountModified) {
+                        System.out.println("No account found with number: " + accnum);
+                    }
+
+                    break;
+                }
+            }
+
+            // Handle case where client is not found
+            if (!clientFound) {
+                System.out.println("Client with ID " + clientid + " not found.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+    }
+
+    public void removeAccount(ArrayList<Client> clients) {
 
         try {
             System.out.println("Enter the Account Number you want to remove: ");
@@ -164,22 +270,26 @@ public class Employee extends User {
             boolean isfound = false;
 
             // search in current accounts
-            for (CurrentAccount account : current) {
-                if (account.getAccountnumber() == accountNumber) {
-                    current.remove(account);
-                    isfound = true;
-                    System.out.println("Account removed successfully from Current Accounts.");
-                    break;
+            for(int i=0;i<clients.size();i++) {
+                for (CurrentAccount account : clients.get(i).current) {
+                    if (account.getAccountnumber() == accountNumber) {
+                        clients.get(i).current.remove(account);
+                        isfound = true;
+                        System.out.println("Account removed successfully from Current Accounts.");
+                        break;
+                    }
                 }
             }
             //search in saving accounts
             if (!isfound) {
-                for (SavingAccount account : saving) {
-                    if (account.getAccountnumber() == accountNumber) {
-                        saving.remove(account);
-                        isfound = true;
-                        System.out.println("Account removed successfully from Saving Accounts.");
-                        break;
+                for(int i=0;i<clients.size();i++) {
+                    for (SavingAccount account : clients.get(i).saving) {
+                        if (account.getAccountnumber() == accountNumber) {
+                            clients.get(i).saving.remove(account);
+                            isfound = true;
+                            System.out.println("Account removed successfully from Saving Accounts.");
+                            break;
+                        }
                     }
                 }
             }
@@ -194,33 +304,71 @@ public class Employee extends User {
         }
     }
 
-
-    public void searchClient() throws Exception{
+    public void searchClient(ArrayList<Client> clients) throws Exception {
+        Scanner s = new Scanner(System.in);
         try {
-            boolean isfound=false;
-            System.out.println("Enter client id: ");
-            long client_id = s.nextLong();
-            if (client_id <= 0) {
-                throw new Exception("Invalid Client id !");
-            }
+            boolean isFound = false;
+            System.out.println("Search by:\n1. Client ID\n2. Full Name (First Name and Last Name)\n3. Username");
+            int choice = s.nextInt();
+            s.nextLine(); // Consume the newline character
 
-            //search for the client by clientid
-            for(Client client : clients )
-            {
-                if (client_id== client.getClient_id())
-                {
-                    isfound=true;
-                    System.out.println(client);
+            if (choice == 1) {
+                System.out.println("Enter client ID: ");
+                long client_id = s.nextLong();
+
+                if (client_id <= 0) {
+                    throw new Exception("Invalid Client ID!");
                 }
+
+                for (Client client : clients) {
+                    if (client_id == client.getClient_id()) {
+                        isFound = true;
+                        System.out.println(client);
+                    }
+                }
+
+                if (!isFound) {
+                    throw new Exception("Client ID not found!");
+                }
+
+            } else if (choice == 2) {
+                System.out.println("Enter first name: ");
+                String firstName = s.nextLine();
+
+                System.out.println("Enter last name: ");
+                String lastName = s.nextLine();
+
+                for (Client client : clients) {
+                    if (client.getFirstName().equalsIgnoreCase(firstName) && client.getLastName().equalsIgnoreCase(lastName)) {
+                        isFound = true;
+                        System.out.println(client);
+                    }
+                }
+
+                if (!isFound) {
+                    throw new Exception("No client found with the provided first and last name!");
+                }
+
+            } else if (choice == 3) {
+                System.out.println("Enter username: ");
+                String userName = s.nextLine();
+
+                for (Client client : clients) {
+                    if (client.getUserName().equalsIgnoreCase(userName)) {
+                        isFound = true;
+                        System.out.println(client);
+                    }
+                }
+
+                if (!isFound) {
+                    throw new Exception("Username not found!");
+                }
+
+            } else {
+                throw new Exception("Invalid choice! Please select 1, 2, or 3.");
             }
 
-            if(!isfound)
-            {
-                throw new Exception("Client id not found! ");
-            }
-
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -290,6 +438,57 @@ public class Employee extends User {
             throw new Client.AccountException("Validation Error: " + e.getMessage());
         }
     }
+
+    public void maketrans(ArrayList<Client> clients) throws  Account.TransferException {
+        try {
+            System.out.println("Enter Sender Acc Num : ");
+            long sendaccnum = s.nextLong();
+
+            boolean isfound = false;
+
+            // Check if the account number is valid (positive)
+            if (sendaccnum <= 0) {
+                throw new IllegalArgumentException("Invalid account number. Account number must be a positive number.");
+            }
+
+            // Search in current accounts
+            for (Client sender : clients) {
+                for (CurrentAccount curr : sender.current) {
+                    if (curr.getAccountnumber() == sendaccnum) {
+                            curr.transfermoney(clients, this.firstName + this.lastName);
+                            isfound = true;
+                            return; // Exit method after successful transfer
+                    }
+                }
+
+                // If not found in current accounts, search in saving accounts
+                if (!isfound) {
+                    for (SavingAccount sav : sender.saving) {
+                        if (sav.getAccountnumber() == sendaccnum) {
+                                sav.transfermoney(clients, this.firstName +" "+ this.lastName);
+                                isfound = true;
+                                return; // Exit method after successful transfer
+                        }
+                    }
+                }
+            }
+
+            // If no account is found
+            if (!isfound) {
+                throw new IllegalArgumentException("No account found with the given account number: " + sendaccnum);
+            }
+        } catch (InputMismatchException e) {
+            // Handle invalid input (non-numeric input)
+            System.err.println("Invalid input. Please enter a valid account number.");
+            s.nextLine(); // Clear the invalid input
+            throw new IllegalArgumentException("Invalid account number input", e);
+        } catch (Exception e) {
+            // Catch any unexpected exceptions
+            System.err.println("An unexpected error occurred during transfer: " + e.getMessage());
+            throw new Account.TransferException("Transfer failed due to an unexpected error");
+        }
+    }
+
 }
 
 
