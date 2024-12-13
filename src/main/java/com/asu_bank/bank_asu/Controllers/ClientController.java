@@ -3,6 +3,7 @@ package com.asu_bank.bank_asu.Controllers;
 import com.asu_bank.bank_asu.Model.Client;
 import com.asu_bank.bank_asu.Model.Employee;
 import com.asu_bank.bank_asu.Model.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
@@ -21,7 +22,7 @@ public class ClientController {
 
 
     public void setCurrentUser(User user) {
-        if (user instanceof Employee) {
+        if (user instanceof Client) {
             this.currentUser = (Client) user;
             if (WelcomeText != null) { // Check for null WelcomeText before setting text
                 WelcomeText.setText("Welcome, " + currentUser.getFirstName() + " " + currentUser.getLasttName());
@@ -29,7 +30,13 @@ public class ClientController {
 
         } else {
             // Optional: Handle unexpected user type
-            utility.ShowErrorAlert("Invalid user type for Employee view");
+            utility.ShowErrorAlert("Invalid user type for Client view");
         }
+    }
+
+
+    @FXML
+    private void logoutButtonClicked(ActionEvent event) {
+        utility.LogOut(event);
     }
 }

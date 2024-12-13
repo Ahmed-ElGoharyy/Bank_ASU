@@ -77,24 +77,24 @@ public class LoginController {
 
 
 
-//        // Client Check (uncommented and fixed)
-//        boolean clientFound = false;
-//        for (Client client : bank.BankClients) {
-//            if (client.getUserName().equals(username)) {
-//                clientFound = true;
-//                if (client.getPassword().equals(password)) {
-//                    CurrentUser = client;
-//                    CurrentUser  =(Client) CurrentUser;     //Down Casting USER
-//                    Switch(event, "Client");
-//                    return;
-//                } else {
-//                    utility.ShowErrorAlert("Incorrect password!");
-//                    usernameTextField.clear();
-//                    passwordField.clear();
-//                    return;
-//                }
-//            }
-//        }
+        // Client Check (uncommented and fixed)
+        boolean clientFound = false;
+        for (Client client : bank.BankClients) {
+            if (client.getUserName().equals(username)) {
+                clientFound = true;
+               if (client.getPassword().equals(password)) {
+                    CurrentUser = client;
+                    CurrentUser  =(Client) CurrentUser;     //Down Casting USER
+                    Switch(event, "Client");
+                    return;
+               } else {
+                    utility.ShowErrorAlert("Incorrect password!");
+                    usernameTextField.clear();
+                    passwordField.clear();
+                    return;
+                }
+            }
+        }
 
       if(!AdminFound && !employeeFound )  // If no user found
         utility.ShowErrorAlert("User is not found!");
@@ -117,7 +117,7 @@ public class LoginController {
             // Check and set the user based on the controller type
               if (controller instanceof EmployeeController) {
                 ((EmployeeController) controller).setCurrentUser(CurrentUser);
-            } else if (controller instanceof ClientController) {
+            } if (controller instanceof ClientController) {
                 ((ClientController) controller).setCurrentUser(CurrentUser);
             }
 

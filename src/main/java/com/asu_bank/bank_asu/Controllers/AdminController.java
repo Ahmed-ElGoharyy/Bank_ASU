@@ -103,6 +103,9 @@ public class AdminController implements Initializable {
 
     @FXML
     private void AuthorizeButtonClicked(ActionEvent event) {
+
+        // write exception handling here
+
         try {
             char totalGrade = TotalGradeText.getText().charAt(0);
             Employee newEmployee = new Employee(

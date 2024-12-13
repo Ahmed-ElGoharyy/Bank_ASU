@@ -49,6 +49,8 @@ public class Admin extends Employee {
         }
     }
 
+
+
     public void displayAllEmployees() {
         try {
             System.out.println("List of Employees:");
