@@ -16,9 +16,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-border-width: 7px; -fx-border-color: grey; -fx-background-color: #404552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.AdminController">
    <children>
-      <Text fill="WHITE" layoutX="316.0" layoutY="577.0" stroke="#434343" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Admin Panel">
+      <Text fill="WHITE" layoutX="316.0" layoutY="577.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Admin Panel">
          <font>
-            <Font size="28.0" />
+            <Font size="30.0" />
          </font>
       </Text>
       <Button fx:id="LogOutButton" alignment="CENTER" layoutX="685.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="50.0" prefWidth="107.0" style="-fx-background-color: black; -fx-border-color: White; -fx-background-radius: 15px; -fx-border-radius: 12px; -fx-border-width: 3px;" text="Log Out" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
@@ -68,62 +68,62 @@
          </font>
       </RadioButton>
       <ListView fx:id="myListView" editable="true" fixedCellSize="45.0" layoutX="31.0" layoutY="93.0" prefHeight="435.0" prefWidth="570.0" style="-fx-background-color: #0d0524; -fx-border-color: #160732; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
-      <Button fx:id="Authorize" layoutX="484.0" layoutY="19.0" mnemonicParsing="false" onAction="#AuthorizeButtonClicked" prefHeight="40.0" prefWidth="94.0" style="-fx-background-color: #300274; -fx-font-weight: bold; -fx-border-width: 3px;" text="Authorize" textFill="WHITE" underline="true" wrapText="true">
+      <Button fx:id="Authorize" layoutX="506.0" layoutY="19.0" mnemonicParsing="false" onAction="#AuthorizeButtonClicked" prefHeight="40.0" prefWidth="94.0" style="-fx-background-color: #300274; -fx-font-weight: bold; -fx-border-width: 3px;" text="Authorize" textFill="WHITE" underline="true" wrapText="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <MenuBar layoutX="118.0" layoutY="19.0" prefHeight="40.0" prefWidth="348.0">
+      <MenuBar layoutX="264.0" layoutY="26.0" prefHeight="40.0" prefWidth="171.0">
         <menus>
-          <Menu mnemonicParsing="false" text="           Authorize Employee (Enter Attributes)">
+          <Menu mnemonicParsing="false" text="       (Enter Attributes)      ">
             <items>
               <MenuItem mnemonicParsing="false" text="FirstName">
                      <graphic>
-                        <TextField fx:id="FirstNameText" />
+                        <TextField fx:id="FirstNameText" alignment="CENTER" promptText="FirstName" style="-fx-border-width: 2px;" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="LastName">
                      <graphic>
-                        <TextField fx:id="LastNameText" />
+                        <TextField fx:id="LastNameText" alignment="CENTER" promptText="LastName" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Username">
                      <graphic>
-                        <TextField fx:id="UsernameText" />
+                        <TextField fx:id="UsernameText" alignment="CENTER" promptText="Username" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Passowrd">
                      <graphic>
-                        <TextField fx:id="PasswordText" />
+                        <TextField fx:id="PasswordText" alignment="CENTER" promptText="Password" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="TelephoneNumber">
                      <graphic>
-                        <TextField fx:id="TeleText" />
+                        <TextField fx:id="TeleText" alignment="CENTER" promptText="TelNumber" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Address">
                      <graphic>
-                        <TextField fx:id="AddressText" />
+                        <TextField fx:id="AddressText" alignment="CENTER" promptText="Address" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Position">
                      <graphic>
-                        <TextField fx:id="PositionText" />
+                        <TextField fx:id="PositionText" alignment="CENTER" promptText="Position" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Graduated College">
                      <graphic>
-                        <TextField fx:id="GradCollegeText" />
+                        <TextField fx:id="GradCollegeText" alignment="CENTER" promptText="GraduatedCollege" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Graduation year">
                      <graphic>
-                        <TextField fx:id="GradYearText" />
+                        <TextField fx:id="GradYearText" alignment="CENTER" promptText="GradYear" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Total Grade">
                      <graphic>
-                        <TextField fx:id="TotalGradeText" />
+                        <TextField fx:id="TotalGradeText" alignment="CENTER" promptText="TotalGrade" />
                      </graphic>
                   </MenuItem>
             </items>
@@ -133,5 +133,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </MenuBar>
+      <Text fill="WHITE" layoutX="26.0" layoutY="55.0" stroke="#2f0773" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Authorize Employee :">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

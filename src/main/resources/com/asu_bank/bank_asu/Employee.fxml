@@ -24,9 +24,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="66.0" stroke="#121212" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Welcome" textAlignment="CENTER" wrappingWidth="390.4234619140625">
+      <Text fx:id="WelcomeText" fill="WHITE" fontSmoothingType="LCD" layoutX="61.0" layoutY="55.0" stroke="#121212" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Welcome" textAlignment="CENTER" wrappingWidth="517.62353515625">
          <font>
-            <Font name="Berlin Sans FB Demi Bold" size="56.0" />
+            <Font name="Berlin Sans FB Demi Bold" size="39.0" />
          </font>
       </Text>
       <Label fx:id="LabelChoiceBox" blendMode="SCREEN" layoutX="19.0" layoutY="158.0" prefHeight="50.0" prefWidth="314.0" text="Choose an action:" textFill="WHITE">

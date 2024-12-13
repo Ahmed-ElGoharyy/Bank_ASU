@@ -12,7 +12,12 @@ public class Bank {
     public List<Employee> BankEmployees;
     public List<Transaction>  BankATMTrans;
     public List<Moneytrans>   BankMoneyTransfers;
+    public List<SavingAccount>  BankSavingAccounts;
+    public List<CurrentAccount> BankCurrentAccounts;
 
+
+
+    
     public List<Employee> getBankEmployees() {
         return BankEmployees;
     }

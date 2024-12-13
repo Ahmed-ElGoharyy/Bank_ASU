@@ -39,7 +39,7 @@ public class LoginController {
         }
 
 
-//fix
+
 
         // ##############   Admin check ################
 
@@ -110,6 +110,20 @@ public class LoginController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(View+".fxml"));
             Parent root = fxmlLoader.load();
+
+            // Get the controller of the new view
+            Object controller = fxmlLoader.getController();
+
+            // Check and set the user based on the controller type
+              if (controller instanceof EmployeeController) {
+                ((EmployeeController) controller).setCurrentUser(CurrentUser);
+            } else if (controller instanceof ClientController) {
+                ((ClientController) controller).setCurrentUser(CurrentUser);
+            }
+
+
+
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
