@@ -11,10 +11,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-border-width: 7px; -fx-border-color: grey; -fx-background-color: #404552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-border-width: 7px; -fx-border-color: black; -fx-background-color: #404552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.AdminController">
    <children>
       <Text fill="WHITE" layoutX="316.0" layoutY="577.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Admin Panel">
          <font>
@@ -46,7 +47,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="CENTER" layoutX="633.0" layoutY="129.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="146.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text=" Display Transactions by:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button alignment="CENTER" layoutX="633.0" layoutY="129.0" mnemonicParsing="false" onAction="#showTransButtonClicked" prefHeight="80.0" prefWidth="146.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text=" Display Transactions by:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -67,7 +68,7 @@
             <Font size="13.0" />
          </font>
       </RadioButton>
-      <ListView fx:id="myListView" editable="true" fixedCellSize="45.0" layoutX="31.0" layoutY="93.0" prefHeight="435.0" prefWidth="570.0" style="-fx-background-color: #0d0524; -fx-border-color: #160732; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+      <ListView fx:id="myListView" editable="true" fixedCellSize="60.0" layoutX="26.0" layoutY="101.0" prefHeight="435.0" prefWidth="570.0" style="-fx-background-color: #0d0524; -fx-border-color: #160732; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
       <Button fx:id="Authorize" layoutX="506.0" layoutY="19.0" mnemonicParsing="false" onAction="#AuthorizeButtonClicked" prefHeight="40.0" prefWidth="94.0" style="-fx-background-color: #300274; -fx-font-weight: bold; -fx-border-width: 3px;" text="Authorize" textFill="WHITE" underline="true" wrapText="true">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -138,5 +139,7 @@
             <Font size="22.0" />
          </font>
       </Text>
+      <Line endX="-10.5999755859375" endY="369.0" layoutX="625.0" layoutY="103.0" startX="-10.5999755859375" startY="46.59999084472656" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="-514.4000244140625" endY="-8.0" layoutX="610.0" layoutY="94.0" startX="-59.20001220703125" startY="-8.0" stroke="WHITE" strokeWidth="3.0" />
    </children>
 </AnchorPane>

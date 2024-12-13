@@ -4,13 +4,15 @@ import java.util.*;
 
 public class Client extends User {
     private final long client_id;
+    protected int counterr =2005;
     protected ArrayList<CurrentAccount> current = new ArrayList<>();
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
     protected ArrayList<Transaction> credittrans = new ArrayList<>();
 
     public Client( String firstName, String lastName, String userName, String password, long telephoneNumber) {
         super( firstName, lastName, userName, password, telephoneNumber);
-        this.client_id = super.getId();
+        counterr++;
+        this.client_id = counterr;
     }
     public long getClient_id() {return client_id;}
 

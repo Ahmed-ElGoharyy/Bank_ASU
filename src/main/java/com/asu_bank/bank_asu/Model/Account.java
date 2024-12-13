@@ -6,6 +6,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 abstract public class Account {
+
+ private long client_id;
  private final long accountnumber;
  protected ArrayList<Transaction> trasactions = new ArrayList<>();
  protected ArrayList<Moneytrans> moneytransfer = new ArrayList<>();

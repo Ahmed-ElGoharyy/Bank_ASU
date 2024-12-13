@@ -154,6 +154,41 @@ public class AdminController implements Initializable {
 
 
 
+
+    @FXML
+    public void showTransButtonClicked(ActionEvent event) {
+        // Clear any existing items
+        myListView.getItems().clear();
+
+        try {
+            if (bank == null) {
+                System.out.println("Warning: Bank object not injected. Employee data might not be available.");
+            } else {
+                // Get employee data from Bank object (assuming getter method)
+                ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
+                ObservableList<Transaction> Transactions = TransactionObservableList;
+
+                // Create an ObservableList of Strings to display in the ListView
+                ObservableList<String> TransactionsListStrings = FXCollections.observableArrayList();
+                for (Transaction transaction : Transactions) {
+                    // Customize employee display format as needed (e.g., name, ID, department)
+                    TransactionsListStrings.add("   Transaction No  :    "+ transaction.getTransid() +
+                            "       Type : "+transaction.getType()+ "       Amount :  "+transaction.getAmount()+
+                            "     To: "+transaction.getAccnumber()+"     Date  :"+transaction.getDate());
+                }
+
+                myListView.setItems(TransactionsListStrings);
+            }
+        } catch (Exception e) {
+            utility.ShowErrorAlert("Error loading Transactions : "+e);
+        }
+    }
+
+
+
+
+
+
     @FXML
     private void logoutButtonClicked(ActionEvent event) {
         utility.LogOut(event);

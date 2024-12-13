@@ -10,7 +10,12 @@ public class Bank {
     protected static Bank instance;
     public List<Client> BankClients;
     public List<Employee> BankEmployees;
+
+
+
     public List<Transaction>  BankATMTrans;
+
+
     public List<Moneytrans>   BankMoneyTransfers;
     public List<SavingAccount>  BankSavingAccounts;
     public List<CurrentAccount> BankCurrentAccounts;
@@ -21,6 +26,9 @@ public class Bank {
     public List<Employee> getBankEmployees() {
         return BankEmployees;
     }
+    public List<Transaction> getBankATMTrans() {return BankATMTrans;}
+    public List<Moneytrans> getBankMoneyTransfers() {return BankMoneyTransfers;}
+
 
     // Constructor Private to not make any objects except one "below" (only by getInstace() )
 

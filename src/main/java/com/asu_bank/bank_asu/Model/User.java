@@ -10,7 +10,7 @@ abstract public class User {
     protected String userName;
     protected String password;
     protected Long telephoneNumber;
-    private static int counter=1004;
+    private static int counter=1008;
 
     public String getUserName() {
         return userName;
