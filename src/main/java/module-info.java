@@ -10,6 +10,7 @@ module com.asu_bank.bank_asu {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.desktop;
+    requires java.sql;
 
     opens com.asu_bank.bank_asu to javafx.fxml;
     exports com.asu_bank.bank_asu;

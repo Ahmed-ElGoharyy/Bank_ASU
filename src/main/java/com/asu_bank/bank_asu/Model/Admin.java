@@ -1,5 +1,9 @@
 package com.asu_bank.bank_asu.Model;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 public class Admin extends Employee {
 
     protected static Admin instance;
@@ -78,6 +82,107 @@ public class Admin extends Employee {
         }
     }
 
+    public void showTransactions(ArrayList<Client> clients) {
+        try {
+            if (clients == null || clients.isEmpty()) {
+                throw new IllegalArgumentException("No clients available for transaction search.");
+            }
+
+            char c;
+            Scanner s = new Scanner(System.in);
+            System.out.println("Press (C:Search By Client,E:Search By Employee) :");
+            c = s.next().charAt(0);
+
+            if (c == 'C' || c == 'c') {
+                long id;
+                System.out.println("Enter Client ID: ");
+                id = s.nextLong();
+                boolean clientFound = false;
+
+                for (int i = 0; i < clients.size(); i++) {
+                    if (clients.get(i).id == id) {
+                        clientFound = true;
+
+                        if (clients.get(i).current == null || clients.get(i).saving == null || clients.get(i).credittrans == null) {
+                            throw new NullPointerException("Client account information is incomplete.");
+                        }
+
+                        for (int j = 0; j < clients.get(i).current.size(); j++) {
+                            if (clients.get(i).current.get(j) != null && clients.get(i).current.get(j).trasactions != null) {
+                                System.out.println(clients.get(i).current.get(j).trasactions);
+                            }
+                        }
+                        for (int j = 0; j < clients.get(i).saving.size(); j++) {
+                            if (clients.get(i).saving.get(j) != null && clients.get(i).saving.get(j).trasactions != null) {
+                                System.out.println(clients.get(i).saving.get(j).trasactions);
+                            }
+                        }
+                        for (int j = 0; j < clients.get(i).credittrans.size(); j++) {
+                            if (clients.get(i).credittrans.get(j) != null) {
+                                System.out.println(clients.get(i).credittrans);
+                            }
+                        }
+                    }
+                    break;
+                }
+
+                if (!clientFound) {
+                    throw new NoSuchElementException("No client found with the given ID: " + id);
+                }
+            }
+            else if (c == 'E' || c == 'e') {
+                String empsearch;
+                System.out.println("Enter Employee Name :");
+                empsearch = s.next();
+                boolean transactionFound = false;
+
+                for (int i = 0; i < clients.size(); i++) {
+                    if (clients.get(i).current != null) {
+                        for (int j = 0; j < clients.get(i).current.size(); j++) {
+                            if (clients.get(i).current.get(j) != null && clients.get(i).current.get(j).moneytransfer != null) {
+                                for (int k = 0; k < clients.get(i).current.get(j).moneytransfer.size(); k++) {
+                                    if (clients.get(i).current.get(j).moneytransfer.get(k).made_by.equals(empsearch)) {
+                                        System.out.println(clients.get(i).current.get(j).moneytransfer.get(k));
+                                        transactionFound = true;
+                                    }
+                                }
+                            }
+
+                            if (j < clients.get(i).saving.size() &&
+                                    clients.get(i).saving.get(j) != null &&
+                                    clients.get(i).saving.get(j).moneytransfer != null) {
+                                for (int k = 0; k < clients.get(i).saving.get(j).moneytransfer.size(); k++) {
+                                    if (clients.get(i).saving.get(j).moneytransfer.get(k).made_by.equals(empsearch)) {
+                                        System.out.println(clients.get(i).saving.get(j).moneytransfer.get(k));
+                                        transactionFound = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!transactionFound) {
+                    throw new NoSuchElementException("No transactions found for employee: " + empsearch);
+                }
+            }
+            else {
+                throw new IllegalArgumentException("Invalid search option. Use 'C' or 'E'.");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter the correct data type.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println("Null object encountered: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error accessing account or transaction information.");
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+    }
 //    public void showTransactions() {
 //        try {
 //            System.out.println("List of Transactions:");

@@ -1,16 +1,14 @@
 package com.asu_bank.bank_asu.Model;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Client extends User {
     private final long client_id;
     protected ArrayList<CurrentAccount> current = new ArrayList<>();
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
+    protected ArrayList<Transaction> credittrans = new ArrayList<>();
 
-    public Client(long id, String firstName, String lastName, String userName, String password, long telephoneNumber) {
+    public Client( String firstName, String lastName, String userName, String password, long telephoneNumber) {
         super( firstName, lastName, userName, password, telephoneNumber);
         this.client_id = super.getId();
     }
@@ -207,6 +205,9 @@ public class Client extends User {
                         throw new CreditCard.CreditCardException("Invalid Amount,Please Enter Positive One");
                     }
                     c.pay(n);
+                    Date d = new Date();
+                    Transaction credit = new Transaction(n,"CREDIT CARD TRANSACTION",d);
+                    credittrans.add(credit);
                     break;
                 }
             }
@@ -402,4 +403,43 @@ public class Client extends User {
             throw new AccountException("Validation Error: " + e.getMessage());
     }
   }
+
+    public void showclientinfo() {
+        try {
+            // Validate critical fields before printing
+            if (this.id == null) {
+                throw new IllegalStateException("Client ID cannot be null");
+            }
+
+            if (this.firstName == null || this.firstName.trim().isEmpty()) {
+                throw new IllegalArgumentException("First Name is required");
+            }
+
+            if (this.lastName == null || this.lastName.trim().isEmpty()) {
+                throw new IllegalArgumentException("Last Name is required");
+            }
+
+            // Print client information with null checks
+            System.out.println("ID : " + this.id);
+            System.out.println("FirstName : " + this.firstName);
+            System.out.println("LastName : " + this.lastName);
+
+            // Add null check for username
+            String username = this.getUserName();
+            System.out.println("Username : " + (username != null ? username : "N/A"));
+
+            // Avoid printing passwords directly - this is a security risk
+            System.out.println("Password : [PROTECTED]");
+
+            // Add null check for telephone number
+            System.out.println("TelephoneNumber : " +
+                    (this.telephoneNumber != null ? this.telephoneNumber : "Not Provided"));
+        } catch (IllegalStateException | IllegalArgumentException e) {
+            // Log the error or handle it appropriately
+            System.err.println("Error displaying client information: " + e.getMessage());
+        } catch (Exception e) {
+            // Catch any unexpected exceptions
+            System.err.println("Unexpected error occurred: " + e.getMessage());
+        }
+    }
 }

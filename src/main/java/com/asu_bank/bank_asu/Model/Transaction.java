@@ -18,4 +18,12 @@ public class Transaction {
         this.type=type;
         this.Date =Date;
     }
+    public Transaction( double amount, String type, Date Date){
+        counter++;
+        this.transid=counter;
+        this.accnumber=00000;
+        this.amount=amount;
+        this.type=type;
+        this.Date =Date;
+    }
 }
