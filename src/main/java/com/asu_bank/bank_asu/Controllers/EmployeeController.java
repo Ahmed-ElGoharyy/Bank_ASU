@@ -19,7 +19,7 @@ public class EmployeeController implements Initializable {
         MyEmployeeChoicebox.getItems().addAll(employeemethods);
 
     }
-@FXML
+    @FXML
     private void logoutButtonClicked(ActionEvent event) {
         utility.LogOut(event);
     }
