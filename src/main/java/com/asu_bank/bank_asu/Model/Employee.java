@@ -30,6 +30,7 @@ public class Employee extends User {
     public  Employee(){
         super();
     }
+
     //Getters
     public String getAddress() {return address;}
 

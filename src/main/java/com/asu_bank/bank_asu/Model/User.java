@@ -81,6 +81,7 @@ abstract public class User {
         return name.trim().substring(0, 1).toUpperCase() + name.trim().substring(1).toLowerCase();
     }
 
+
     // Validate Username
     protected String validateUsername(String username) {
         if (username == null || username.trim().isEmpty()) {
@@ -110,6 +111,7 @@ abstract public class User {
     }
 
     // Validate Telephone Number
+
     protected long validateTelephoneNumber(String telephoneNumberStr) {
         // Remove any non-digit characters
         String cleanedNumber = telephoneNumberStr.replaceAll("[^\\d]", "");
