@@ -29,12 +29,12 @@
             <Font name="Berlin Sans FB Demi Bold" size="56.0" />
          </font>
       </Text>
-      <Label blendMode="SCREEN" layoutX="19.0" layoutY="158.0" prefHeight="50.0" prefWidth="314.0" text="Choose an action:" textFill="WHITE">
+      <Label fx:id="LabelChoiceBox" blendMode="SCREEN" layoutX="19.0" layoutY="158.0" prefHeight="50.0" prefWidth="314.0" text="Choose an action:" textFill="WHITE">
          <font>
             <Font name="Georgia Pro Cond Semibold" size="26.0" />
          </font>
       </Label>
       <Line endX="100.0" layoutX="115.0" layoutY="208.0" startX="-100.0" stroke="#30ea52" />
-      <ChoiceBox layoutX="19.0" layoutY="236.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="MyEmployeeChoicebox" layoutX="19.0" layoutY="236.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
