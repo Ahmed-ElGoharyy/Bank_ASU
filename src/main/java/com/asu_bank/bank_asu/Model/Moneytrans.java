@@ -3,10 +3,12 @@ package com.asu_bank.bank_asu.Model;
 import java.util.Date;
 
 public class Moneytrans extends Transaction{
-    protected long recieveraccnum;
+    protected Long recieveraccnum;
     protected String made_by;
 
-    public long getRecieveraccnum() {
+    public Moneytrans(){}
+
+    public Long getRecieveraccnum() {
         return recieveraccnum;
     }
 

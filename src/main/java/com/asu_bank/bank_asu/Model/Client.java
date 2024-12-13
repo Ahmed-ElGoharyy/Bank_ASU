@@ -3,18 +3,24 @@ package com.asu_bank.bank_asu.Model;
 import java.util.*;
 
 public class Client extends User {
-    private final long client_id;
-    protected int counterr =2005;
+    protected Long client_id;
+    protected  int counterr =2005;
     protected ArrayList<CurrentAccount> current = new ArrayList<>();
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
     protected ArrayList<Transaction> credittrans = new ArrayList<>();
 
+
     public Client( String firstName, String lastName, String userName, String password, long telephoneNumber) {
         super( firstName, lastName, userName, password, telephoneNumber);
         counterr++;
-        this.client_id = counterr;
+        this.client_id = Long.valueOf(counterr);
     }
-    public long getClient_id() {return client_id;}
+
+
+    public Client(){}
+
+
+    public Long getClient_id() {return client_id;}
 
     // Custom exception for empty list
     public static class EmptyAccountListException extends Exception {

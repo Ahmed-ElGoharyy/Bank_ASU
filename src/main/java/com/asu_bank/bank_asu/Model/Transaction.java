@@ -3,22 +3,28 @@ package com.asu_bank.bank_asu.Model;
 import java.util.Date;
 
 public class Transaction {
-    protected long accnumber;
-    private int transid;
-    protected double amount;
+    protected Long accnumber;
+    private Integer transid;
+    protected Double amount;
     public static int counter=0;
     protected String type;
     protected Date Date;
 
-    public long getAccnumber() {
+
+    public Transaction(){}
+
+
+
+
+    public Long getAccnumber() {
         return accnumber;
     }
 
-    public int getTransid() {
+    public Integer getTransid() {
         return transid;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
@@ -45,7 +51,7 @@ public class Transaction {
     public Transaction( double amount, String type, Date Date){
         counter++;
         this.transid=counter;
-        this.accnumber=00000;
+      //  this.accnumber= 00000;
         this.amount=amount;
         this.type=type;
         this.Date =Date;

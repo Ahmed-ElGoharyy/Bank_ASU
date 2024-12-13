@@ -13,6 +13,7 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +27,8 @@ public class AdminController implements Initializable {
     private Button ShowEmps;
     @FXML
     private Button ShowClients;
+    @FXML
+    private Text Displaytext;
 
     @FXML
      private TextField FirstNameText;
@@ -87,6 +90,7 @@ public class AdminController implements Initializable {
                 }
 
                 myListView.setItems(employeeListStrings);
+                Displaytext.setText("Bank Employees : ");
             }
         } catch (Exception e) {
             utility.ShowErrorAlert("Error : "+e);
@@ -127,29 +131,31 @@ public class AdminController implements Initializable {
         // Clear any existing items
         myListView.getItems().clear();
 
-//        try {
-//            if (bank == null) {
-//                System.out.println("Warning: Bank object not injected. Employee data might not be available.");
-//            } else {
-//                // Get employee data from Bank object (assuming getter method)
-//                ObservableList<Employee> employeeObservableList = FXCollections.observableArrayList(bank.getBankEmployees());
-//                ObservableList<Employee> employees = employeeObservableList;
-//
-//                // Create an ObservableList of Strings to display in the ListView
-//                ObservableList<String> employeeListStrings = FXCollections.observableArrayList();
-//                for (Employee employee : employees) {
-//                    // Customize employee display format as needed (e.g., name, ID, department)
-//                    employeeListStrings.add("   ID:  " + employee.getId() + "       FirstName:  " +
-//                            employee.getFirstName() + "          LastName:  "+employee.getLasttName()+
-//                            "         Position : " + employee.getPosition()+ "         TotalGrade :  "+
-//                            employee.getTotalGrade()+"       GraduationYear :  "+employee.getYearOfGradutaion());
-//                }
-//
-//                myListView.setItems(employeeListStrings);
-//            }
-//        } catch (Exception e) {
-//            utility.ShowErrorAlert("Error in loading clients data : "+e);
-//        }
+        try {
+           if (bank == null) {
+               System.out.println("Warning: Bank object not injected. Employee data might not be available.");
+            } else {
+                // Get employee data from Bank object (assuming getter method)
+               ObservableList<Client> ClientObservableList = FXCollections.observableArrayList(bank.BankClients);
+                ObservableList<Client> Clients = ClientObservableList;
+
+                // Create an ObservableList of Strings to display in the ListView
+                ObservableList<String> ClientsListStrings = FXCollections.observableArrayList();
+                for (Client client : Clients) {
+                  // Customize employee display format as needed (e.g., name, ID, department)
+                    ClientsListStrings.add("      ID :  " + client.getClient_id() + "          FirstName :  " +
+                            client.getFirstName() + "             LastName :  "+client.getLasttName()+
+                            "           Telephone No :"+client.getTelephoneNumber()
+                         );
+               }
+
+                myListView.setItems(ClientsListStrings);
+                Displaytext.setText("Bank Clients : ");
+
+           }
+        } catch (Exception e) {
+            utility.ShowErrorAlert("Error in loading clients data : "+e);
+       }
     }
 
 
@@ -168,19 +174,32 @@ public class AdminController implements Initializable {
                 ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
                 ObservableList<Transaction> Transactions = TransactionObservableList;
 
+                ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.getBankMoneyTransfers());
+                ObservableList<Moneytrans> Transfers = TransferObservableList;
+
                 // Create an ObservableList of Strings to display in the ListView
                 ObservableList<String> TransactionsListStrings = FXCollections.observableArrayList();
                 for (Transaction transaction : Transactions) {
                     // Customize employee display format as needed (e.g., name, ID, department)
                     TransactionsListStrings.add("   Transaction No  :    "+ transaction.getTransid() +
+                            "         Transaction Account :" +transaction.getAccnumber()+
                             "       Type : "+transaction.getType()+ "       Amount :  "+transaction.getAmount()+
                             "     To: "+transaction.getAccnumber()+"     Date  :"+transaction.getDate());
+
+                }
+                for(Moneytrans transfer : Transfers){
+                    TransactionsListStrings.add("   Transaction No :");
+
+
+
                 }
 
                 myListView.setItems(TransactionsListStrings);
+                Displaytext.setText("Transactions : ");
+
             }
         } catch (Exception e) {
-            utility.ShowErrorAlert("Error loading Transactions : "+e);
+            utility.ShowErrorAlert("Error loading Transaction : "+e);
         }
     }
 

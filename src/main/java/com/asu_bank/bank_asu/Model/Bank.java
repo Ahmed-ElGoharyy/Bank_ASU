@@ -6,17 +6,13 @@ import java.util.List;
 
 public class Bank {
 
+
     public final String BankName = "ASU Bank";
     protected static Bank instance;
     public List<Client> BankClients;
     public List<Employee> BankEmployees;
-
-
-
     public List<Transaction>  BankATMTrans;
-
-
-    public List<Moneytrans>   BankMoneyTransfers;
+    public List<Moneytrans>  BankMoneyTransfers;
     public List<SavingAccount>  BankSavingAccounts;
     public List<CurrentAccount> BankCurrentAccounts;
 

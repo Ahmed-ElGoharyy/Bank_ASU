@@ -1,14 +1,13 @@
 package com.asu_bank.bank_asu;
 
-import com.asu_bank.bank_asu.Model.Account;
-import com.asu_bank.bank_asu.Model.Bank;
-import com.asu_bank.bank_asu.Model.Client;
-import com.asu_bank.bank_asu.Model.Employee;
+import com.asu_bank.bank_asu.Model.*;
 
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class DataLoader {
@@ -25,9 +24,18 @@ public class DataLoader {
 
         List<Employee> emps = readFile("Employee.csv", Employee.class);
 
-        bank.BankEmployees = emps;
+        List<Client> Clients = readFile("Clients.csv", Client.class);
 
-        System.out.println("Id:"+ emps.get(0).getId() + "  firstname:"+ emps.get(0).getFirstName());
+        List<Transaction> atmTansactions = readFile("ATMTransactions.csv", Transaction.class);
+
+        List<Moneytrans> TransTansactions = readFile("TransferTransactions.csv", Moneytrans.class);
+
+
+        bank.BankEmployees = emps;
+        bank.BankClients = Clients;
+        bank.BankATMTrans = atmTansactions;
+        bank.BankMoneyTransfers = TransTansactions;
+        System.out.println(" Id: "+ TransTansactions.get(0).getTransid() + "  Date:  "+ TransTansactions.get(0).getDate());
 
 
 
@@ -145,11 +153,21 @@ public class DataLoader {
             objVal = Long.valueOf(valueString);
         } else  if(fieldClassName.equals(Integer.class.getCanonicalName())) {
             objVal = Integer.valueOf(valueString);
+        } else  if(fieldClassName.equals(Double.class.getCanonicalName())) {
+            objVal = Double.valueOf(valueString);
         } else  if(fieldClassName.equals(String.class.getCanonicalName())) {
             objVal = valueString;
         } else  if(fieldClassName.equals(Character.class.getCanonicalName())) {
             objVal = Character.valueOf(valueString.charAt(0));
+        }else  if(fieldClassName.equals(Date.class.getCanonicalName())) {
+            try {
+                objVal = new SimpleDateFormat("yyyy-MM-dd").parse(valueString);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
+
+
         field.setAccessible(true);
         System.out.println("set field name: "+fieldName + "   val:"+objVal);
         field.set(object, objVal);
@@ -159,6 +177,7 @@ public class DataLoader {
     public static void main(String[] args) {
         Bank bank = Bank.getInstance();
 
-
+        DataLoader dl = new DataLoader();
+        dl.loadData(bank);
     }
 }
