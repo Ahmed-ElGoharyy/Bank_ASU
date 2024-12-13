@@ -103,11 +103,26 @@ public class AdminController implements Initializable {
 
     @FXML
     private void AuthorizeButtonClicked(ActionEvent event) {
-
-        // write exception handling here
+        String adminUsername = "admin";
 
         try {
             char totalGrade = TotalGradeText.getText().charAt(0);
+            if (UsernameText.getText().equals(adminUsername)) {
+                utility.ShowErrorAlert("Error: Username '" + adminUsername + "' is reserved for the admin.");
+                return;
+            }
+            if (TotalGradeText.getText().isEmpty()) {
+                utility.ShowErrorAlert("Error: Total grade cannot be empty.");
+                return;
+            }
+            if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
+                    UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
+                    TeleText.getText().isEmpty() || AddressText.getText().isEmpty() ||
+                    PositionText.getText().isEmpty() || GradCollegeText.getText().isEmpty() ||
+                    GradYearText.getText().isEmpty()) {
+                utility.ShowErrorAlert("Error: All fields must be filled out.");
+                return;
+            }
             Employee newEmployee = new Employee(
 
                     FirstNameText.getText(),
@@ -124,11 +139,16 @@ public class AdminController implements Initializable {
             // Add the employee to the bank
             bank.BankEmployees.add(newEmployee);
             utility.ShowSuccessAlert("New Employee added and authorized successfully!");
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Error: Please enter valid numeric values for telephone number and graduation year.");
+        } catch (StringIndexOutOfBoundsException e) {
+            utility.ShowErrorAlert("Error: Total grade cannot be empty.");
+        } catch (IllegalArgumentException e) {
+            utility.ShowErrorAlert("Error: " + e.getMessage());
         } catch (Exception e) {
-            utility.ShowErrorAlert("Error : Wrong data type for"+ e);
+            utility.ShowErrorAlert("Error: " + e.getMessage());
         }
     }
-
     @FXML
     public void showClientsButtonClicked(ActionEvent event) {
         // Clear any existing items

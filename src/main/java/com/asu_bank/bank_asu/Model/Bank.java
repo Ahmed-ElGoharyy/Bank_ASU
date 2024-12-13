@@ -26,7 +26,7 @@ public class Bank {
     public List<Moneytrans> getBankMoneyTransfers() {return BankMoneyTransfers;}
 
 
-    // Constructor Private to not make any objects except one "below" (only by getInstace() )
+    // Constructor Private to not make any objects except one "below" (only by getInstance() )
 
     private Bank() {
         BankClients = new ArrayList<>();
