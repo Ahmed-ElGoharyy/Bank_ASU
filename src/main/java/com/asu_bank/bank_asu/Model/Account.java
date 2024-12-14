@@ -28,6 +28,14 @@ abstract public class Account {
   return AccountType;       // dont change
  }
 
+ public String getAccountState() {
+  return AccountState;
+ }
+
+ public void setAccountState(String accountState) {
+  AccountState = accountState;
+ }
+
  public Account(double balance) {
   counter++;
   this.accountnumber = Long.valueOf(counter);

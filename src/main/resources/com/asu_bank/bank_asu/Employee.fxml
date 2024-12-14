@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
@@ -12,7 +13,7 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #404552 ; -fx-border-color: black ; -fx-border-width: 7px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.EmployeeController">
    <children>
-      <Text fill="WHITE" layoutX="295.0" layoutY="572.0" stroke="#0c4605" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Employee Panel" textAlignment="JUSTIFY">
+      <Text fill="WHITE" layoutX="295.0" layoutY="580.0" stroke="#0c4605" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Employee Panel" textAlignment="JUSTIFY">
          <font>
             <Font size="23.0" />
          </font>
@@ -57,13 +58,13 @@
             <Font size="17.5" />
          </font>
       </TextField>
-      <Text fx:id="WelcomeText1" fill="WHITE" fontSmoothingType="LCD" layoutX="184.0" layoutY="386.0" stroke="#04380b" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Choose an Account" textAlignment="CENTER" wrappingWidth="320.8235626220703">
+      <Text fx:id="WelcomeText1" fill="WHITE" fontSmoothingType="LCD" layoutX="166.0" layoutY="371.0" stroke="#04380b" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Choose an Account" textAlignment="CENTER" wrappingWidth="320.8235626220703">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="26.0" />
          </font>
       </Text>
-      <Line endX="-643.2000122070312" endY="46.600006103515625" layoutX="733.0" layoutY="295.0" startX="-10.5999755859375" startY="46.59999084472656" stroke="#9fccae" strokeWidth="3.0" />
-      <Button alignment="CENTER" layoutX="694.0" layoutY="407.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="75.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Delete" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Line endX="-643.2000122070312" endY="46.600006103515625" layoutX="732.0" layoutY="288.0" startX="-10.5999755859375" startY="46.59999084472656" stroke="#9fccae" strokeWidth="3.0" />
+      <Button alignment="CENTER" layoutX="703.0" layoutY="407.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="66.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Delete" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -71,7 +72,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <SplitMenuButton alignment="CENTER" layoutX="536.0" layoutY="407.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="130.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit" textAlignment="CENTER" textFill="#0b3e1a">
+      <SplitMenuButton alignment="CENTER" layoutX="577.0" layoutY="407.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="107.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit" textAlignment="CENTER" textFill="#0b3e1a">
         <items>
           <MenuItem mnemonicParsing="false">
                <graphic>
@@ -91,5 +92,19 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </SplitMenuButton>
+      <ListView fx:id="myListView" editable="true" fixedCellSize="30.0" layoutX="142.0" layoutY="383.0" prefHeight="134.0" prefWidth="404.0" style="-fx-background-color: #9fccae; -fx-border-color: #160732; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+      <Text fx:id="selectedAcctext" fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="534.0" stroke="#04380b" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Selected Account :" wrappingWidth="750.4235382080078">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="displayAcc" alignment="CENTER" layoutX="42.0" layoutY="410.0" mnemonicParsing="false" onAction="#DisplayAccount" prefHeight="63.0" prefWidth="90.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Display Accounts" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
