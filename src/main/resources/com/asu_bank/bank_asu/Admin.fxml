@@ -5,9 +5,9 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +17,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-border-width: 7px; -fx-border-color: white; -fx-background-color: #404552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.AdminController">
    <children>
-      <Text fill="WHITE" layoutX="316.0" layoutY="577.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Admin Panel">
+      <Text fill="WHITE" layoutX="316.0" layoutY="577.0" stroke="#2d0a51" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Admin Panel">
          <font>
             <Font size="30.0" />
          </font>
@@ -31,7 +31,7 @@
          </cursor>
       </Button>
       <ButtonBar layoutX="42.0" layoutY="109.0" prefHeight="40.0" prefWidth="200.0" />
-    <Button fx:id="ShowEmps" alignment="CENTER" layoutX="638.0" layoutY="440.0" mnemonicParsing="false" onAction="#showEmpsButtonClicked" prefHeight="70.0" prefWidth="135.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Employees" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+    <Button fx:id="ShowEmps" alignment="CENTER" layoutX="633.0" layoutY="431.0" mnemonicParsing="false" onAction="#showEmpsButtonClicked" prefHeight="70.0" prefWidth="146.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Employees" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -39,7 +39,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="ShowClients" alignment="CENTER" layoutX="638.0" layoutY="319.0" mnemonicParsing="false" onAction="#showClientsButtonClicked" prefHeight="70.0" prefWidth="135.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Clients" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button fx:id="ShowClients" alignment="CENTER" layoutX="633.0" layoutY="315.0" mnemonicParsing="false" onAction="#showClientsButtonClicked" prefHeight="70.0" prefWidth="146.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Clients" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -47,7 +47,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="CENTER" layoutX="633.0" layoutY="129.0" mnemonicParsing="false" onAction="#showTransButtonClicked" prefHeight="80.0" prefWidth="146.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text=" Display Transactions by:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button alignment="CENTER" layoutX="626.0" layoutY="129.0" mnemonicParsing="false" onAction="#showTransButtonClicked" prefHeight="80.0" prefWidth="153.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text=" Display Transactions by:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -68,13 +68,21 @@
             <Font size="13.0" />
          </font>
       </RadioButton>
-      <ListView fx:id="myListView" editable="true" fixedCellSize="60.0" layoutX="41.0" layoutY="150.0" prefHeight="338.0" prefWidth="544.0" style="-fx-background-color: #0d0524; -fx-border-color: #160732; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
-      <Button fx:id="Authorize" layoutX="530.0" layoutY="31.0" mnemonicParsing="false" onAction="#AuthorizeButtonClicked" prefHeight="40.0" prefWidth="94.0" style="-fx-background-color: #300274; -fx-font-weight: bold; -fx-border-width: 3px; -fx-background-radius: 6px; -fx-border-radius: 7px; -fx-border-color: white;" text="Authorize" textFill="WHITE" underline="true" wrapText="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <MenuBar layoutX="254.0" layoutY="26.0" prefHeight="40.0" prefWidth="171.0">
-        <menus>
+      <ListView fx:id="myListView" editable="true" fixedCellSize="60.0" layoutX="44.0" layoutY="169.0" prefHeight="338.0" prefWidth="520.0" style="-fx-background-color: #0d0524; -fx-border-color: #160732; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+      <Text fill="WHITE" layoutX="21.0" layoutY="68.0" stroke="#2f0773" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Authorize Employee :">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Line endX="-10.5999755859375" endY="369.0" layoutX="612.0" layoutY="130.0" startX="-10.5999755859375" startY="46.59999084472656" stroke="#ccb1df" strokeWidth="3.0" />
+      <Line endX="-514.4000244140625" endY="-8.0" layoutX="602.0" layoutY="117.0" startX="-59.20001220703125" startY="-8.0" stroke="#c6a9d9" strokeWidth="3.0" />
+      <Text fx:id="Displaytext" fill="WHITE" layoutX="173.0" layoutY="154.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Display Screen" textAlignment="CENTER" wrappingWidth="284.85455322265625">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Text>
+      <SplitMenuButton fx:id="Authorize" alignment="CENTER" layoutX="254.0" layoutY="36.0" mnemonicParsing="false" onAction="#AuthorizeButtonClicked" prefHeight="47.0" prefWidth="180.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-width: 3px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Authorize" textAlignment="CENTER" textFill="#5929a1" underline="true">
+         <items>
           <Menu mnemonicParsing="false" text="       (Enter Attributes)      ">
             <items>
               <MenuItem mnemonicParsing="false" text="FirstName">
@@ -129,22 +137,13 @@
                   </MenuItem>
             </items>
           </Menu>
-        </menus>
+         </items>
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </MenuBar>
-      <Text fill="WHITE" layoutX="26.0" layoutY="55.0" stroke="#2f0773" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Authorize Employee :">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Line endX="-10.5999755859375" endY="369.0" layoutX="625.0" layoutY="103.0" startX="-10.5999755859375" startY="46.59999084472656" stroke="WHITE" strokeWidth="3.0" />
-      <Line endX="-514.4000244140625" endY="-8.0" layoutX="610.0" layoutY="94.0" startX="-59.20001220703125" startY="-8.0" stroke="WHITE" strokeWidth="3.0" />
-      <Text fx:id="Displaytext" fill="WHITE" layoutX="174.0" layoutY="133.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Display Screen" textAlignment="CENTER" wrappingWidth="284.85455322265625">
-         <font>
-            <Font size="29.0" />
-         </font>
-      </Text>
+      </SplitMenuButton>
    </children>
 </AnchorPane>

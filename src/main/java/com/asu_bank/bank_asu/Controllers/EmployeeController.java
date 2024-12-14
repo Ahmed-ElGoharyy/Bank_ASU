@@ -18,18 +18,14 @@ public class EmployeeController implements Initializable {
 
     @FXML
     private Text WelcomeText;
-
-
-
-
     @FXML
-    private Label EmployeeChoicebox;
-    @FXML
-    private ChoiceBox<String> MyEmployeeChoicebox;
-    private String[] employeemethods={"Add account","Add bank account","Edit account","Delete account","Search account","Edit personal informations"};
+    private Button NameSearchButton;
+
+
+
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        MyEmployeeChoicebox.getItems().addAll(employeemethods);
 
     }
 
