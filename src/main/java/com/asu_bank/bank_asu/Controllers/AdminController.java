@@ -121,6 +121,12 @@ public class AdminController implements Initializable {
                 utility.ShowErrorAlert("Error: All fields must be filled out.");
                 return;
             }
+            for (Employee employee : bank.BankEmployees) {
+                if (employee.getUserName().equals(UsernameText.getText())) {
+                    utility.ShowErrorAlert("Error: This username is already taken.");
+                    return;
+                }
+            }
             Employee newEmployee = new Employee(
 
                     FirstNameText.getText(),
