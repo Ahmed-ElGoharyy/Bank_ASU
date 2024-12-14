@@ -16,6 +16,30 @@ public class Moneytrans extends Transaction{
         return made_by;
     }
 
+    public Long getAccnumber() {
+        return this.accnumber;
+    }
+
+    public Integer getTransid() {
+        return this.getTransid();
+    }
+
+    public Double getAmount() {
+        return this.amount;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public java.util.Date getDate() {
+        return this.Date;
+    }
+
     public Moneytrans(long senderaccnum, long recieveraccnum, double amount, String type, Date Date, String madeby){
         super(senderaccnum,amount,type,Date);
         this.recieveraccnum=recieveraccnum;

@@ -5,10 +5,28 @@ import java.util.*;
 public class Client extends User {
     protected Long client_id ;
     protected  int counterr = 2005 ;
+
     protected ArrayList<CurrentAccount> current = new ArrayList<>() ;
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
     protected ArrayList<Transaction> credittrans = new ArrayList<>();
 
+
+    public ArrayList<SavingAccount> getSaving() {
+        return saving;
+    }
+
+    public void setSaving(ArrayList<SavingAccount> saving) {
+        this.saving = saving;
+    }
+
+
+    public ArrayList<CurrentAccount> getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(ArrayList<CurrentAccount> current) {
+        this.current = current;
+    }
 
 
     public Client( String firstName, String lastName, String userName, String password, long telephoneNumber) {
