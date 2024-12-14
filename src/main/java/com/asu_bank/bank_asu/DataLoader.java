@@ -30,28 +30,60 @@ public class DataLoader {
 
         List<Moneytrans> TransTansactions = readFile("TransferTransactions.csv", Moneytrans.class);
 
+        List<CurrentAccount> CurrentAccs = readFile("CuurentAccs.csv", CurrentAccount.class);
+
+        List<SavingAccount> SavingAccs = readFile("SavingAcc.csv", SavingAccount.class);
+
 
         bank.BankEmployees = emps;
         bank.BankClients = Clients;
         bank.BankATMTrans = atmTansactions;
         bank.BankMoneyTransfers = TransTansactions;
-        System.out.println(" Id: "+ TransTansactions.get(0).getTransid() + "  Date:  "+ TransTansactions.get(0).getDate());
+        bank.BankCurrentAccounts = CurrentAccs;
+        bank.BankSavingAccounts = SavingAccs;
 
 
 
-        //List<Client> clients = readFile("Client.csv", Client.class);
-        // List<Account> accounts = readFile("Account.csv", Account.class);
+
 
         //set account client relation
-        /*for(Client client : clients) {
-              clientMap.put(client.getId(), client);
+        for(Client client : Clients) {
+              clientMap.put(client.getClient_id(), client);
+              System.out.println("Client ID :"+client.getClient_id());
         }
-        for(Account acc : accounts) {
-           Long clientId= 10L;// acc.getClientId();
-           Client client = clientMap.get(clientId);
-           //client.get
-        }*/
+        for(SavingAccount acc : SavingAccs) {
+           Long clientId=   acc.getClient_id();
+            System.out.println(" Client id 444: "+ clientId);
+
+            Client client = clientMap.get(clientId);
+           ArrayList<SavingAccount> savings = client.getSaving();
+           if(savings == null){
+               savings = new ArrayList<SavingAccount>();
+               client.setSaving(savings);
+           }
+           savings.add(acc);
+        }
+
+        for(CurrentAccount acc : CurrentAccs) {
+            Long clientId=   acc.getClient_id();
+
+            Client client = clientMap.get(clientId);
+            ArrayList<CurrentAccount> currents = client.getCurrent();
+            if(currents == null){
+                currents = new ArrayList<CurrentAccount>();
+                client.setCurrent(currents);
+            }
+            currents.add(acc);
+        }
+
+        Client c = clientMap.get(Long.valueOf(2003));
+        System.out.println("Client Test ID :"+c);
+
+        System.out.println(" Client id: "+ c.getCurrent().get(0).getBalance());
+         // + "   "+c.getCurrent().get(1).getBalance());
     }
+
+
 
     public <T> List<T> readFile(String filename,Class<T> clazz) {
         String filepath = "";

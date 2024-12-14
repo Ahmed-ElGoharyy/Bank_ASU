@@ -20,6 +20,14 @@ abstract public class Account {
                         // For data loading
  }
 
+ public Long getClient_id() {
+  return client_id;           // Dont change this
+ }
+
+ public String getAccountType() {
+  return AccountType;       // dont change
+ }
+
  public Account(double balance) {
   counter++;
   this.accountnumber = Long.valueOf(counter);
@@ -28,11 +36,11 @@ abstract public class Account {
   this.AccountState = "Active";
  }
 
- public long getAccountnumber() {
+ public Long getAccountnumber() {
   return accountnumber;
  }
 
- public double getBalance() {
+ public Double getBalance() {
   return balance;
  }
 

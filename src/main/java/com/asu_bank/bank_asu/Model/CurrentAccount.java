@@ -8,6 +8,10 @@ public class CurrentAccount extends Account {
         checkminimumbalance();
     }
 
+    public  CurrentAccount(){
+        // For data loading
+    }
+
 
     public void checkminimumbalance() {
         if (super.getBalance() <= minimumBalance) {
