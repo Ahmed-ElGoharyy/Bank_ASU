@@ -29,7 +29,6 @@ public class AdminController implements Initializable {
     private Button ShowClients;
     @FXML
     private Text Displaytext;
-
     @FXML
      private TextField FirstNameText;
     @FXML
@@ -127,6 +126,7 @@ public class AdminController implements Initializable {
                     return;
                 }
             }
+
             Employee newEmployee = new Employee(
 
                     FirstNameText.getText(),
@@ -147,6 +147,8 @@ public class AdminController implements Initializable {
             utility.ShowErrorAlert("Error: Please enter valid numeric values for telephone number and graduation year.");
         }  catch (IllegalArgumentException e) {
             utility.ShowErrorAlert("Error: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e){
+            utility.ShowErrorAlert("Error: All fields must be filled out.");
         } catch (Exception e) {
             utility.ShowErrorAlert("Error: " + e.getMessage());
         }

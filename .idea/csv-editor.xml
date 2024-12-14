@@ -17,7 +17,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\main\resources\com\asu_bank\bank_asu\CuurentAccs.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\main\resources\com\asu_bank\bank_asu\Employee.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\main\resources\com\asu_bank\bank_asu\SavingAcc.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
