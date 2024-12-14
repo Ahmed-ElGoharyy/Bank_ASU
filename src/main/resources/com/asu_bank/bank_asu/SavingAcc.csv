@@ -1,0 +1,4 @@
+client_id,AccountNumber,AccountState,AccountType,Balance
+1008,1,Active,Saving,1200000.0
+1006,3,Active,Saving,5000.0
+1007,5,Active,Saving,800.0
