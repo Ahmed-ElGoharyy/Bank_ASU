@@ -72,7 +72,7 @@ public class AdminController implements Initializable {
         myListView.getItems().clear();
 
         try {
-            if (bank == null) {
+            if (bank == null)  {
                 System.out.println("Warning: Bank object not injected. Employee data might not be available.");
             } else {
                 // Get employee data from Bank object (assuming getter method)
@@ -103,6 +103,7 @@ public class AdminController implements Initializable {
 
     @FXML
     private void AuthorizeButtonClicked(ActionEvent event) {
+
         String adminUsername = "admin";
 
         try {
@@ -111,15 +112,12 @@ public class AdminController implements Initializable {
                 utility.ShowErrorAlert("Error: Username '" + adminUsername + "' is reserved for the admin.");
                 return;
             }
-            if (TotalGradeText.getText().isEmpty()) {
-                utility.ShowErrorAlert("Error: Total grade cannot be empty.");
-                return;
-            }
+
             if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
                     UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
                     TeleText.getText().isEmpty() || AddressText.getText().isEmpty() ||
                     PositionText.getText().isEmpty() || GradCollegeText.getText().isEmpty() ||
-                    GradYearText.getText().isEmpty()) {
+                    GradYearText.getText().isEmpty() || TotalGradeText.getText().isEmpty()){
                 utility.ShowErrorAlert("Error: All fields must be filled out.");
                 return;
             }
@@ -141,14 +139,15 @@ public class AdminController implements Initializable {
             utility.ShowSuccessAlert("New Employee added and authorized successfully!");
         } catch (NumberFormatException e) {
             utility.ShowErrorAlert("Error: Please enter valid numeric values for telephone number and graduation year.");
-        } catch (StringIndexOutOfBoundsException e) {
-            utility.ShowErrorAlert("Error: Total grade cannot be empty.");
-        } catch (IllegalArgumentException e) {
+        }  catch (IllegalArgumentException e) {
             utility.ShowErrorAlert("Error: " + e.getMessage());
         } catch (Exception e) {
             utility.ShowErrorAlert("Error: " + e.getMessage());
         }
     }
+
+
+
     @FXML
     public void showClientsButtonClicked(ActionEvent event) {
         // Clear any existing items

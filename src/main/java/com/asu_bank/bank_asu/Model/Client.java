@@ -3,11 +3,12 @@ package com.asu_bank.bank_asu.Model;
 import java.util.*;
 
 public class Client extends User {
-    protected Long client_id;
-    protected  int counterr =2005;
-    protected ArrayList<CurrentAccount> current = new ArrayList<>();
+    protected Long client_id ;
+    protected  int counterr = 2005 ;
+    protected ArrayList<CurrentAccount> current = new ArrayList<>() ;
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
     protected ArrayList<Transaction> credittrans = new ArrayList<>();
+
 
 
     public Client( String firstName, String lastName, String userName, String password, long telephoneNumber) {
