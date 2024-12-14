@@ -153,7 +153,14 @@ public class AdminController implements Initializable {
                         return;
                     }
                 }
-
+                if (PositionText.getText().matches(".*\\d.*")) {
+                    utility.ShowErrorAlert("Error: Position cannot be numbers. Please enter a valid job title.");
+                    return;
+                }
+                if(GradCollegeText.getText().matches(".*\\d.*")){
+                    utility.ShowErrorAlert("Error: Graduated College cannot be numbers. Please enter a valid College name.");
+                return;
+                }
                 Employee newEmployee = new Employee(
 
                         FirstNameText.getText(),
