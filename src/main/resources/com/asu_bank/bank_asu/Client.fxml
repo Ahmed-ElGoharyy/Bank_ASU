@@ -26,9 +26,9 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Text fx:id="WelcomeText" fill="WHITE" fontSmoothingType="LCD" layoutX="101.0" layoutY="42.0" stroke="#121212" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Welcome" textAlignment="CENTER" wrappingWidth="517.62353515625">
+        <Text fx:id="Displaytext" fill="WHITE" fontSmoothingType="LCD" layoutX="35.0" layoutY="169.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Display " textAlignment="CENTER" wrappingWidth="517.62353515625">
             <font>
-                <Font name="Times New Roman Bold" size="35.0" />
+                <Font name="Times New Roman Italic" size="34.0" />
             </font>
         </Text>
         <MenuBar blendMode="OVERLAY" layoutX="7.0" layoutY="79.0" prefHeight="35.0" prefWidth="786.0">
@@ -106,7 +106,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </MenuBar>
-        <Button alignment="CENTER" layoutX="597.0" layoutY="406.0" mnemonicParsing="false" prefHeight="92.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Account Details" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+        <Button fx:id="DisolayAccount" alignment="CENTER" layoutX="597.0" layoutY="406.0" mnemonicParsing="false" onAction="#showaccountinfo" prefHeight="92.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Account Details" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
@@ -114,7 +114,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button alignment="CENTER" layoutX="597.0" layoutY="201.0" mnemonicParsing="false" prefHeight="98.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Transaction History" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+        <Button fx:id="TransactionButton" alignment="CENTER" layoutX="597.0" layoutY="201.0" mnemonicParsing="false" onAction="#showwTransButtonClicked" prefHeight="98.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Transaction History" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
@@ -122,7 +122,6 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="60.0" layoutX="47.0" layoutY="191.0" prefHeight="306.0" prefWidth="471.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+        <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="60.0" layoutX="48.0" layoutY="201.0" prefHeight="306.0" prefWidth="471.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
     </children>
 </AnchorPane>
-
