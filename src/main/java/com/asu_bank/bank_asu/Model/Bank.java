@@ -24,6 +24,9 @@ public class Bank {
     }
     public List<Transaction> getBankATMTrans() {return BankATMTrans;}
     public List<Moneytrans> getBankMoneyTransfers() {return BankMoneyTransfers;}
+    public List<CurrentAccount> getCurrentAccount() {return BankCurrentAccounts;}
+    public List<SavingAccount> getSavingAccount() {return BankSavingAccounts;}
+
 
 
     // Constructor Private to not make any objects except one "below" (only by getInstance() )
