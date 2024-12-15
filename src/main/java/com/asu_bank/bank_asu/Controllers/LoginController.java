@@ -2,6 +2,8 @@ package com.asu_bank.bank_asu.Controllers;
 
 import com.asu_bank.bank_asu.Main;
 import com.asu_bank.bank_asu.Model.*;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -106,33 +108,38 @@ public class LoginController {
 
 
 
-    public void Switch(ActionEvent event,String View)  {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(View+".fxml"));
-            Parent root = fxmlLoader.load();
+    public void Switch(ActionEvent event, String view) {
+        // Run FXML loading on a background thread to avoid blocking the UI thread
+        Task<Void> loadTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(view + ".fxml"));
+                Parent root = fxmlLoader.load();
 
-            // Get the controller of the new view
-            Object controller = fxmlLoader.getController();
+                // Get the controller of the new view
+                Object controller = fxmlLoader.getController();
 
-            // Check and set the user based on the controller type
-              if (controller instanceof EmployeeController) {
-                ((EmployeeController) controller).setCurrentUser(CurrentUser);
-            } if (controller instanceof ClientController) {
-                ((ClientController) controller).setCurrentUser(CurrentUser);
+                // Check and set the user based on the controller type
+                if (controller instanceof EmployeeController) {
+                    ((EmployeeController) controller).setCurrentUser(CurrentUser);
+                } else if (controller instanceof ClientController) {
+                    ((ClientController) controller).setCurrentUser(CurrentUser);
+                }
+
+                // Now switch to the new scene on the JavaFX Application thread
+                Platform.runLater(() -> {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                });
+
+                return null;
             }
+        };
 
-
-
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            utility.ShowErrorAlert("Error switching to admin view: " + e.getMessage());
-        }
+        new Thread(loadTask).start(); // Start the background thread
     }
-
 
 
 

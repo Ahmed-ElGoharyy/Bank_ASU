@@ -25,10 +25,20 @@ public class Main extends Application {
         stage.show();
     }
 
+
+
     public static void main(String[] args) throws Exception {
-        Bank bank = Bank.getInstance();
-        DataLoader dl = new DataLoader();
-        dl.loadData(bank);
+        // Run data loading asynchronously
+        Thread dataLoaderThread = new Thread(() -> {
+            Bank bank = Bank.getInstance();
+            DataLoader dl = new DataLoader();
+            dl.loadData(bank);
+        });
+
+        // Start the data loading in the background
+        dataLoaderThread.start();
+
+        // Launch the JavaFX application
         launch();
     }
 }

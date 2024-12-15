@@ -80,7 +80,8 @@ public class AdminController implements Initializable {
                     // Customize employee display format as needed (e.g., name, ID, department)
                     employeeListStrings.add("   ID:  " + employee.getId() + "       FirstName:  " +
                             employee.getFirstName() + "          LastName:  " + employee.getLasttName() +
-                            "         Position : " + employee.getPosition() + "         TotalGrade :  " +
+                            "         Position : " + employee.getPosition() +  "         Address :"+employee.getAddress()+
+                            "         TotalGrade :  " +
                             employee.getTotalGrade() + "       GraduationYear :  " + employee.getYearOfGradutaion());
                 }
 
@@ -191,6 +192,7 @@ public class AdminController implements Initializable {
 
     @FXML
     public void showClientsButtonClicked(ActionEvent event) {
+
         // Clear any existing items
         myListView.getItems().clear();
 
@@ -237,7 +239,7 @@ public class AdminController implements Initializable {
                 ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
                 ObservableList<Transaction> Transactions = TransactionObservableList;
 
-                ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.getBankMoneyTransfers());
+                ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.BankMoneyTransfers);
                 ObservableList<Moneytrans> Transfers = TransferObservableList;
 
                 // Create an ObservableList of Strings to display in the ListView
@@ -251,7 +253,11 @@ public class AdminController implements Initializable {
 
                 }
                 for(Moneytrans transfer : Transfers){
-                    TransactionsListStrings.add("   Transaction No :");
+                    TransactionsListStrings.add("   Transaction No :"+transfer.getTransid()+
+                    "         Transaction Account :" +transfer.getAccnumber()+
+                            "       Type : "+transfer.getType()+ "       Amount :  "+transfer.getAmount()+
+                            "     From : "+transfer.getAccnumber()+"      Date  :" +transfer.getDate() +
+                            "      Reciever :" +transfer.getRecieveraccnum() );
 
 
 

@@ -32,6 +32,7 @@ abstract public class Account {
   return AccountState;
  }
 
+
  public void setAccountState(String accountState) {
   AccountState = accountState;
  }

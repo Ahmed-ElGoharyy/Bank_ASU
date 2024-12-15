@@ -3,7 +3,7 @@ package com.asu_bank.bank_asu.Model;
 import java.util.Date;
 
 public class Moneytrans extends Transaction{
-    protected Long recieveraccnum;
+    protected Long recieveraccnum ;
     protected String made_by;
 
     public Moneytrans(){}
@@ -17,11 +17,11 @@ public class Moneytrans extends Transaction{
     }
 
     public Long getAccnumber() {
-        return this.accnumber;
+        return accnumber;
     }
 
     public Integer getTransid() {
-        return this.getTransid();
+        return transid;
     }
 
     public Double getAmount() {

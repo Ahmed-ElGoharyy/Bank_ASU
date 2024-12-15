@@ -31,18 +31,233 @@ public class EmployeeController implements Initializable {
     private Text WelcomeText;
     @FXML
     private Button NameSearchButton;
+    @FXML
+    private TextField PositionTextField;
+    @FXML
+    private TextField addressTextField;
+    @FXML
+    private TextField AccountNofield;
+    @FXML
+    private TextField EditAccfield;
+    @FXML
+    private TextField SearchAccTextField;
+    @FXML
+    private RadioButton Accradio;
+    @FXML
+    private  RadioButton Nameradio;
+    @FXML
+    private  Text Results;
+
 
 
 
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        System.out.println("intialize Start");
+
+        myListView.getItems().clear();
+        System.out.println("intialize end");
+    }
+
+
+
+
+    public void SearchAccButton(){
+        try {
+            Long SearchAcc = Long.valueOf(SearchAccTextField.getText());
+
+            // Check if either radio button is selected
+            if (!Accradio.isSelected() && !Nameradio.isSelected()) {
+                utility.ShowErrorAlert("Choose Client ID or Account No.");
+                return;
+            }
+
+            boolean accfound = false;
+            StringBuilder resultsText = new StringBuilder();
+
+            // Search for SavingAccount and CurrentAccount based on selected radio button
+            if (Nameradio.isSelected()) {
+                // Search for accounts by Client ID
+                for (SavingAccount acc : bank.BankSavingAccounts) {
+                    if (acc.getClient_id().equals(SearchAcc)) {
+                        if (accfound) {
+                            resultsText.append(" & ");
+                        } else {
+                            accfound = true;
+                        }
+                        resultsText.append("Found! Your Account No is : ").append(acc.getAccountnumber());
+                    }
+                }
+
+                for (CurrentAccount acc : bank.BankCurrentAccounts) {
+                    if (acc.getClient_id().equals(SearchAcc)) {
+                        if (accfound) {
+                            resultsText.append(" & ");
+                        } else {
+                            accfound = true;
+                        }
+                        resultsText.append("Found! Your Account No is : ").append(acc.getAccountnumber());
+                    }
+                }
+
+                if (!accfound) {
+                    utility.ShowErrorAlert("Client ID is incorrect! Can't find Your Account.");
+                }
+            } else if (Accradio.isSelected()) {
+                // Search for accounts by Account Number
+                for (SavingAccount acc : bank.BankSavingAccounts) {
+                    if (acc.getAccountnumber().equals(SearchAcc)) {
+                        if (accfound) {
+                            resultsText.append(" & ");
+                        } else {
+                            accfound = true;
+                        }
+                        resultsText.append("Found! Your Client ID is : ").append(acc.getClient_id());
+                    }
+                }
+
+                for (CurrentAccount acc : bank.BankCurrentAccounts) {
+                    if (acc.getAccountnumber().equals(SearchAcc)) {
+                        if (accfound) {
+                            resultsText.append(" & ");
+                        } else {
+                            accfound = true;
+                        }
+                        resultsText.append("Found! Your Client ID is : ").append(acc.getClient_id());
+                    }
+                }
+
+                if (!accfound) {
+                    utility.ShowErrorAlert("Account No is incorrect! Can't find Your Account.");
+                }
+            }
+
+            // Display the results if any account was found
+            if (accfound) {
+                Results.setText(resultsText.toString());
+            }
+
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Invalid Account Number or Client ID format.");
+        } catch (Exception e) {
+            utility.ShowErrorAlert("Error: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+    public void EditPersonalButtonClick(){
+        String newAdd = addressTextField.getText();
+        String newPos = PositionTextField.getText();
+        try {
+            // Check if either address or position is null or empty
+            if (newAdd == null || newAdd.trim().isEmpty() || newPos == null || newPos.trim().isEmpty()) {
+                utility.ShowErrorAlert("Fill all fields please.");
+            } else {
+                // Update the user information
+                currentUser.setAddress(newAdd);
+                currentUser.setPosition(newPos);
+
+                // Show success alert
+                utility.ShowSuccessAlert("Your Address Changed to: " + currentUser.getAddress() +
+                        "\n"+ "Your Position Changed to: " + currentUser.getPosition());
+            }
+        }catch (Exception e){
+            utility.ShowErrorAlert("Error changing Your info :"+e.getMessage());
+        }
+
+    }
+
+
+    public void EditAccountButton(){
+        try {
+            Long currentAcc = Long.parseLong(AccountNofield.getText());
+            String newAccState = EditAccfield.getText();
+
+            boolean accfound = false;
+            for (SavingAccount acc : bank.BankSavingAccounts) {
+                if (acc.getAccountnumber().equals(currentAcc)) {
+                    accfound = true;
+                    acc.setAccountState(newAccState);
+                    AccountNofield.setText("");
+                    utility.ShowSuccessAlert("Account State updated to :  " + newAccState);
+                }
+            }
+
+
+            for (CurrentAccount acc : bank.BankCurrentAccounts) {
+                if (acc.getAccountnumber().equals(currentAcc)) {
+                    accfound = true;
+                    acc.setAccountState(newAccState);
+                    AccountNofield.setText("");
+                    utility.ShowSuccessAlert("Account State updated to :  " + newAccState);
+                }
+            }
+            if (!accfound) {
+                utility.ShowErrorAlert("Account Number is incorrect!");
+
+            }
+        } catch (Exception e) {
+            utility.ShowErrorAlert(" Error :  "+e.getMessage());
+        }
+    }
+
+
+    public void DeleteAcc(){
+
+        Long currentAcc = Long.parseLong(AccountNofield.getText());
+
+        try {
+            if(utility.ConfirmAction("Are you sure You want to delete Acc No :"+currentAcc)) {
+
+            String newAccState = EditAccfield.getText();
+
+            boolean accfound = false;
+            for (int i = 0; i < bank.BankSavingAccounts.size(); i++) {
+                SavingAccount acc = bank.BankSavingAccounts.get(i);
+
+                if (acc.getAccountnumber().equals(currentAcc)) {
+                    accfound = true;
+
+                    // Remove the account from the list
+                    bank.BankSavingAccounts.remove(i);
+                    AccountNofield.setText("");
+                }
+            }
+                for (int i = 0; i < bank.BankCurrentAccounts.size(); i++) {
+                    CurrentAccount acc = bank.BankCurrentAccounts.get(i);
+
+                    if (acc.getAccountnumber().equals(currentAcc)) {
+                        accfound = true;
+
+                        // Remove the account from the list
+                        bank.BankCurrentAccounts.remove(i);
+                        AccountNofield.setText("");
+
+                    }
+                }
+            if (!accfound) {
+                utility.ShowErrorAlert("Account Number is incorrect!");
+            }
+            } else{}
+        } catch (Exception e) {
+            utility.ShowErrorAlert(" Error Deleting Account! :  "+e.getMessage());
+        }
+
+
 
     }
 
 
 
     public void DisplayAccount(ActionEvent event) {
+
+        System.out.println("dispAcc start");
+
         // Clear any existing items
         myListView.getItems().clear();
 
@@ -69,7 +284,7 @@ public class EmployeeController implements Initializable {
                 }
                 for(CurrentAccount current : currents){
                     AccListStrings.add("   Account No :"+current.getAccountnumber()
-                    +"      Account type: "+current.getAccountType()+
+                    + "      Account type: "+current.getAccountType()+
                             "         Account state :"+current.getAccountState()+"     Balance :"+current.getBalance());
 
 
@@ -77,16 +292,13 @@ public class EmployeeController implements Initializable {
                 }
 
                 myListView.setItems(AccListStrings);
-                myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-                    @Override
-                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                        selectedAcctext.setText("Selected Account : "+myListView.getSelectionModel().getSelectedItem());
-                    }
-                });
+
             }
         } catch (Exception e) {
             utility.ShowErrorAlert("Error loading Transaction : "+e);
         }
+        System.out.println("Dispacc end");
+
     }
 
 
@@ -97,7 +309,10 @@ public class EmployeeController implements Initializable {
 // TO set the current user to the user logged in
 
 
-    public void setCurrentUser(User user) {
+     public void setCurrentUser(User user) {
+
+        System.out.println("setuser start");
+
         if (user instanceof Employee) {
             this.currentUser = (Employee) user;
 
@@ -108,7 +323,11 @@ public class EmployeeController implements Initializable {
             // Optional: Handle unexpected user type
             utility.ShowErrorAlert("Invalid user type for Employee view");
         }
+        System.out.println("setuser end");
+
     }
+
+
 
     @FXML
     private void logoutButtonClicked(ActionEvent event) {

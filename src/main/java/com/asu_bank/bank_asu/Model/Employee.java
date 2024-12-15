@@ -6,11 +6,22 @@ import java.util.ArrayList;
 
 public class Employee extends User {
 
+
+
     protected String address;
     protected String position;
     protected String graduatedCollege;
     protected Integer yearOfGraduation;
     protected Character totalGrade;
+
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
     Scanner s=new Scanner(System.in);
     //Constructor
@@ -33,11 +44,11 @@ public class Employee extends User {
 
     public String getGraduatedCollege() {return graduatedCollege;}
 
-    public char getTotalGrade() {return totalGrade;}
+    public Character getTotalGrade() {return totalGrade;}
 
     public String getPosition() {return position;}
 
-    public int getYearOfGradutaion() {return yearOfGraduation;}
+    public Integer getYearOfGradutaion() {return yearOfGraduation;}
 
     public void createClientBankAccount(ArrayList<Client> clients) {
         try {

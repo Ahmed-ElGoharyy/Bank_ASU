@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Transaction {
     protected Long accnumber;
-    private Integer transid;
+    protected Integer transid;
     protected Double amount;
     public static int counter=0;
     protected String type;
