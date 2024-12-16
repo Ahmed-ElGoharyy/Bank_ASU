@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.net.URL;
 
 import java.util.ResourceBundle;
@@ -159,6 +160,13 @@ public class EmployeeController implements Initializable {
             // Check if either address or position is null or empty
             if (newAdd == null || newAdd.trim().isEmpty() || newPos == null || newPos.trim().isEmpty()) {
                 utility.ShowErrorAlert("Fill all fields please.");
+            }
+            if (PositionTextField.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: Position cannot be numbers. Please enter a valid job title.");
+                return;
+            }
+            if(!newAdd.matches(".*[a-zA-Z].*")||!newAdd.matches(".*[0-9].*")){
+                throw new IllegalArgumentException("Address must contain numbers and names");
             } else {
                 // Update the user information
                 currentUser.setAddress(newAdd);
@@ -171,16 +179,23 @@ public class EmployeeController implements Initializable {
         }catch (Exception e){
             utility.ShowErrorAlert("Error changing Your info :"+e.getMessage());
         }
-
     }
 
 
     public void EditAccountButton(){
         try {
-            Long currentAcc = Long.parseLong(AccountNofield.getText());
+            String accountNumberText = AccountNofield.getText();
             String newAccState = EditAccfield.getText();
-
+            if (!accountNumberText.matches("\\d+")) {
+                utility.ShowErrorAlert("Account Number must be numeric.");
+                return;
+            }
+            Long currentAcc = Long.parseLong(AccountNofield.getText());
             boolean accfound = false;
+            if (!newAccState.equals("Active") && !newAccState.equals("Inactive") && !newAccState.equals("active") && !newAccState.equals("inactive")){
+                utility.ShowErrorAlert("Account State must be 'Active' or 'Inactive'.");
+                return;
+            }
             for (SavingAccount acc : bank.BankSavingAccounts) {
                 if (acc.getAccountnumber().equals(currentAcc)) {
                     accfound = true;
@@ -203,33 +218,36 @@ public class EmployeeController implements Initializable {
                 utility.ShowErrorAlert("Account Number is incorrect!");
 
             }
+        }catch(NumberFormatException e){
+            utility.ShowErrorAlert(" Error : "+e.getMessage());
+        }catch(IllegalArgumentException e){
+            utility.ShowErrorAlert(" Error : "+e.getMessage());
         } catch (Exception e) {
             utility.ShowErrorAlert(" Error :  "+e.getMessage());
         }
     }
 
 
-    public void DeleteAcc(){
+    public void DeleteAcc() {
 
         Long currentAcc = Long.parseLong(AccountNofield.getText());
-
         try {
-            if(utility.ConfirmAction("Are you sure You want to delete Acc No :"+currentAcc)) {
 
-            String newAccState = EditAccfield.getText();
+            if (utility.ConfirmAction("Are you sure You want to delete Acc No :" + currentAcc)) {
 
-            boolean accfound = false;
-            for (int i = 0; i < bank.BankSavingAccounts.size(); i++) {
-                SavingAccount acc = bank.BankSavingAccounts.get(i);
+                boolean accfound = false;
+                for (int i = 0; i < bank.BankSavingAccounts.size(); i++) {
+                    SavingAccount acc = bank.BankSavingAccounts.get(i);
 
-                if (acc.getAccountnumber().equals(currentAcc)) {
-                    accfound = true;
+                    if (acc.getAccountnumber().equals(currentAcc)) {
+                        accfound = true;
 
-                    // Remove the account from the list
-                    bank.BankSavingAccounts.remove(i);
-                    AccountNofield.setText("");
+                        // Remove the account from the list
+                        bank.BankSavingAccounts.remove(i);
+                        AccountNofield.setText("");
+                        utility.ShowSuccessAlert("Account deleted successfully.");
+                    }
                 }
-            }
                 for (int i = 0; i < bank.BankCurrentAccounts.size(); i++) {
                     CurrentAccount acc = bank.BankCurrentAccounts.get(i);
 
@@ -239,14 +257,17 @@ public class EmployeeController implements Initializable {
                         // Remove the account from the list
                         bank.BankCurrentAccounts.remove(i);
                         AccountNofield.setText("");
-
+                        utility.ShowSuccessAlert("Account deleted successfully.");
                     }
                 }
-            if (!accfound) {
-                utility.ShowErrorAlert("Account Number is incorrect!");
+                if (!accfound) {
+                    throw new AccountNotFoundException("Account Number is incorrect!");
+                }
+            } else {
             }
-            } else{}
-        } catch (Exception e) {
+        } catch (AccountNotFoundException e){
+            utility.ShowErrorAlert(" Error:  " + e.getMessage());
+        }catch (Exception e) {
             utility.ShowErrorAlert(" Error Deleting Account! :  "+e.getMessage());
         }
 
