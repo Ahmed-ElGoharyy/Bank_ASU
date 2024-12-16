@@ -230,9 +230,16 @@ public class EmployeeController implements Initializable {
 
     public void DeleteAcc() {
 
-        Long currentAcc = Long.parseLong(AccountNofield.getText());
         try {
-
+            String accountNumberInput = AccountNofield.getText();
+            if (accountNumberInput.isEmpty()) {
+                utility.ShowErrorAlert("Account number cannot be empty. Please enter an account number.");
+                return;
+            }
+            if (!accountNumberInput.matches("\\d+")) {
+                throw new IllegalArgumentException("Account number must be numeric. Please enter an account number.");
+            }
+            Long currentAcc = Long.parseLong(AccountNofield.getText());
             if (utility.ConfirmAction("Are you sure You want to delete Acc No :" + currentAcc)) {
 
                 boolean accfound = false;
@@ -265,6 +272,10 @@ public class EmployeeController implements Initializable {
                 }
             } else {
             }
+        }catch (NumberFormatException e){
+            utility.ShowErrorAlert(" Error:  " + e.getMessage());
+        } catch (IllegalArgumentException e){
+            utility.ShowErrorAlert(" Error:  " + e.getMessage());
         } catch (AccountNotFoundException e){
             utility.ShowErrorAlert(" Error:  " + e.getMessage());
         }catch (Exception e) {
