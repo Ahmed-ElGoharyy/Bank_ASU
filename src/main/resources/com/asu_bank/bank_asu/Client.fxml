@@ -4,10 +4,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -26,87 +27,12 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Text fx:id="Displaytext" fill="WHITE" fontSmoothingType="LCD" layoutX="35.0" layoutY="169.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Display " textAlignment="CENTER" wrappingWidth="517.62353515625">
+        <Text fx:id="Displaytext" fill="WHITE" fontSmoothingType="LCD" layoutX="24.0" layoutY="381.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Display " textAlignment="CENTER" wrappingWidth="517.62353515625">
             <font>
                 <Font name="Times New Roman Italic" size="34.0" />
             </font>
         </Text>
-        <MenuBar blendMode="OVERLAY" layoutX="7.0" layoutY="79.0" prefHeight="35.0" prefWidth="786.0">
-            <menus>
-                <Menu mnemonicParsing="false" text="Edit Personal Info">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Username">
-                            <graphic>
-                                <TextField />
-                            </graphic>
-                        </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Password">
-                            <graphic>
-                                <TextField />
-                            </graphic>
-                        </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Phone number">
-                            <graphic>
-                                <TextField />
-                            </graphic>
-                        </MenuItem>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Transfer money">
-                    <items>
-                        <MenuItem mnemonicParsing="false">
-                            <graphic>
-                                <TextField text="From :" />
-                            </graphic>
-                        </MenuItem>
-                        <MenuItem mnemonicParsing="false">
-                            <graphic>
-                                <TextField text="To :" />
-                            </graphic>
-                        </MenuItem>
-                        <MenuItem mnemonicParsing="false">
-                            <graphic>
-                                <TextField text="Amount :" />
-                            </graphic>
-                        </MenuItem>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Credit Card Options">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Activiate Credit Card" />
-                        <MenuItem mnemonicParsing="false" text="Disable Credit Card" />
-                        <MenuItem mnemonicParsing="false" text="Display loyalty Points" />
-                        <MenuItem mnemonicParsing="false" text="Pay with Credit Card" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="ATM Transactions">
-                    <items>
-                        <Menu mnemonicParsing="false" text="Deposit">
-                            <items>
-                                <MenuItem mnemonicParsing="false">
-                                    <graphic>
-                                        <TextField text="Amount :" />
-                                    </graphic>
-                                </MenuItem>
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Withdraw">
-                            <items>
-                                <MenuItem mnemonicParsing="false">
-                                    <graphic>
-                                        <TextField text="Amount :" />
-                                    </graphic>
-                                </MenuItem>
-                            </items>
-                        </Menu>
-                    </items>
-                </Menu>
-            </menus>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-        </MenuBar>
-        <Button fx:id="DisolayAccount" alignment="CENTER" layoutX="597.0" layoutY="406.0" mnemonicParsing="false" onAction="#showaccountinfo" prefHeight="92.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Account Details" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+        <Button fx:id="DisolayAccount" alignment="CENTER" layoutX="575.0" layoutY="463.0" mnemonicParsing="false" onAction="#showaccountinfo" prefHeight="70.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Account Details" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
@@ -114,7 +40,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button fx:id="TransactionButton" alignment="CENTER" layoutX="597.0" layoutY="201.0" mnemonicParsing="false" onAction="#showwTransButtonClicked" prefHeight="98.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Transaction History" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+        <Button fx:id="TransactionButton" alignment="CENTER" layoutX="575.0" layoutY="381.0" mnemonicParsing="false" onAction="#showwTransButtonClicked" prefHeight="70.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Transaction History" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
@@ -122,6 +48,128 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="60.0" layoutX="48.0" layoutY="201.0" prefHeight="306.0" prefWidth="471.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+        <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="60.0" layoutX="56.0" layoutY="396.0" prefHeight="134.0" prefWidth="454.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+      <Line endX="-673.7999877929688" endY="46.600006103515625" layoutX="733.0" layoutY="294.0" startX="3.0" startY="46.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
+      <Line endX="-315.4000244140625" endY="-165.0" layoutX="715.0" layoutY="289.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="419.0" layoutY="122.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Credit Card Options " textAlignment="CENTER" wrappingWidth="310.42352294921875">
+         <font>
+            <Font name="Times New Roman Italic" size="28.0" />
+         </font>
+      </Text>
+      <Button alignment="CENTER" layoutX="575.0" layoutY="140.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="107.0" style="-fx-background-color: #124296; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Disable" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button alignment="CENTER" layoutX="456.0" layoutY="140.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="107.0" style="-fx-background-color: #7391c4; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Activate" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button alignment="CENTER" layoutX="434.0" layoutY="235.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="150.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Loyalty Points" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="599.0" layoutY="276.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Results " textAlignment="CENTER" wrappingWidth="199.22357177734375">
+         <font>
+            <Font name="Times New Roman Italic" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="Displaytext3" fill="WHITE" fontSmoothingType="LCD" layoutX="574.0" layoutY="277.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text=":" textAlignment="CENTER" wrappingWidth="69.62351989746094">
+         <font>
+            <Font name="Times New Roman Italic" size="34.0" />
+         </font>
+      </Text>
+      <SplitMenuButton alignment="CENTER" layoutX="58.0" layoutY="117.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Pay With Credit" textAlignment="CENTER" textFill="#0b1d3d">
+         <items>
+            <MenuItem mnemonicParsing="false" text="LE">
+               <graphic>
+                  <TextField fx:id="addressTextField1" alignment="CENTER" promptText="Amount" style="-fx-border-width: 1; -fx-border-color: black;" />
+               </graphic>
+            </MenuItem>
+         </items>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </SplitMenuButton>
+      <SplitMenuButton alignment="CENTER" layoutX="56.0" layoutY="187.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Transfer Money" textAlignment="CENTER" textFill="#0b1d3d">
+         <items>
+            <MenuItem mnemonicParsing="false">
+               <graphic>
+                  <TextField fx:id="addressTextField11" alignment="CENTER" promptText="From:" style="-fx-border-width: 1; -fx-border-color: black;" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false">
+               <graphic>
+                  <TextField fx:id="PositionTextField21" alignment="CENTER" promptText="To:" style="-fx-border-color: black; -fx-border-width: 1;" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false">
+               <graphic>
+                  <TextField fx:id="addressTextField111" alignment="CENTER" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
+               </graphic>
+            </MenuItem>
+         </items>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </SplitMenuButton>
+      <SplitMenuButton alignment="CENTER" layoutX="56.0" layoutY="254.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="ATM Transaction" textAlignment="CENTER" textFill="#0b1d3d">
+         <items>
+            <Menu mnemonicParsing="false" text="Withdraw :">
+              <items>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <TextField fx:id="addressTextField1111" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
+                     </graphic>
+                  </MenuItem>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Deposit :">
+               <items>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <TextField fx:id="addressTextField11111" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
+                     </graphic>
+                  </MenuItem>
+               </items>
+            </Menu>
+         </items>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </SplitMenuButton>
+      <SplitMenuButton alignment="CENTER" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #124296; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#0b3e1a">
+         <items>
+            <MenuItem mnemonicParsing="false">
+               <graphic>
+                  <TextField fx:id="addressTextField" promptText="Username" style="-fx-border-width: 1; -fx-border-color: black;" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false">
+               <graphic>
+                  <TextField fx:id="PositionTextField" promptText="password" style="-fx-border-color: black; -fx-border-width: 1;" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false">
+               <graphic>
+                  <TextField fx:id="PositionTextField1" promptText="Phone number" style="-fx-border-color: black; -fx-border-width: 1;" />
+               </graphic>
+            </MenuItem>
+         </items>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </SplitMenuButton>
     </children>
 </AnchorPane>
