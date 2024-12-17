@@ -22,6 +22,8 @@ public class EmployeeController implements Initializable {
 
     Bank bank = Bank.getInstance();
 
+
+
     @FXML
     private ListView<String> myListView;
     @FXML
@@ -308,16 +310,16 @@ public class EmployeeController implements Initializable {
                 ObservableList<String> AccListStrings = FXCollections.observableArrayList();
                 for (SavingAccount saving : savings) {
                     // Customize employee display format as needed (e.g., name, ID, department)
-                    AccListStrings.add("   Account No  :    "+ saving.getAccountnumber() +
-                            "         Account Type :" +saving.getAccountType()+
-                            "       Account State: "+saving.getAccountState()+ "       Balance :"+saving.getBalance());
+                    AccListStrings.add("   Account No  :   "+ saving.getAccountnumber() +
+                            "         Account Type :   " +saving.getAccountType()+
+                            "       Account State: "+saving.getAccountState()+ "       Balance :  "+saving.getBalance());
 
 
                 }
                 for(CurrentAccount current : currents){
-                    AccListStrings.add("   Account No :"+current.getAccountnumber()
-                    + "      Account type: "+current.getAccountType()+
-                            "         Account state :"+current.getAccountState()+"     Balance :"+current.getBalance());
+                    AccListStrings.add("    Account No :   "+current.getAccountnumber()
+                    + "       Account type: "+current.getAccountType()+
+                            "          Account state :  "+current.getAccountState()+"      Balance :  "+current.getBalance());
 
 
 
