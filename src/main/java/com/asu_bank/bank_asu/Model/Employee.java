@@ -497,6 +497,34 @@ public class Employee extends User {
         }
     }
 
+    public long getclientidbyname(ArrayList<Client>clients , String name){
+        long id=-1;
+        for(Client client : clients){
+            String s = client.firstName +" "+ client.lastName;
+            if(name.equalsIgnoreCase(s)){
+                id= client.getClient_id();
+                break;
+            }
+        }
+        //lw raga3 -1 yebaa mala2ho4
+        return id;
+    }
+    public String getclientnamebyid(ArrayList<Client>clients ,long clientid){
+        String name=new String();
+        boolean isfound=false;
+        for(Client client : clients){
+            if(clientid==client.getClient_id()){
+                name= client.firstName+client.lastName;
+                isfound=true;
+                break;
+            }
+        }
+        if(!isfound) {
+        name=null;
+        }
+        //lw raga3 null yebaa mala2aho4
+        return name;
+    }
 }
 
 
