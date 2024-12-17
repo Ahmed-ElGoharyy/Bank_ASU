@@ -135,6 +135,7 @@ public class AdminController implements Initializable {
         }
             try {
                 char totalGrade = TotalGradeText.getText().charAt(0);
+                String newAdd = AddressText.getText();
                 if (UsernameText.getText().equals(adminUsername)) {
                     utility.ShowErrorAlert("Error: Username '" + adminUsername + "' is reserved for the admin.");
                     return;
@@ -161,6 +162,17 @@ public class AdminController implements Initializable {
                 if(GradCollegeText.getText().matches(".*\\d.*")){
                     utility.ShowErrorAlert("Error: Graduated College cannot be numbers. Please enter a valid College name.");
                 return;
+                }
+                if(!newAdd.matches(".*[a-zA-Z].*")||!newAdd.matches(".*[0-9].*")){
+                    throw new IllegalArgumentException("Address must contain numbers and names");
+                }
+                if (FirstNameText.getText().matches(".*\\d.*")) {
+                    utility.ShowErrorAlert("Error: First name cannot contain numbers.");
+                    return;
+                }
+                if (LastNameText.getText().matches(".*\\d.*")) {
+                    utility.ShowErrorAlert("Error: Last name cannot contain numbers.");
+                    return;
                 }
                 Employee newEmployee = new Employee(
 
