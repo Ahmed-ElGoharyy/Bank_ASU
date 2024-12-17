@@ -2,9 +2,14 @@ package com.asu_bank.bank_asu.Model;
 
 public class CurrentAccount extends Account {
     private final double minimumBalance = 3000;
-    public CurrentAccount(double balance){
+
+
+
+    public CurrentAccount(double balance, Long ClientID){
         super(balance);
         super.AccountType="Current";
+        super.client_id = ClientID;
+
         checkminimumbalance();
     }
 

@@ -7,9 +7,11 @@ public class SavingAccount extends Account {
     public  SavingAccount( ){
         //for data loading
     }
-    public SavingAccount(double balance){
+
+    public SavingAccount(double balance, Long ClientID){
         super(balance);
         super.AccountType="Saving";
+        super.client_id = ClientID;
     }
 
     public void calculatinterestrate()

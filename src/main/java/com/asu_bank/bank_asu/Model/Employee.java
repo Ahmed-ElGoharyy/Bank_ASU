@@ -106,14 +106,10 @@ public class Employee extends User {
 
                         // Create account based on type
                         if (c == 'c' || c == 'C') {
-                            CurrentAccount curr = new CurrentAccount(bal);
-                            client.current.add(curr);
+
                             System.out.println("Current Account Added Successfully");
-                        } else if (c == 'S' || c == 's') {
-                            SavingAccount sav = new SavingAccount(bal);
-                            client.saving.add(sav);
-                            System.out.println("Saving Account Added Successfully");
-                        } else {
+                        }
+                         else {
                             System.out.println("Invalid account type. Please choose C or S.");
                         }
                         break;

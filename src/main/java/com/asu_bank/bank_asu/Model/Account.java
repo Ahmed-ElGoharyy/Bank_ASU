@@ -7,14 +7,14 @@ import java.util.Scanner;
 
 abstract public class Account {
 
- private Long client_id;
+ protected Long client_id;
  private  Long accountnumber;
  protected ArrayList<Transaction> trasactions = new ArrayList<>();
  protected ArrayList<Moneytrans> moneytransfer = new ArrayList<>();
  protected String AccountState;
  protected String AccountType;
  private Double balance;
- private static Integer counter = 7;
+ private static Integer counter = 8;
 
  public Account(){
                         // For data loading
@@ -40,9 +40,9 @@ abstract public class Account {
  public Account(double balance) {
   counter++;
   this.accountnumber = Long.valueOf(counter);
-  ;
+
   this.balance = balance;
-  this.AccountState = "Active";
+  this.AccountState = "InActive";
  }
 
  public Long getAccountnumber() {

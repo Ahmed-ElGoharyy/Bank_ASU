@@ -65,6 +65,7 @@ public class LoginController {
                     CurrentUser = employee;
                     CurrentUser  =(Employee) CurrentUser;     //Down Casting USER
                     Switch(event, "Employee");
+                    System.out.println("Employee login works");  // for debugging
                     return;
                 } else {
                     utility.ShowErrorAlert("Incorrect password!");

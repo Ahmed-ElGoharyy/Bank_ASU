@@ -1,4 +1,5 @@
 package com.asu_bank.bank_asu.Controllers;
+
 import com.asu_bank.bank_asu.Model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -52,7 +53,14 @@ public class EmployeeController implements Initializable {
     private  Text Results;
 
 
-
+    @FXML
+    private TextField SavingClientID;
+    @FXML
+    private TextField SavingStartBalance;
+    @FXML
+    private TextField CurrentClientID;
+    @FXML
+    private TextField CurrentStartBalance;
 
 
     @Override
@@ -63,6 +71,69 @@ public class EmployeeController implements Initializable {
         System.out.println("intialize end");
     }
 
+
+
+        public void CreateSavingAccButton() {
+            try {
+                Double startBalance = Double.valueOf(SavingStartBalance.getText());
+                Long clientId = Long.valueOf(SavingClientID.getText());
+
+                SavingAccount newSavingAcc = new SavingAccount(startBalance, clientId);
+
+                // Add to the bank's list of saving accounts
+                bank.BankSavingAccounts.add(newSavingAcc);
+
+                // Find the client with the matching client ID and add the account to their list
+
+                for (Client client : bank.BankClients) {
+                    if (client.getClient_id().equals(clientId)) {
+                        client.getSaving().add(newSavingAcc);
+                        break;
+                    }
+                }
+
+                utility.ShowSuccessAlert("Saving Account added successfully for Client: " + clientId + "\n" +
+                        "Your Account Number: " + newSavingAcc.getAccountnumber() + "\n" +
+                        "Your Account State: " + newSavingAcc.getAccountState() + "\n" +
+                        "Your Current Balance: " + newSavingAcc.getBalance() + "\n");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+
+            }
+        }
+
+
+    public void CreateCurrentAccButton() {
+        try {
+            Double startBalance = Double.valueOf(CurrentStartBalance.getText());
+            Long clientId = Long.valueOf(CurrentClientID.getText());
+
+
+            //need t check balance before!!!!!!!!!!!!!!
+
+            CurrentAccount newCurrentAcc = new CurrentAccount(startBalance, clientId);
+
+            // Add to the bank's list of saving accounts
+            bank.BankCurrentAccounts.add(newCurrentAcc);
+
+            // Find the client with the matching client ID and add the account to their list
+
+            for (Client client : bank.BankClients) {
+                if (client.getClient_id().equals(clientId)) {
+                    client.getCurrent().add(newCurrentAcc);
+                    break;
+                }
+            }
+
+            utility.ShowSuccessAlert("Current Account added successfully for Client: " + clientId + "\n" +
+                    "Your Account Number: " + newCurrentAcc.getAccountnumber() + "\n" +
+                    "Your Account State: " + newCurrentAcc.getAccountState() + "\n" +
+                    "Your Current Balance: " + newCurrentAcc.getBalance() + "\n");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
+        }
+    }
 
 
 
