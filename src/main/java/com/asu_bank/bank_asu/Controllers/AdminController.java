@@ -99,9 +99,19 @@ public class AdminController implements Initializable {
 
         String adminUsername = "admin";
         int graduationYear;
-        long telephoneNumber;
+        Long telephoneNumber;
         try {
-            telephoneNumber = Long.parseLong(TeleText.getText());
+            telephoneNumber = Long.valueOf(TeleText.getText());
+
+
+            if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
+                    UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
+                    TeleText.getText().isEmpty() || AddressText.getText().isEmpty() ||
+                    PositionText.getText().isEmpty() || GradCollegeText.getText().isEmpty() ||
+                    GradYearText.getText().isEmpty() || TotalGradeText.getText().isEmpty()) {
+                utility.ShowErrorAlert("Error: All fields must be filled out.");
+                return;
+            }
             if (String.valueOf(telephoneNumber).length() <6) {
                 utility.ShowErrorAlert("Error: Telephone number must be at least 7 digits.");
                 return;
@@ -115,7 +125,7 @@ public class AdminController implements Initializable {
                 return;
             }
         } catch (NumberFormatException e) {
-            utility.ShowErrorAlert("Error: Telephone number must be a valid number.");
+            utility.ShowErrorAlert("Error: Some Fields are Empty.");
             return;
         }
         try {
@@ -141,14 +151,6 @@ public class AdminController implements Initializable {
                     return;
                 }
 
-                if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
-                        UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
-                        TeleText.getText().isEmpty() || AddressText.getText().isEmpty() ||
-                        PositionText.getText().isEmpty() || GradCollegeText.getText().isEmpty() ||
-                        GradYearText.getText().isEmpty() || TotalGradeText.getText().isEmpty()) {
-                    utility.ShowErrorAlert("Error: All fields must be filled out.");
-                    return;
-                }
                 for (Employee employee : bank.BankEmployees) {
                     if (employee.getUserName().equals(UsernameText.getText())) {
                         utility.ShowErrorAlert("Error: This username is already taken.");

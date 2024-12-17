@@ -15,6 +15,8 @@ public class Employee extends User {
     protected Character totalGrade;
 
 
+    Bank bank = Bank.getInstance();
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -497,22 +499,25 @@ public class Employee extends User {
         }
     }
 
-    public long getclientidbyname(ArrayList<Client>clients , String name){
-        long id=-1;
-        for(Client client : clients){
+    public Long getclientidbyname( String name){
+
+        for(Client client : bank.BankClients){
             String s = client.firstName +" "+ client.lastName;
             if(name.equalsIgnoreCase(s)){
                 id= client.getClient_id();
                 break;
             }
+            else {
+                id= null;
+            }
         }
         //lw raga3 -1 yebaa mala2ho4
         return id;
     }
-    public String getclientnamebyid(ArrayList<Client>clients ,long clientid){
+    public String getclientnamebyid( Long clientid){
         String name=new String();
         boolean isfound=false;
-        for(Client client : clients){
+        for(Client client : bank.BankClients){
             if(clientid==client.getClient_id()){
                 name= client.firstName+client.lastName;
                 isfound=true;

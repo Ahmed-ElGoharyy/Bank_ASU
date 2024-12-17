@@ -139,7 +139,7 @@ public class EmployeeController implements Initializable {
 
     public void SearchAccButton(){
         try {
-            Long SearchAcc = Long.valueOf(SearchAccTextField.getText());
+
 
             // Check if either radio button is selected
             if (!Accradio.isSelected() && !Nameradio.isSelected()) {
@@ -150,35 +150,24 @@ public class EmployeeController implements Initializable {
             boolean accfound = false;
             StringBuilder resultsText = new StringBuilder();
 
-            // Search for SavingAccount and CurrentAccount based on selected radio button
             if (Nameradio.isSelected()) {
-                // Search for accounts by Client ID
-                for (SavingAccount acc : bank.BankSavingAccounts) {
-                    if (acc.getClient_id().equals(SearchAcc)) {
-                        if (accfound) {
-                            resultsText.append(" & ");
-                        } else {
-                            accfound = true;
-                        }
-                        resultsText.append("Found! Your Account No is : ").append(acc.getAccountnumber());
+
+                String SearchAcc = SearchAccTextField.getText();
+
+                    Long idsearch = currentUser.getclientidbyname(SearchAcc); // functin we made to get id
+
+                    if (idsearch !=null) {
+                        accfound=true;
+                        resultsText.append("Found! Your Client ID is : ").append(idsearch);
                     }
+                    else {
+                         utility.ShowErrorAlert("Name is incorrect! Can't find Your Client ID");
                 }
 
-                for (CurrentAccount acc : bank.BankCurrentAccounts) {
-                    if (acc.getClient_id().equals(SearchAcc)) {
-                        if (accfound) {
-                            resultsText.append(" & ");
-                        } else {
-                            accfound = true;
-                        }
-                        resultsText.append("Found! Your Account No is : ").append(acc.getAccountnumber());
-                    }
-                }
 
-                if (!accfound) {
-                    utility.ShowErrorAlert("Client ID is incorrect! Can't find Your Account.");
-                }
             } else if (Accradio.isSelected()) {
+
+                Long SearchAcc = Long.valueOf(SearchAccTextField.getText());
                 // Search for accounts by Account Number
                 for (SavingAccount acc : bank.BankSavingAccounts) {
                     if (acc.getAccountnumber().equals(SearchAcc)) {
@@ -207,7 +196,6 @@ public class EmployeeController implements Initializable {
                 }
             }
 
-            // Display the results if any account was found
             if (accfound) {
                 Results.setText(resultsText.toString());
             }
@@ -381,15 +369,17 @@ public class EmployeeController implements Initializable {
                 for (SavingAccount saving : savings) {
                     // Customize employee display format as needed (e.g., name, ID, department)
                     AccListStrings.add("   Account No  :   "+ saving.getAccountnumber() +
+                            "         Account owner's ID :    "+saving.getClient_id()+
                             "         Account Type :   " +saving.getAccountType()+
-                            "       Account State: "+saving.getAccountState()+ "       Balance :  "+saving.getBalance());
+                            "         Account State: "+saving.getAccountState()+ "       Balance :  "+saving.getBalance());
 
 
                 }
                 for(CurrentAccount current : currents){
-                    AccListStrings.add("    Account No :   "+current.getAccountnumber()
-                    + "       Account type: "+current.getAccountType()+
-                            "          Account state :  "+current.getAccountState()+"      Balance :  "+current.getBalance());
+                    AccListStrings.add("    Account No :   "+current.getAccountnumber()+
+                            "         Account owner's ID :    "+current.getClient_id()+
+                            "        Account type:  "+current.getAccountType()+
+                            "         Account state :   "+current.getAccountState()+"      Balance :  "+current.getBalance());
 
 
 

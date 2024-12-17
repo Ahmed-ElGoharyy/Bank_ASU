@@ -140,7 +140,7 @@
          </font>
       </Text>
       <Line endX="-266.20001220703125" endY="-196.39999389648438" layoutX="975.0" layoutY="575.0" startX="-266.20001220703125" startY="2.0" stroke="#9fccae" strokeWidth="3.0" />
-      <RadioButton fx:id="Nameradio" layoutX="497.0" layoutY="204.0" mnemonicParsing="false" text="Client ID" textFill="WHITE">
+      <RadioButton fx:id="Nameradio" layoutX="497.0" layoutY="204.0" mnemonicParsing="false" text=" By Name" textFill="WHITE">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -148,7 +148,7 @@
             <ToggleGroup fx:id="aa" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="Accradio" layoutX="497.0" layoutY="243.0" mnemonicParsing="false" text="Account No" textFill="WHITE" toggleGroup="$aa">
+      <RadioButton fx:id="Accradio" layoutX="497.0" layoutY="243.0" mnemonicParsing="false" text="By Account No" textFill="WHITE" toggleGroup="$aa">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
