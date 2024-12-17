@@ -12,59 +12,62 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #404552; -fx-border-color: white; -fx-border-width: 7px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.ClientController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #404552; -fx-border-color: white; -fx-border-width: 7px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.ClientController">
     <children>
-        <Text fill="WHITE" layoutX="294.0" layoutY="577.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Client Panel">
+        <Text fill="WHITE" layoutX="565.0" layoutY="697.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Client Panel">
             <font>
                 <Font size="28.0" />
             </font>
         </Text>
-        <Button fx:id="LogOutButton" alignment="CENTER" layoutX="686.0" layoutY="18.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="50.0" prefWidth="107.0" style="-fx-background-color: black; -fx-border-color: White; -fx-background-radius: 15px; -fx-border-radius: 12px; -fx-border-width: 3px;" text="Log Out" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+        <Button fx:id="LogOutButton" alignment="CENTER" layoutX="1146.0" layoutY="26.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="62.0" prefWidth="119.0" style="-fx-background-color: black; -fx-border-color: White; -fx-background-radius: 15px; -fx-border-radius: 12px; -fx-border-width: 3px;" text="Log Out" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
             <font>
-                <Font name="Arial Bold" size="15.0" />
+                <Font name="Arial Bold" size="18.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Text fx:id="Displaytext" fill="WHITE" fontSmoothingType="LCD" layoutX="24.0" layoutY="381.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Display " textAlignment="CENTER" wrappingWidth="517.62353515625">
+        <Text fx:id="Displaytext" fill="WHITE" fontSmoothingType="LCD" layoutX="263.0" layoutY="456.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Display " textAlignment="CENTER" wrappingWidth="517.62353515625">
             <font>
-                <Font name="Times New Roman Italic" size="34.0" />
+                <Font name="Times New Roman Italic" size="38.0" />
             </font>
         </Text>
-        <Button fx:id="DisolayAccount" alignment="CENTER" layoutX="575.0" layoutY="463.0" mnemonicParsing="false" onAction="#showaccountinfo" prefHeight="70.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Account Details" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+        <Button fx:id="DisolayAccount" alignment="CENTER" layoutX="900.0" layoutY="565.0" mnemonicParsing="false" onAction="#showaccountinfo" prefHeight="91.0" prefWidth="199.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Account Details" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
             <font>
-                <Font name="System Bold" size="16.0" />
+                <Font name="System Bold" size="18.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button fx:id="TransactionButton" alignment="CENTER" layoutX="575.0" layoutY="381.0" mnemonicParsing="false" onAction="#showwTransButtonClicked" prefHeight="70.0" prefWidth="178.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Transaction History" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+        <Button fx:id="TransactionButton" alignment="CENTER" layoutX="900.0" layoutY="443.0" mnemonicParsing="false" onAction="#showwTransButtonClicked" prefHeight="98.0" prefWidth="199.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Transaction History" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
             <font>
-                <Font name="System Bold" size="16.0" />
+                <Font name="System Bold" size="18.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="60.0" layoutX="56.0" layoutY="396.0" prefHeight="134.0" prefWidth="454.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
-      <Line endX="-673.7999877929688" endY="46.600006103515625" layoutX="733.0" layoutY="294.0" startX="3.0" startY="46.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
-      <Line endX="-315.4000244140625" endY="-165.0" layoutX="715.0" layoutY="289.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="419.0" layoutY="122.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Credit Card Options " textAlignment="CENTER" wrappingWidth="310.42352294921875">
+        <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="75.0" layoutX="239.0" layoutY="468.0" prefHeight="177.0" prefWidth="566.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+      <Line endX="-722.7999877929688" endY="46.600006103515625" layoutX="954.0" layoutY="356.0" startX="153.2000732421875" startY="46.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
+      <Line endX="-315.4000244140625" endY="-165.0" layoutX="1130.0" layoutY="346.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
+      <Button alignment="CENTER" layoutX="1053.0" layoutY="221.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="119.0" style="-fx-background-color: #7391c4; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Disable" textAlignment="CENTER" textFill="#660e11" textOverrun="CLIP" wrapText="true">
          <font>
-            <Font name="Times New Roman Italic" size="28.0" />
-         </font>
-      </Text>
-      <Button alignment="CENTER" layoutX="575.0" layoutY="140.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="107.0" style="-fx-background-color: #124296; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Disable" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
-         <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="System Bold" size="19.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="CENTER" layoutX="456.0" layoutY="140.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="107.0" style="-fx-background-color: #7391c4; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Activate" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button alignment="CENTER" layoutX="913.0" layoutY="221.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="119.0" style="-fx-background-color: #7391c4; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Activate" textAlignment="CENTER" textFill="#11612a" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button alignment="CENTER" layoutX="900.0" layoutY="311.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="146.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Loyalty Points" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -72,25 +75,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="CENTER" layoutX="434.0" layoutY="235.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="150.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Loyalty Points" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="599.0" layoutY="276.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Results " textAlignment="CENTER" wrappingWidth="199.22357177734375">
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="1067.0" layoutY="356.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Results " textAlignment="CENTER" wrappingWidth="199.22357177734375">
          <font>
             <Font name="Times New Roman Italic" size="28.0" />
          </font>
       </Text>
-      <Text fx:id="Displaytext3" fill="WHITE" fontSmoothingType="LCD" layoutX="574.0" layoutY="277.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text=":" textAlignment="CENTER" wrappingWidth="69.62351989746094">
+      <Text fx:id="Displaytext3" fill="WHITE" fontSmoothingType="LCD" layoutX="1043.0" layoutY="358.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text=":" textAlignment="CENTER" wrappingWidth="69.62351989746094">
          <font>
             <Font name="Times New Roman Italic" size="34.0" />
          </font>
       </Text>
-      <SplitMenuButton alignment="CENTER" layoutX="58.0" layoutY="117.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Pay With Credit" textAlignment="CENTER" textFill="#0b1d3d">
+      <SplitMenuButton alignment="CENTER" layoutX="102.0" layoutY="137.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="62.0" prefWidth="219.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Pay With Credit" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
             <MenuItem mnemonicParsing="false" text="LE">
                <graphic>
@@ -99,10 +94,10 @@
             </MenuItem>
          </items>
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </SplitMenuButton>
-      <SplitMenuButton alignment="CENTER" layoutX="56.0" layoutY="187.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Transfer Money" textAlignment="CENTER" textFill="#0b1d3d">
+      <SplitMenuButton alignment="CENTER" layoutX="102.0" layoutY="221.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="62.0" prefWidth="219.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Transfer Money" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
             <MenuItem mnemonicParsing="false">
                <graphic>
@@ -121,10 +116,10 @@
             </MenuItem>
          </items>
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </SplitMenuButton>
-      <SplitMenuButton alignment="CENTER" layoutX="56.0" layoutY="254.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="ATM Transaction" textAlignment="CENTER" textFill="#0b1d3d">
+      <SplitMenuButton alignment="CENTER" layoutX="102.0" layoutY="311.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="219.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="ATM Transaction" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
             <Menu mnemonicParsing="false" text="Withdraw :">
               <items>
@@ -146,10 +141,10 @@
             </Menu>
          </items>
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </SplitMenuButton>
-      <SplitMenuButton alignment="CENTER" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #124296; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#0b3e1a">
+      <SplitMenuButton alignment="CENTER" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="210.0" style="-fx-border-color: #124296; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#1b337b">
          <items>
             <MenuItem mnemonicParsing="false">
                <graphic>
@@ -168,8 +163,19 @@
             </MenuItem>
          </items>
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="17.0" />
          </font>
       </SplitMenuButton>
+      <Text fill="WHITE" layoutX="890.0" layoutY="193.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Credit Card Options" wrappingWidth="324.40625">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Text>
+      <Line endX="-315.4000244140625" endY="-165.0" layoutX="756.0" layoutY="345.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
+      <Text fill="WHITE" layoutX="478.0" layoutY="154.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Account in use :" wrappingWidth="324.40625">
+         <font>
+            <Font name="System Bold" size="42.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

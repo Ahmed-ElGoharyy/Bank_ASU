@@ -15,73 +15,67 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-border-width: 7px; -fx-border-color: black; -fx-background-color: #404552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-border-width: 7px; -fx-border-color: black; -fx-background-color: #404552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.AdminController">
    <children>
-      <Text fill="WHITE" layoutX="316.0" layoutY="577.0" stroke="#2d0a51" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Admin Panel">
+      <Text fill="WHITE" layoutX="580.0" layoutY="698.0" stroke="#4a197e" strokeType="OUTSIDE" strokeWidth="4.0" style="-fx-font-weight: bold;" text="Admin Panel" wrappingWidth="186.775146484375">
          <font>
-            <Font size="30.0" />
+            <Font size="29.0" />
          </font>
       </Text>
-      <Button fx:id="LogOutButton" alignment="CENTER" layoutX="685.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="50.0" prefWidth="107.0" style="-fx-background-color: black; -fx-border-color: White; -fx-background-radius: 15px; -fx-border-radius: 12px; -fx-border-width: 3px;" text="Log Out" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+      <Button fx:id="LogOutButton" alignment="CENTER" layoutX="1141.0" layoutY="19.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="59.0" prefWidth="124.0" style="-fx-background-color: black; -fx-border-color: White; -fx-background-radius: 15px; -fx-border-radius: 12px; -fx-border-width: 3px;" text="Log Out" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
          <font>
-            <Font name="Arial Bold" size="15.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
       <ButtonBar layoutX="42.0" layoutY="109.0" prefHeight="40.0" prefWidth="200.0" />
-    <Button fx:id="ShowEmps" alignment="CENTER" layoutX="633.0" layoutY="431.0" mnemonicParsing="false" onAction="#showEmpsButtonClicked" prefHeight="70.0" prefWidth="146.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Employees" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+    <Button fx:id="ShowEmps" alignment="CENTER" layoutX="963.0" layoutY="491.0" mnemonicParsing="false" onAction="#showEmpsButtonClicked" prefHeight="90.0" prefWidth="200.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Employees" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="ShowClients" alignment="CENTER" layoutX="963.0" layoutY="369.0" mnemonicParsing="false" onAction="#showClientsButtonClicked" prefHeight="90.0" prefWidth="200.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Clients" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button alignment="CENTER" layoutX="963.0" layoutY="138.0" mnemonicParsing="false" onAction="#showTransButtonClicked" prefHeight="98.0" prefWidth="200.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text=" Display Transactions by:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <RadioButton layoutX="1037.0" layoutY="261.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="71.0" text="Date" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button fx:id="ShowClients" alignment="CENTER" layoutX="633.0" layoutY="315.0" mnemonicParsing="false" onAction="#showClientsButtonClicked" prefHeight="70.0" prefWidth="146.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Clients" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button alignment="CENTER" layoutX="626.0" layoutY="129.0" mnemonicParsing="false" onAction="#showTransButtonClicked" prefHeight="80.0" prefWidth="153.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text=" Display Transactions by:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <RadioButton layoutX="674.0" layoutY="227.0" mnemonicParsing="false" text="Date" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
          </font>
          <toggleGroup>
             <ToggleGroup fx:id="fooo" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="674.0" layoutY="254.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Clients" textFill="WHITE" toggleGroup="$fooo">
+      <Text fill="WHITE" layoutX="49.0" layoutY="69.0" stroke="#2f0773" strokeType="OUTSIDE" strokeWidth="5.0" style="-fx-font-weight: bold;" text="Authorize Employee :" wrappingWidth="284.85455322265636">
          <font>
-            <Font size="13.0" />
-         </font>
-      </RadioButton>
-      <ListView fx:id="myListView" editable="true" fixedCellSize="60.0" layoutX="44.0" layoutY="169.0" prefHeight="338.0" prefWidth="520.0" style="-fx-background-color: #0d0524; -fx-border-color: #160732; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
-      <Text fill="WHITE" layoutX="21.0" layoutY="68.0" stroke="#2f0773" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Authorize Employee :">
-         <font>
-            <Font size="22.0" />
+            <Font size="28.0" />
          </font>
       </Text>
-      <Line endX="-10.5999755859375" endY="369.0" layoutX="612.0" layoutY="130.0" startX="-10.5999755859375" startY="46.59999084472656" stroke="#ccb1df" strokeWidth="3.0" />
-      <Line endX="-514.4000244140625" endY="-8.0" layoutX="602.0" layoutY="117.0" startX="-59.20001220703125" startY="-8.0" stroke="#c6a9d9" strokeWidth="3.0" />
-      <Text fx:id="Displaytext" fill="WHITE" layoutX="173.0" layoutY="154.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Display Screen" textAlignment="CENTER" wrappingWidth="284.85455322265625">
+      <Line endX="-10.5999755859375" endY="441.4000244140625" layoutX="881.0" layoutY="165.0" startX="-10.5999755859375" startY="27.199996948242188" stroke="#ccb1df" strokeWidth="3.0" />
+      <Line endX="-439.6000061035156" endY="-8.0" layoutX="634.0" layoutY="137.0" startX="116.39996337890625" startY="-8.0" stroke="#c6a9d9" strokeWidth="3.0" />
+      <Text fx:id="Displaytext" fill="WHITE" layoutX="328.0" layoutY="192.0" stroke="#2f0773" strokeType="OUTSIDE" strokeWidth="4.0" style="-fx-font-weight: bold;" text="Display Screen" textAlignment="CENTER" wrappingWidth="284.85455322265625">
          <font>
-            <Font size="29.0" />
+            <Font size="34.0" />
          </font>
       </Text>
-      <SplitMenuButton fx:id="Authorize" alignment="CENTER" layoutX="254.0" layoutY="36.0" mnemonicParsing="false" onAction="#AuthorizeButtonClicked" prefHeight="47.0" prefWidth="180.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-width: 3px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Authorize" textAlignment="CENTER" textFill="#5929a1" underline="true">
+      <SplitMenuButton fx:id="Authorize" alignment="CENTER" layoutX="348.0" layoutY="27.0" mnemonicParsing="false" onAction="#AuthorizeButtonClicked" prefHeight="59.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-width: 3px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Authorize" textAlignment="CENTER" textFill="#5929a1" underline="true">
          <items>
           <Menu mnemonicParsing="false" text="       (Enter Attributes)      ">
             <items>
@@ -145,5 +139,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </SplitMenuButton>
+      <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="80.0" layoutX="163.0" layoutY="211.0" prefHeight="389.0" prefWidth="622.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+      <RadioButton layoutX="1037.0" layoutY="298.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="83.0" text="Client" textFill="WHITE" toggleGroup="$fooo">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>

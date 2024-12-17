@@ -15,8 +15,9 @@ public class Main extends Application {
 
 
     public void start(Stage stage) throws IOException {
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("ASU Bank");
         Image icon = new Image(getClass().getResourceAsStream("logo.png"));
         stage.getIcons().add(icon);
@@ -30,14 +31,10 @@ public class Main extends Application {
 
         // Run data loading asynchronously
 
-        Thread dataLoaderThread = new Thread(() -> {
+
             Bank bank = Bank.getInstance();
             DataLoader dl = new DataLoader();
             dl.loadData(bank);
-        });
-
-        // Start the data loading in the background
-        dataLoaderThread.start();
 
         // Launch the JavaFX application
         launch();

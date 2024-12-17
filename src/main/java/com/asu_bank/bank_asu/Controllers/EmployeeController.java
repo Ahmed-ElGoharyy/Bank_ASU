@@ -290,7 +290,6 @@ public class EmployeeController implements Initializable {
 
     public void DisplayAccount(ActionEvent event) {
 
-        System.out.println("dispAcc start");
 
         // Clear any existing items
         myListView.getItems().clear();

@@ -11,30 +11,23 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #404552 ; -fx-border-color: black ; -fx-border-width: 7px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.EmployeeController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #404552 ; -fx-border-color: black ; -fx-border-width: 7px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.EmployeeController">
    <children>
-      <Text fill="WHITE" layoutX="14.0" layoutY="586.0" stroke="#0c4605" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="Employee Panel" textAlignment="JUSTIFY">
+      <Text fill="WHITE" layoutX="534.0" layoutY="692.0" stroke="#0c4605" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="4.0" style="-fx-font-weight: bold;" text="Employee Panel" textAlignment="JUSTIFY" wrappingWidth="224.04766845703125">
          <font>
-            <Font size="20.0" />
+            <Font size="26.0" />
          </font>
       </Text>
-      <Button fx:id="LogOutButton" alignment="CENTER" layoutX="685.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="50.0" prefWidth="107.0" style="-fx-background-color: black; -fx-border-color: White; -fx-background-radius: 15px; -fx-border-radius: 12px; -fx-border-width: 3px; -fx-font-weight: bold;" text="Log Out" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+      <Text fx:id="WelcomeText" fill="WHITE" fontSmoothingType="LCD" layoutX="432.0" layoutY="58.0" stroke="#0b460e" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Welcome, " textAlignment="CENTER" wrappingWidth="494.42352294921875">
          <font>
-            <Font name="Arial Bold" size="19.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Text fx:id="WelcomeText" fill="WHITE" fontSmoothingType="LCD" layoutX="216.0" layoutY="49.0" stroke="#121212" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Welcome, " textAlignment="CENTER" wrappingWidth="467.2235107421875">
-         <font>
-            <Font name="Berlin Sans FB Demi Bold" size="32.0" />
+            <Font name="Berlin Sans FB Demi Bold" size="36.0" />
          </font>
       </Text>
-      <Button alignment="CENTER" layoutX="312.0" layoutY="105.0" mnemonicParsing="false" onAction="#SearchAccButton" prefHeight="54.0" prefWidth="118.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Search" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button alignment="CENTER" layoutX="461.0" layoutY="115.0" mnemonicParsing="false" onAction="#SearchAccButton" prefHeight="62.0" prefWidth="175.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Client Search" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
@@ -42,21 +35,21 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField fx:id="SearchAccTextField" alignment="CENTER" layoutX="48.0" layoutY="107.0" prefHeight="50.0" prefWidth="254.0" promptText="ID or Account No" style="-fx-border-width: 2.3px; -fx-border-color: #256037; -fx-border-radius: 15px; -fx-background-radius: 15px;">
+      <TextField fx:id="SearchAccTextField" alignment="CENTER" layoutX="126.0" layoutY="125.0" prefHeight="50.0" prefWidth="279.0" promptText="ID or Account No" style="-fx-border-width: 2.3px; -fx-border-color: #256037; -fx-border-radius: 15px; -fx-background-radius: 15px;">
          <font>
             <Font size="17.5" />
          </font>
       </TextField>
-      <Line endX="-673.7999877929688" endY="46.600006103515625" layoutX="729.0" layoutY="261.0" startX="3.0" startY="46.600006103515625" stroke="#9fccae" strokeWidth="3.0" />
-      <Button fx:id="DeleteButton" alignment="CENTER" layoutX="591.0" layoutY="523.0" mnemonicParsing="false" onAction="#DeleteAcc" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Delete" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Line endX="-820.0" endY="46.600006103515625" layoutX="994.0" layoutY="261.0" startX="80.800048828125" startY="46.600006103515625" stroke="#9fccae" strokeWidth="3.0" />
+      <Button fx:id="DeleteButton" alignment="CENTER" layoutX="1094.0" layoutY="477.0" mnemonicParsing="false" onAction="#DeleteAcc" prefHeight="54.0" prefWidth="134.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Delete" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <SplitMenuButton fx:id="EditButton" alignment="CENTER" layoutX="586.0" layoutY="458.0" mnemonicParsing="false" onAction="#EditAccountButton" popupSide="TOP" prefHeight="46.0" prefWidth="107.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit" textAlignment="CENTER" textFill="#0b3e1a">
+      <SplitMenuButton fx:id="EditButton" alignment="CENTER" contentDisplay="BOTTOM" layoutX="844.0" layoutY="478.0" mnemonicParsing="false" onAction="#EditAccountButton" prefHeight="54.0" prefWidth="134.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit" textAlignment="CENTER" textFill="#0b3e1a">
         <items>
             <Menu mnemonicParsing="false" text="Change Account State :">
               <items>
@@ -69,24 +62,23 @@
             </Menu>
         </items>
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </SplitMenuButton>
-      <ListView fx:id="myListView" editable="true" fixedCellSize="30.0" layoutX="90.0" layoutY="335.0" prefHeight="115.0" prefWidth="460.0" style="-fx-background-color: #9fccae; -fx-border-color: #160732; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
-      <Text fx:id="selectedAcctext" fill="WHITE" fontSmoothingType="LCD" layoutX="88.0" layoutY="512.0" stroke="#04380b" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Select an Account No :" textAlignment="CENTER" wrappingWidth="236.7999267578125">
+      <Text fx:id="selectedAcctext" fill="WHITE" fontSmoothingType="LCD" layoutX="725.0" layoutY="432.0" stroke="#04380b" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Select an Account No " textAlignment="CENTER" wrappingWidth="319.99993896484375">
          <font>
-            <Font name="Berlin Sans FB Demi Bold" size="24.0" />
+            <Font name="Berlin Sans FB Demi Bold" size="30.0" />
          </font>
       </Text>
-      <Button fx:id="displayAcc" alignment="CENTER" layoutX="586.0" layoutY="335.0" mnemonicParsing="false" onAction="#DisplayAccount" prefHeight="63.0" prefWidth="107.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Display All Accounts" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="displayAcc" alignment="CENTER" layoutX="63.0" layoutY="438.0" mnemonicParsing="false" onAction="#DisplayAccount" prefHeight="78.0" prefWidth="126.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Display All Accounts" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="System Bold" size="19.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <SplitMenuButton fx:id="EditPersButton" alignment="CENTER" layoutX="36.0" layoutY="20.0" mnemonicParsing="false" onAction="#EditPersonalButtonClick" prefHeight="46.0" prefWidth="192.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#0b3e1a">
+      <SplitMenuButton fx:id="EditPersButton" alignment="CENTER" layoutX="46.0" layoutY="26.0" mnemonicParsing="false" onAction="#EditPersonalButtonClick" prefHeight="54.0" prefWidth="207.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#0b3e1a">
          <items>
             <MenuItem mnemonicParsing="false">
                <graphic>
@@ -100,15 +92,15 @@
             </MenuItem>
          </items>
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </SplitMenuButton>
-      <TextField fx:id="AccountNofield" alignment="CENTER" layoutX="340.0" layoutY="481.0" prefHeight="46.0" prefWidth="207.0" promptText="Account No" style="-fx-border-width: 2.3px; -fx-border-color: #256037; -fx-border-radius: 15px; -fx-background-radius: 15px;">
+      <TextField fx:id="AccountNofield" alignment="CENTER" layoutX="1035.0" layoutY="395.0" prefHeight="54.0" prefWidth="207.0" promptText="Account No" style="-fx-border-width: 2.3px; -fx-border-color: #256037; -fx-border-radius: 15px; -fx-background-radius: 15px;">
          <font>
             <Font size="17.5" />
          </font>
       </TextField>
-      <SplitMenuButton fx:id="EditPersButton1" alignment="CENTER" layoutX="637.0" layoutY="140.0" mnemonicParsing="false" onAction="#EditPersonalButtonClick" prefHeight="46.0" prefWidth="117.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Current" textAlignment="CENTER" textFill="#0b3e1a">
+      <SplitMenuButton fx:id="EditPersButton1" alignment="CENTER" layoutX="996.0" layoutY="160.0" mnemonicParsing="false" onAction="#EditPersonalButtonClick" prefHeight="54.0" prefWidth="142.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Current" textAlignment="CENTER" textFill="#0b3e1a">
          <items>
             <MenuItem mnemonicParsing="false">
                <graphic>
@@ -122,12 +114,12 @@
             </MenuItem>
          </items>
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </SplitMenuButton>
-      <SplitMenuButton fx:id="EditPersButton11" alignment="CENTER" layoutX="491.0" layoutY="140.0" mnemonicParsing="false" onAction="#EditPersonalButtonClick" prefHeight="46.0" prefWidth="118.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Saving" textAlignment="CENTER" textFill="#0b3e1a">
+      <SplitMenuButton fx:id="EditPersButton11" alignment="CENTER" layoutX="784.0" layoutY="160.0" mnemonicParsing="false" onAction="#EditPersonalButtonClick" prefHeight="54.0" prefWidth="142.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Saving" textAlignment="CENTER" textFill="#0b3e1a">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
          <items>
             <MenuItem mnemonicParsing="false">
@@ -142,29 +134,51 @@
             </MenuItem>
          </items>
       </SplitMenuButton>
-      <Text fx:id="Results" fill="WHITE" fontSmoothingType="LCD" layoutX="59.0" layoutY="206.0" stroke="#121212" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Results :" textAlignment="CENTER" wrappingWidth="207.20000000000005">
+      <Text fx:id="Results" fill="WHITE" fontSmoothingType="LCD" layoutX="120.0" layoutY="224.0" stroke="#121212" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Results :" textAlignment="CENTER" wrappingWidth="290.39998168945317">
          <font>
-            <Font name="Berlin Sans FB Demi Bold" size="27.0" />
+            <Font name="Berlin Sans FB Demi Bold" size="28.0" />
          </font>
       </Text>
-      <Line endX="-266.20001220703125" endY="-173.1999969482422" layoutX="730.0" layoutY="274.0" startX="-266.20001220703125" startY="-6.0" stroke="#9fccae" strokeWidth="3.0" />
-      <RadioButton fx:id="Nameradio" layoutX="319.0" layoutY="187.0" mnemonicParsing="false" text="Client ID" textFill="WHITE">
+      <Line endX="-266.20001220703125" endY="-196.39999389648438" layoutX="975.0" layoutY="575.0" startX="-266.20001220703125" startY="2.0" stroke="#9fccae" strokeWidth="3.0" />
+      <RadioButton fx:id="Nameradio" layoutX="497.0" layoutY="204.0" mnemonicParsing="false" text="Client ID" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="17.0" />
          </font>
          <toggleGroup>
             <ToggleGroup fx:id="aa" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="Accradio" layoutX="319.0" layoutY="224.0" mnemonicParsing="false" text="Account No" textFill="WHITE" toggleGroup="$aa">
+      <RadioButton fx:id="Accradio" layoutX="497.0" layoutY="243.0" mnemonicParsing="false" text="Account No" textFill="WHITE" toggleGroup="$aa">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="17.0" />
          </font>
       </RadioButton>
-      <Text fx:id="WelcomeText1" fill="WHITE" fontSmoothingType="LCD" layoutX="469.0" layoutY="116.0" stroke="#121212" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Create Account :" textAlignment="CENTER" wrappingWidth="279.2235107421875">
+      <Text fx:id="WelcomeText1" fill="WHITE" fontSmoothingType="LCD" layoutX="824.0" layoutY="131.0" stroke="#121212" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Create Account :" textAlignment="CENTER" wrappingWidth="279.2235107421875">
          <font>
-            <Font name="Berlin Sans FB Demi Bold" size="24.0" />
+            <Font name="Berlin Sans FB Demi Bold" size="30.0" />
          </font>
       </Text>
+      <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="70.0" layoutX="217.0" layoutY="355.0" prefHeight="246.0" prefWidth="429.0" style="-fx-background-color: #9fccae; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+      <QuadCurve controlX="-50.0" controlY="-100.0" endX="50.0" fill="DODGERBLUE" startX="-50.0" stroke="BLACK" strokeType="INSIDE" />
+      <Line endX="-214.4000244140625" endY="-173.19998168945312" layoutX="780.0" layoutY="262.0" startX="12.0" startY="-173.19998168945312" stroke="#9fccae" strokeWidth="3.0" />
+      <Text fx:id="selectedAcctext1" fill="WHITE" fontSmoothingType="LCD" layoutX="772.0" layoutY="516.0" stroke="#04380b" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="to :" textAlignment="CENTER" wrappingWidth="63.199920654296875">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="selectedAcctext11" fill="WHITE" fontSmoothingType="LCD" layoutX="1004.0" layoutY="515.0" stroke="#04380b" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="or" textAlignment="CENTER" wrappingWidth="63.199920654296875">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="30.0" />
+         </font>
+      </Text>
+      <Line endX="-266.20001220703125" endY="-170.39999389648438" layoutX="976.0" layoutY="310.0" startX="-266.20001220703125" startY="-52.80000305175781" stroke="#9fccae" strokeWidth="3.0" />
+      <Button fx:id="LogOutButton" alignment="CENTER" layoutX="1151.0" layoutY="29.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="59.0" prefWidth="124.0" style="-fx-background-color: black; -fx-border-color: White; -fx-background-radius: 15px; -fx-border-radius: 12px; -fx-border-width: 3px;" text="Log Out" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

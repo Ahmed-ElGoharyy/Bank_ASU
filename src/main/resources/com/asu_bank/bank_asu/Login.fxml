@@ -11,38 +11,38 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #404552; -fx-border-color: black ; -fx-border-width: 7px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.LoginController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #404552; -fx-border-color: black ; -fx-border-width: 7px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asu_bank.bank_asu.Controllers.LoginController">
    <children>
-      <Line endX="371.20001220703125" endY="130.1999969482422" layoutX="28.0" layoutY="-12.0" startX="371.20001220703125" startY="446.20001220703125" stroke="#cfcaca" />
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="60.0" layoutY="408.0" stroke="#030303" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="ASU Bank" wrappingWidth="291.57342529296875">
+      <Line endX="371.20001220703125" endY="112.0" layoutX="277.0" layoutY="48.0" startX="371.20001220703125" startY="477.5999755859375" stroke="#cfcaca" strokeWidth="3.0" />
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="167.0" layoutY="510.0" stroke="#030303" strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-font-weight: bold;" text="ASU Bank" wrappingWidth="358.7734069824219">
          <font>
-            <Font size="62.0" />
+            <Font size="74.0" />
          </font>
       </Text>
-      <TextField fx:id="usernameTextField" alignment="CENTER" layoutX="462.0" layoutY="205.0" prefHeight="48.0" prefWidth="250.0" promptText="Username" style="-fx-border-width: 2.3px; -fx-border-color: #5978c3; -fx-border-radius: 15px; -fx-background-radius: 15px;">
+      <TextField fx:id="usernameTextField" alignment="CENTER" layoutX="825.0" layoutY="265.0" prefHeight="56.0" prefWidth="274.0" promptText="Username" style="-fx-border-width: 2.3px; -fx-border-color: #5978c3; -fx-border-radius: 15px; -fx-background-radius: 15px;">
          <font>
             <Font size="17.5" />
          </font>
       </TextField>
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="538.0" layoutY="148.0" stroke="#2a3346" strokeType="OUTSIDE" strokeWidth="2.0" text="Login" wrappingWidth="98.77337646484375">
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="897.0" layoutY="191.0" stroke="#2a3346" strokeType="OUTSIDE" strokeWidth="2.0" text="Login" wrappingWidth="131.573486328125">
          <font>
-            <Font name="System Bold" size="36.0" />
+            <Font name="System Bold" size="46.0" />
          </font>
       </Text>
-      <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="461.0" layoutY="293.0" prefHeight="48.0" prefWidth="250.0" promptText="Password" style="-fx-border-color: #5978c3; -fx-border-width: 2.3px; -fx-border-radius: 15px; -fx-background-radius: 15px;">
+      <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="826.0" layoutY="360.0" prefHeight="56.0" prefWidth="274.0" promptText="Password" style="-fx-border-color: #5978c3; -fx-border-width: 2.3px; -fx-border-radius: 15px; -fx-background-radius: 15px;">
          <font>
             <Font size="18.0" />
          </font>
       </PasswordField>
-      <Button id="LoginButton" layoutX="515.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="48.0" prefWidth="143.0" style="-fx-background-color: #5978c3; -fx-border-width: 2px; -fx-border-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Login" textFill="WHITE">
+      <Button id="LoginButton" layoutX="883.0" layoutY="479.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="49.0" prefWidth="143.0" style="-fx-background-color: #5978c3; -fx-border-width: 2px; -fx-border-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Login" textFill="WHITE">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fitHeight="224.0" fitWidth="183.0" layoutX="115.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="287.0" fitWidth="278.0" layoutX="229.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />
          </image>
