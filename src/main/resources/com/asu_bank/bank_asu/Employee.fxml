@@ -35,9 +35,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField fx:id="SearchAccTextField" alignment="CENTER" layoutX="126.0" layoutY="125.0" prefHeight="50.0" prefWidth="279.0" promptText="ID or Account No" style="-fx-border-width: 2.3px; -fx-border-color: #256037; -fx-border-radius: 15px; -fx-background-radius: 15px;">
+      <TextField fx:id="SearchAccTextField" alignment="CENTER" layoutX="126.0" layoutY="125.0" prefHeight="50.0" prefWidth="279.0" promptText="Name or Account No" style="-fx-border-width: 2.3px; -fx-border-color: #256037; -fx-border-radius: 15px; -fx-background-radius: 15px;">
          <font>
-            <Font size="17.5" />
+            <Font size="18.0" />
          </font>
       </TextField>
       <Line endX="-772.0" endY="46.600006103515625" layoutX="994.0" layoutY="261.0" startX="80.800048828125" startY="46.600006103515625" stroke="#9fccae" strokeWidth="3.0" />
@@ -97,7 +97,7 @@
       </SplitMenuButton>
       <TextField fx:id="AccountNofield" alignment="CENTER" layoutX="1035.0" layoutY="395.0" prefHeight="54.0" prefWidth="207.0" promptText="Account No" style="-fx-border-width: 2.3px; -fx-border-color: #256037; -fx-border-radius: 15px; -fx-background-radius: 15px;">
          <font>
-            <Font size="17.5" />
+            <Font size="18.0" />
          </font>
       </TextField>
       <SplitMenuButton fx:id="CreateCurrentButton" alignment="CENTER" layoutX="996.0" layoutY="160.0" mnemonicParsing="false" onAction="#CreateCurrentAccButton" prefHeight="54.0" prefWidth="142.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Current" textAlignment="CENTER" textFill="#0b3e1a">
@@ -140,7 +140,7 @@
          </font>
       </Text>
       <Line endX="-266.20001220703125" endY="-196.39999389648438" layoutX="975.0" layoutY="575.0" startX="-266.20001220703125" startY="2.0" stroke="#9fccae" strokeWidth="3.0" />
-      <RadioButton fx:id="Nameradio" layoutX="497.0" layoutY="204.0" mnemonicParsing="false" text=" By Name" textFill="WHITE">
+      <RadioButton fx:id="Nameradio" layoutX="497.0" layoutY="204.0" mnemonicParsing="false" text=" By Full Name" textFill="WHITE">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
