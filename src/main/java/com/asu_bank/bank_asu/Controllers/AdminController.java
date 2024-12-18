@@ -101,8 +101,41 @@ public class AdminController implements Initializable {
         int graduationYear;
         Long telephoneNumber;
         try {
-            telephoneNumber = Long.valueOf(TeleText.getText());
-
+            telephoneNumber = Long.parseLong(TeleText.getText());
+            if (String.valueOf(telephoneNumber).length() < 6 || String.valueOf(telephoneNumber).length() > 10) {
+                utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");
+                return;
+            }
+            if (telephoneNumber < 0) {
+                utility.ShowErrorAlert("Error: The Telephone Number cannot be negative!");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Error: The Telephone Number must be a valid number!");
+            return;
+        }
+        try {
+            graduationYear = Integer.parseInt(GradYearText.getText());
+            if (graduationYear < 1980 || graduationYear > 2024) {
+                utility.ShowErrorAlert("Error: The Graduation Year must be between 1980-2024.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("The Graduation Year must be a valid number!");
+            return;
+        }
+        String totalGradeInput = TotalGradeText.getText();
+        if (totalGradeInput.length() != 1 || !("ABC".contains(totalGradeInput))) {
+            utility.ShowErrorAlert(" The Total Grade must be a single character (A, B, or C)!");
+            return;
+        }
+        try {
+            String newAdd = AddressText.getText();
+            char totalGrade = TotalGradeText.getText().charAt(0);
+            if (UsernameText.getText().equals(adminUsername)) {
+                utility.ShowErrorAlert("Error: The Username '" + adminUsername + "' is reserved for the admin only.");
+                return;
+            }
 
             if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
                     UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
@@ -112,95 +145,55 @@ public class AdminController implements Initializable {
                 utility.ShowErrorAlert("Error: All fields must be filled out.");
                 return;
             }
-            if (String.valueOf(telephoneNumber).length() <6) {
-                utility.ShowErrorAlert("Error: Telephone number must be at least 7 digits.");
+            for (Employee employee : bank.BankEmployees) {
+                if (employee.getUserName().equals(UsernameText.getText())) {
+                    utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
+                    return;
+                }
+            }
+            if (PositionText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Position cannot be numbers! Please enter a valid Job Title.");
                 return;
             }
-            if (String.valueOf(telephoneNumber).length() >10) {
-                utility.ShowErrorAlert("Error: Telephone number must be max 11 digits.");
+            if (GradCollegeText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Graduated College cannot be numbers. Please enter a valid College Name.");
                 return;
             }
-            if (telephoneNumber < 0) {
-                utility.ShowErrorAlert("Error: Telephone number cannot be negative.");
+            if (!newAdd.matches(".*[a-zA-Z].*") || !newAdd.matches(".*[0-9].*")) {
+                throw new IllegalArgumentException("The Address must contain numbers and names!");
+            }
+            if (FirstNameText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
                 return;
             }
+            if (LastNameText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Lastname cannot contain numbers!");
+                return;
+            }
+            Employee newEmployee = new Employee(
+
+                    FirstNameText.getText(),
+                    LastNameText.getText(),
+                    UsernameText.getText(),
+                    PasswordText.getText(),
+                    Long.parseLong(TeleText.getText()),
+                    AddressText.getText(),
+                    PositionText.getText(),
+                    GradCollegeText.getText(),
+                    Integer.parseInt(GradYearText.getText()),
+                    totalGrade);
+
+            // Add the employee to the bank
+            bank.BankEmployees.add(newEmployee);
+            utility.ShowSuccessAlert("New Employee added and authorized successfully!");
         } catch (NumberFormatException e) {
-            utility.ShowErrorAlert("Error: Some Fields are Empty.");
-            return;
+            utility.ShowErrorAlert("Error: Please enter valid numeric values for telephone number and graduation year.");
+        } catch (IllegalArgumentException e) {
+            utility.ShowErrorAlert("Error: " + e.getMessage());
+        } catch (Exception e) {
+            utility.ShowErrorAlert("Error: " + e.getMessage());
         }
-        try {
-            graduationYear = Integer.parseInt(GradYearText.getText());
-            if (graduationYear < 1980 || graduationYear > 2024) {
-                utility.ShowErrorAlert("Error: Graduation year must be between 1980 and 2024.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            utility.ShowErrorAlert("Error: Graduation year must be a valid number.");
-            return;
-        }
-        String totalGradeInput = TotalGradeText.getText();
-        if (totalGradeInput.length() != 1 || !("ABC".contains(totalGradeInput))) {
-            utility.ShowErrorAlert("Error: Total grade must be a single character (A, B, or C).");
-            return;
-        }
-            try {
-                char totalGrade = TotalGradeText.getText().charAt(0);
-                String newAdd = AddressText.getText();
-                if (UsernameText.getText().equals(adminUsername)) {
-                    utility.ShowErrorAlert("Error: Username '" + adminUsername + "' is reserved for the admin.");
-                    return;
-                }
-
-                for (Employee employee : bank.BankEmployees) {
-                    if (employee.getUserName().equals(UsernameText.getText())) {
-                        utility.ShowErrorAlert("Error: This username is already taken.");
-                        return;
-                    }
-                }
-                if (PositionText.getText().matches(".*\\d.*")) {
-                    utility.ShowErrorAlert("Error: Position cannot be numbers. Please enter a valid job title.");
-                    return;
-                }
-                if(GradCollegeText.getText().matches(".*\\d.*")){
-                    utility.ShowErrorAlert("Error: Graduated College cannot be numbers. Please enter a valid College name.");
-                return;
-                }
-                if(!newAdd.matches(".*[a-zA-Z].*")||!newAdd.matches(".*[0-9].*")){
-                    throw new IllegalArgumentException("Address must contain numbers and names");
-                }
-                if (FirstNameText.getText().matches(".*\\d.*")) {
-                    utility.ShowErrorAlert("Error: First name cannot contain numbers.");
-                    return;
-                }
-                if (LastNameText.getText().matches(".*\\d.*")) {
-                    utility.ShowErrorAlert("Error: Last name cannot contain numbers.");
-                    return;
-                }
-                Employee newEmployee = new Employee(
-
-                        FirstNameText.getText(),
-                        LastNameText.getText(),
-                        UsernameText.getText(),
-                        PasswordText.getText(),
-                        Long.parseLong(TeleText.getText()),
-                        AddressText.getText(),
-                        PositionText.getText(),
-                        GradCollegeText.getText(),
-                        Integer.parseInt(GradYearText.getText()),
-                        totalGrade);
-
-                // Add the employee to the bank
-                bank.BankEmployees.add(newEmployee);
-                utility.ShowSuccessAlert("New Employee added and authorized successfully!");
-            } catch (NumberFormatException e) {
-                utility.ShowErrorAlert("Error: Please enter valid numeric values for telephone number and graduation year.");
-            } catch (IllegalArgumentException e) {
-                utility.ShowErrorAlert("Error: " + e.getMessage());
-            } catch (Exception e) {
-                utility.ShowErrorAlert("Error: " + e.getMessage());
-            }
     }
-
 
 
 
