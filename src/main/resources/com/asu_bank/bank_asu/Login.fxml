@@ -21,7 +21,7 @@
       </Text>
       <TextField fx:id="usernameTextField" alignment="CENTER" layoutX="825.0" layoutY="265.0" prefHeight="56.0" prefWidth="274.0" promptText="Username" style="-fx-border-width: 2.3px; -fx-border-color: #5978c3; -fx-border-radius: 15px; -fx-background-radius: 15px;">
          <font>
-            <Font size="17.5" />
+            <Font size="20.0" />
          </font>
       </TextField>
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="897.0" layoutY="191.0" stroke="#2a3346" strokeType="OUTSIDE" strokeWidth="2.0" text="Login" wrappingWidth="131.573486328125">
@@ -31,12 +31,12 @@
       </Text>
       <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="826.0" layoutY="360.0" prefHeight="56.0" prefWidth="274.0" promptText="Password" style="-fx-border-color: #5978c3; -fx-border-width: 2.3px; -fx-border-radius: 15px; -fx-background-radius: 15px;">
          <font>
-            <Font size="18.0" />
+            <Font size="20.0" />
          </font>
       </PasswordField>
-      <Button id="LoginButton" layoutX="883.0" layoutY="479.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="49.0" prefWidth="143.0" style="-fx-background-color: #5978c3; -fx-border-width: 2px; -fx-border-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Login" textFill="WHITE">
+      <Button id="LoginButton" layoutX="891.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="56.0" prefWidth="143.0" style="-fx-background-color: #5978c3; -fx-border-width: 2px; -fx-border-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Login" textFill="WHITE">
          <font>
-            <Font name="Arial Bold" size="18.0" />
+            <Font name="Arial Bold" size="19.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />

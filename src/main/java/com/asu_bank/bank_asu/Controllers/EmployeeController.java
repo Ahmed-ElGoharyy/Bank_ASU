@@ -1,5 +1,6 @@
 package com.asu_bank.bank_asu.Controllers;
 
+import com.asu_bank.bank_asu.Main;
 import com.asu_bank.bank_asu.Model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -7,9 +8,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.net.URL;
@@ -110,7 +116,9 @@ public class EmployeeController implements Initializable {
                 utility.ShowSuccessAlert("Saving Account added successfully for Client: " + clientId + "\n" +
                         "Your Account Number: " + newSavingAcc.getAccountnumber() + "\n" +
                         "Your Account State: " + newSavingAcc.getAccountState() + "\n" +
-                        "Your Current Balance: " + newSavingAcc.getBalance() + "\n");
+                        "Your Current Balance: " + newSavingAcc.getBalance() + "\n"+"\n"+
+                        "Note : Intrest rate of "+newSavingAcc.getInterestRate()+" Will be Evaluated Yearly\n"+
+                        "To Cancel this Refer to our Bank Branch.");
             }catch(NumberFormatException e){
                 utility.ShowErrorAlert("Error: " +e.getMessage());
             } catch (Exception e) {
@@ -145,22 +153,43 @@ public class EmployeeController implements Initializable {
 
             CurrentAccount newCurrentAcc = new CurrentAccount(startBalance, clientId);
 
-            // Add to the bank's list of saving accounts
-            bank.BankCurrentAccounts.add(newCurrentAcc);
+            if(startBalance < 3000) {
+                if (utility.ConfirmAction("Warning :\nThere will be Fees of 100 EGP since the Balance is less than 3000 EGP \n\n"
+                        +"Would you like to continue ?")) {
+                    bank.BankCurrentAccounts.add(newCurrentAcc);
+                    // Find the client with the matching client ID and add the account to their list
+                    for (Client client : bank.BankClients) {
+                        if (client.getClient_id().equals(clientId)) {
+                            client.getCurrent().add(newCurrentAcc);
+                            break;
+                        }
+                    }
+                    utility.ShowSuccessAlert("Current Account added successfully for Client: " + clientId + "\n" +
+                            "Your Account Number: " + newCurrentAcc.getAccountnumber() + "\n" +
+                            "Your Account State: " + newCurrentAcc.getAccountState() + "\n" +
+                            "Your Current Balance: " + newCurrentAcc.getBalance() + "\n");
 
-            // Find the client with the matching client ID and add the account to their list
-
-            for (Client client : bank.BankClients) {
-                if (client.getClient_id().equals(clientId)) {
-                    client.getCurrent().add(newCurrentAcc);
-                    break;
+                } else {
+                    //do nothing
                 }
-            }
+            }else {
 
-            utility.ShowSuccessAlert("Current Account added successfully for Client: " + clientId + "\n" +
-                    "Your Account Number: " + newCurrentAcc.getAccountnumber() + "\n" +
-                    "Your Account State: " + newCurrentAcc.getAccountState() + "\n" +
-                    "Your Current Balance: " + newCurrentAcc.getBalance() + "\n");
+
+                bank.BankCurrentAccounts.add(newCurrentAcc);
+
+                // Find the client with the matching client ID and add the account to their list
+                for (Client client : bank.BankClients) {
+                    if (client.getClient_id().equals(clientId)) {
+                        client.getCurrent().add(newCurrentAcc);
+                        break;
+                    }
+                }
+
+                utility.ShowSuccessAlert("Current Account added successfully for Client: " + clientId + "\n" +
+                        "Your Account Number: " + newCurrentAcc.getAccountnumber() + "\n" +
+                        "Your Account State: " + newCurrentAcc.getAccountState() + "\n" +
+                        "Your Current Balance: " + newCurrentAcc.getBalance() + "\n");
+            }
         }catch(NumberFormatException e){
             utility.ShowErrorAlert("Error: " +e.getMessage());
         } catch (Exception e) {
@@ -190,7 +219,7 @@ public class EmployeeController implements Initializable {
 
                     Long idsearch = currentUser.getclientidbyname(SearchAcc); // function we made to get id
                 if(SearchAcc.matches(".*\\d.*")){
-                    utility.ShowErrorAlert("Name cannot be a number!");
+                    utility.ShowErrorAlert("Full Name cannot be a number!");
                     return;
                 }
                     if (idsearch !=null) {
@@ -198,7 +227,8 @@ public class EmployeeController implements Initializable {
                         resultsText.append("Found! Your Client ID is : ").append(idsearch);
                     }
                     else {
-                         utility.ShowErrorAlert("Name is incorrect! Can't find Your Client ID");
+                         utility.ShowErrorAlert("Full  Name is incorrect! Can't find Your Client ID \n " +
+                                                "Please enter your 'FIRSTNAME LASTNAME' .");
                 }
 
 

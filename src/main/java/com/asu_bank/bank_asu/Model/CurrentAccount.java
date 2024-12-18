@@ -19,7 +19,7 @@ public class CurrentAccount extends Account {
 
 
     public void checkminimumbalance() {
-        if (super.getBalance() <= minimumBalance) {
+        if (super.getBalance() < minimumBalance) {
             super.setBalance(super.getBalance() - 100);
             System.out.println("Balance Less Than Minimum Balance So Fees Will Be Applied. \n Your Current Balance is: " + super.getBalance());
         }
