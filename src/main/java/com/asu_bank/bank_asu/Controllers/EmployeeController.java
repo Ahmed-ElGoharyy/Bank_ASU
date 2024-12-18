@@ -75,8 +75,23 @@ public class EmployeeController implements Initializable {
 
         public void CreateSavingAccButton() {
             try {
+                String ClientId = SavingClientID.getText();
+                String StartBalance = SavingStartBalance.getText();
+                if (ClientId.isEmpty() || StartBalance.isEmpty()) {
+                    utility.ShowErrorAlert("All fields must be filled out!");
+                    return;
+                }
+                if (!ClientId.matches(".*\\d.*")) {
+                    utility.ShowErrorAlert("Client ID must be numeric!");
+                    return;
+                }
+                if (!StartBalance.matches(".*\\d.*")) {
+                    utility.ShowErrorAlert("Start Balance must be numeric!");
+                    return;
+                }
                 Double startBalance = Double.valueOf(SavingStartBalance.getText());
                 Long clientId = Long.valueOf(SavingClientID.getText());
+
 
                 SavingAccount newSavingAcc = new SavingAccount(startBalance, clientId);
 
@@ -96,6 +111,8 @@ public class EmployeeController implements Initializable {
                         "Your Account Number: " + newSavingAcc.getAccountnumber() + "\n" +
                         "Your Account State: " + newSavingAcc.getAccountState() + "\n" +
                         "Your Current Balance: " + newSavingAcc.getBalance() + "\n");
+            }catch(NumberFormatException e){
+                utility.ShowErrorAlert("Error: " +e.getMessage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
 
@@ -105,6 +122,21 @@ public class EmployeeController implements Initializable {
 
     public void CreateCurrentAccButton() {
         try {
+            String ClientId = CurrentClientID.getText();
+            String StartBalance = CurrentStartBalance.getText();
+            if (ClientId.isEmpty() || StartBalance.isEmpty()) {
+                utility.ShowErrorAlert("All fields must be filled out!");
+                return;
+            }
+            if (!ClientId.matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Client ID must be numeric!");
+                return;
+            }
+            if (!StartBalance.matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Start Balance must be numeric!");
+                return;
+            }
+
             Double startBalance = Double.valueOf(CurrentStartBalance.getText());
             Long clientId = Long.valueOf(CurrentClientID.getText());
 
@@ -129,6 +161,8 @@ public class EmployeeController implements Initializable {
                     "Your Account Number: " + newCurrentAcc.getAccountnumber() + "\n" +
                     "Your Account State: " + newCurrentAcc.getAccountState() + "\n" +
                     "Your Current Balance: " + newCurrentAcc.getBalance() + "\n");
+        }catch(NumberFormatException e){
+            utility.ShowErrorAlert("Error: " +e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException(e);
 
@@ -143,7 +177,7 @@ public class EmployeeController implements Initializable {
 
             // Check if either radio button is selected
             if (!Accradio.isSelected() && !Nameradio.isSelected()) {
-                utility.ShowErrorAlert("Choose Client ID or Account No.");
+                utility.ShowErrorAlert("Choose Name or Account No.");
                 return;
             }
 
@@ -154,8 +188,11 @@ public class EmployeeController implements Initializable {
 
                 String SearchAcc = SearchAccTextField.getText();
 
-                    Long idsearch = currentUser.getclientidbyname(SearchAcc); // functin we made to get id
-
+                    Long idsearch = currentUser.getclientidbyname(SearchAcc); // function we made to get id
+                if(SearchAcc.matches(".*\\d.*")){
+                    utility.ShowErrorAlert("Name cannot be a number!");
+                    return;
+                }
                     if (idsearch !=null) {
                         accfound=true;
                         resultsText.append("Found! Your Client ID is : ").append(idsearch);
@@ -201,7 +238,7 @@ public class EmployeeController implements Initializable {
             }
 
         } catch (NumberFormatException e) {
-            utility.ShowErrorAlert("Invalid Account Number or Client ID format.");
+            utility.ShowErrorAlert("Invalid Account Number or Name!");
         } catch (Exception e) {
             utility.ShowErrorAlert("Error: " + e.getMessage());
         }
@@ -213,23 +250,23 @@ public class EmployeeController implements Initializable {
 
 
     public void EditPersonalButtonClick(){
-        String newAdd = addressTextField.getText();
-        String newPos = PositionTextField.getText();
+        String newAddress = addressTextField.getText();
+        String newPosition = PositionTextField.getText();
         try {
             // Check if either address or position is null or empty
-            if (newAdd == null || newAdd.trim().isEmpty() || newPos == null || newPos.trim().isEmpty()) {
-                utility.ShowErrorAlert("Fill all fields please.");
+            if (newAddress == null || newAddress.trim().isEmpty() || newPosition == null || newPosition.trim().isEmpty()) {
+                utility.ShowErrorAlert("Fill all fields please!");
             }
             if (PositionTextField.getText().matches(".*\\d.*")) {
-                utility.ShowErrorAlert("Error: Position cannot be numbers. Please enter a valid job title.");
+                utility.ShowErrorAlert("Error: The Position cannot be numbers! Please enter a valid Job Title.");
                 return;
             }
-            if(!newAdd.matches(".*[a-zA-Z].*")||!newAdd.matches(".*[0-9].*")){
-                throw new IllegalArgumentException("Address must contain numbers and names");
+            if(!newAddress.matches(".*[a-zA-Z].*")||!newAddress.matches(".*[0-9].*")){
+                throw new IllegalArgumentException("The Address must contain numbers and names!");
             } else {
                 // Update the user information
-                currentUser.setAddress(newAdd);
-                currentUser.setPosition(newPos);
+                currentUser.setAddress(newAddress);
+                currentUser.setPosition(newPosition);
 
                 // Show success alert
                 utility.ShowSuccessAlert("Your Address Changed to: " + currentUser.getAddress() +
@@ -246,13 +283,13 @@ public class EmployeeController implements Initializable {
             String accountNumberText = AccountNofield.getText();
             String newAccState = EditAccfield.getText();
             if (!accountNumberText.matches("\\d+")) {
-                utility.ShowErrorAlert("Account Number must be numeric.");
+                utility.ShowErrorAlert("The Account Number must be numeric!");
                 return;
             }
             Long currentAcc = Long.parseLong(AccountNofield.getText());
             boolean accfound = false;
             if (!newAccState.equals("Active") && !newAccState.equals("Inactive") && !newAccState.equals("active") && !newAccState.equals("inactive")){
-                utility.ShowErrorAlert("Account State must be 'Active' or 'Inactive'.");
+                utility.ShowErrorAlert("The Account State must be 'Active' or 'Inactive'!");
                 return;
             }
             for (SavingAccount acc : bank.BankSavingAccounts) {
@@ -290,13 +327,13 @@ public class EmployeeController implements Initializable {
     public void DeleteAcc() {
 
         try {
-            String accountNumberInput = AccountNofield.getText();
-            if (accountNumberInput.isEmpty()) {
-                utility.ShowErrorAlert("Account number cannot be empty. Please enter an account number.");
+            String accountNumber = AccountNofield.getText();
+            if (accountNumber.isEmpty()) {
+                utility.ShowErrorAlert("The Account Number cannot be empty! Please enter an Account Number.");
                 return;
             }
-            if (!accountNumberInput.matches("\\d+")) {
-                throw new IllegalArgumentException("Account number must be numeric. Please enter an account number.");
+            if (!accountNumber.matches("\\d+")) {
+                throw new IllegalArgumentException("The Account Number must be numeric! Please enter a valid Account Number.");
             }
             Long currentAcc = Long.parseLong(AccountNofield.getText());
             if (utility.ConfirmAction("Are you sure You want to delete Acc No :" + currentAcc)) {
@@ -311,7 +348,7 @@ public class EmployeeController implements Initializable {
                         // Remove the account from the list
                         bank.BankSavingAccounts.remove(i);
                         AccountNofield.setText("");
-                        utility.ShowSuccessAlert("Account deleted successfully.");
+                        utility.ShowSuccessAlert("Account deleted successfully!");
                     }
                 }
                 for (int i = 0; i < bank.BankCurrentAccounts.size(); i++) {
@@ -323,7 +360,7 @@ public class EmployeeController implements Initializable {
                         // Remove the account from the list
                         bank.BankCurrentAccounts.remove(i);
                         AccountNofield.setText("");
-                        utility.ShowSuccessAlert("Account deleted successfully.");
+                        utility.ShowSuccessAlert("Account deleted successfully!");
                     }
                 }
                 if (!accfound) {
