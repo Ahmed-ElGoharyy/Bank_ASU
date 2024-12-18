@@ -76,4 +76,17 @@ public class CreditCard {
     public String getCardNumber() {
         return cardNumber;
     }
+
+    public double getLoyaltyPoints() {
+        return loyaltyPoints;
+    }
+
+    public void setLoyaltyPoints(double loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
+    }
+
+    public void setSpending(double spending) {
+        this.spending = spending;
+    }
+
 }

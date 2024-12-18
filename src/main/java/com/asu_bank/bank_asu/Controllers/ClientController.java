@@ -10,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -45,6 +46,9 @@ public class ClientController {
     private TextField accnumText;
     @FXML
     private TextField recieveraccnumText;
+    @FXML
+    private ListView<String> myListView2;
+
 
 
 
@@ -223,8 +227,129 @@ public class ClientController {
             utility.ShowErrorAlert("Error loading Transaction : "+e);
         }
     }
+    @FXML
+    private TextField AmountField;
+@FXML
+    public void Deposit(ActionEvent event) {
+    ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
+    ObservableList<Transaction> Transactions = TransactionObservableList;
 
+    ObservableList<CurrentAccount> currentaccountObservableList = FXCollections.observableArrayList(bank.getCurrentAccount());
+    ObservableList<CurrentAccount> currentaccount = currentaccountObservableList;
+    ObservableList<SavingAccount> savingaccountObservableList = FXCollections.observableArrayList(bank.getSavingAccount());
+    ObservableList<SavingAccount> savingaccount = savingaccountObservableList;
+    String deposit = AmountField.getText();
+    double depositAmount = Double.parseDouble(deposit);
+
+    for (SavingAccount acc : savingaccountObservableList) {
+        if (currentUser.getClient_id().equals(acc.getClient_id())) {
+            double x = acc.getBalance();
+            x = acc.getBalance() + depositAmount;
+            acc.setBalance(x);
+
+        }
+    }
+
+    for (CurrentAccount account : currentaccountObservableList) {
+        if (currentUser.getClient_id().equals(account.getClient_id()))
+        {
+            double x=account.getBalance();
+            x= account.getBalance()+depositAmount;
+            account.setBalance(x);
+
+        }
+    }
 
 
 
 }
+@FXML
+    private TextField AmountField2;
+    @FXML
+    public void WithDraw(ActionEvent event) {
+        ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
+        ObservableList<Transaction> Transactions = TransactionObservableList;
+
+        ObservableList<CurrentAccount> currentaccountObservableList = FXCollections.observableArrayList(bank.getCurrentAccount());
+        ObservableList<CurrentAccount> currentaccount = currentaccountObservableList;
+        ObservableList<SavingAccount> savingaccountObservableList = FXCollections.observableArrayList(bank.getSavingAccount());
+        ObservableList<SavingAccount> savingaccount = savingaccountObservableList;
+        String withdraw = AmountField2.getText();
+        double withdrawalAmount = Double.parseDouble(withdraw);
+
+        for (SavingAccount acc : savingaccountObservableList) {
+            if (currentUser.getClient_id().equals(acc.getClient_id())) {
+
+                double y = acc.getBalance();
+                y = acc.getBalance() - withdrawalAmount;
+                acc.setBalance(y);
+
+            }
+        }
+
+        for (CurrentAccount account : currentaccountObservableList) {
+            if (currentUser.getClient_id().equals(account.getClient_id()))
+            {
+                double y =account.getBalance();
+                y= account.getBalance()- withdrawalAmount;
+                account.setBalance(y);
+
+            }
+        }
+
+
+
+    }
+    @FXML
+    private TextField From;
+    @FXML
+    private TextField To;
+    @FXML
+    private TextField Amount;
+    //function transfer MSH KHLSANAAAA
+   @FXML
+     public void Transfer(ActionEvent event){
+
+       ObservableList<CurrentAccount> currentaccountObservableList = FXCollections.observableArrayList(bank.getCurrentAccount());
+        ObservableList<CurrentAccount> currentaccount = currentaccountObservableList;
+        ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.getBankMoneyTransfers());
+        ObservableList<Moneytrans> Transfers = TransferObservableList;
+
+        String Fromm = From.getText();
+        Long F = Long.parseLong(Fromm);
+
+        String Too = To.getText();
+        Long T = Long.parseLong(Too);
+
+
+        String Amountt = Amount.getText();
+        double transferAmount = Double.parseDouble(Amountt);
+
+        for (CurrentAccount account : currentaccountObservableList) {
+            if (currentUser.getClient_id().equals(account.getClient_id())) {
+                for (Moneytrans transfer : TransferObservableList) {
+                    if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
+                    {
+                     double  sender_balance= account.getBalance();
+                     sender_balance= account.getBalance()-transferAmount;
+                     account.setBalance(sender_balance);
+
+                        double  reciever_balance= account.getBalance();
+                        reciever_balance= account.getBalance()+transferAmount;
+                        account.setBalance(reciever_balance);
+
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+
+
+}
+
+
+
