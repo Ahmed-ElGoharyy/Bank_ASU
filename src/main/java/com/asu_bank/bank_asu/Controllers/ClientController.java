@@ -137,6 +137,7 @@ public class ClientController {
                 for (CurrentAccount account : currentaccountObservableList) {
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
 
+
                         // Customize employee display format as needed (e.g., name, ID, department)
                         accountListStrings.add("   ID:  " + account.getClient_id() + "       Account number:  " +
                                 account.getAccountnumber() + "          Account State:  " + account.getAccountState() +
@@ -155,6 +156,7 @@ public class ClientController {
 
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
 
+
                         accountListStrings.add("   ID:  " + account.getClient_id() + "       Account number:  " +
                                 account.getAccountnumber() + "          Account State:  " + account.getAccountState() +
                                 "         Account type : " + account.getAccountType() + "         Account balance :  " +
@@ -164,7 +166,7 @@ public class ClientController {
 
                 }
                 myListView.setItems(accountListStrings);
-                Displaytext.setText("Account Information:");
+                Displaytext.setText("Accounts Information:");
             }
 
 
@@ -200,6 +202,7 @@ public class ClientController {
 
                 for (SavingAccount account : savingaccountObservableList) {
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
+                         if(account.getAccountnumber().equals(currentAccount.getAccountnumber()))
                         for (Transaction transaction : TransactionObservableList ) {
                             if (account.getAccountnumber().equals(transaction.getAccnumber())) {
                                 TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
@@ -213,6 +216,7 @@ public class ClientController {
                 }
                 for (CurrentAccount account : currentaccountObservableList) {
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
+                        if(account.getAccountnumber().equals(currentAccount.getAccountnumber()))
                         for (Transaction transaction :TransactionObservableList  ) {
                             if (account.getAccountnumber().equals(transaction.getAccnumber())) {
                                 TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
@@ -227,6 +231,7 @@ public class ClientController {
 
                 for (CurrentAccount account : currentaccountObservableList) {
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
+                        if(account.getAccountnumber().equals(currentAccount.getAccountnumber()))
                         for (Moneytrans transfer : TransferObservableList) {
                             if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
                             {
@@ -243,6 +248,7 @@ public class ClientController {
 
                 for (SavingAccount account : savingaccountObservableList) {
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
+                        if(account.getAccountnumber().equals(currentAccount.getAccountnumber()))
                         for (Moneytrans transfer : TransferObservableList) {
                             if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
                             {
