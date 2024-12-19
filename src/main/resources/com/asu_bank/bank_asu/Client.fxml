@@ -50,7 +50,6 @@
         </Button>
         <ListView fx:id="myListView" blendMode="SCREEN" editable="true" fixedCellSize="75.0" layoutX="239.0" layoutY="468.0" prefHeight="177.0" prefWidth="566.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
       <Line endX="-722.7999877929688" endY="46.600006103515625" layoutX="954.0" layoutY="356.0" startX="153.2000732421875" startY="46.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
-      <Line endX="-315.4000244140625" endY="-165.0" layoutX="1130.0" layoutY="346.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
       <Button alignment="CENTER" layoutX="1053.0" layoutY="221.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="119.0" style="-fx-background-color: #7391c4; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Disable" textAlignment="CENTER" textFill="#660e11" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="System Bold" size="19.0" />
@@ -80,11 +79,6 @@
             <Font name="Times New Roman Italic" size="28.0" />
          </font>
       </Text>
-      <Text fx:id="Displaytext3" fill="WHITE" fontSmoothingType="LCD" layoutX="1043.0" layoutY="358.0" stroke="#415d79" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text=":" textAlignment="CENTER" wrappingWidth="69.62351989746094">
-         <font>
-            <Font name="Times New Roman Italic" size="34.0" />
-         </font>
-      </Text>
       <SplitMenuButton alignment="CENTER" layoutX="102.0" layoutY="137.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="62.0" prefWidth="219.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Pay With Credit" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
             <MenuItem mnemonicParsing="false" text="LE">
@@ -101,17 +95,12 @@
          <items>
             <MenuItem mnemonicParsing="false">
                <graphic>
-                  <TextField fx:id="addressTextField11" alignment="CENTER" promptText="From:" style="-fx-border-width: 1; -fx-border-color: black;" />
+                  <TextField fx:id="To" alignment="CENTER" promptText="To:" style="-fx-border-color: black; -fx-border-width: 1;" />
                </graphic>
             </MenuItem>
             <MenuItem mnemonicParsing="false">
                <graphic>
-                  <TextField fx:id="PositionTextField21" alignment="CENTER" promptText="To:" style="-fx-border-color: black; -fx-border-width: 1;" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false">
-               <graphic>
-                  <TextField fx:id="addressTextField111" alignment="CENTER" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
+                  <TextField fx:id="Amount" alignment="CENTER" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
                </graphic>
             </MenuItem>
          </items>
@@ -119,7 +108,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </SplitMenuButton>
-      <SplitMenuButton alignment="CENTER" layoutX="37.0" layoutY="313.0" mnemonicParsing="false" onAction="#Deposit" prefHeight="70.0" prefWidth="166.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Deposit" textAlignment="CENTER" textFill="#0b1d3d">
+      <SplitMenuButton alignment="CENTER" layoutX="37.0" layoutY="313.0" mnemonicParsing="false" onAction="#Deposit" prefHeight="62.0" prefWidth="166.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Deposit" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
             <Menu mnemonicParsing="false" text="Amount">
               <items>
@@ -135,21 +124,11 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </SplitMenuButton>
-      <SplitMenuButton alignment="CENTER" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="210.0" style="-fx-border-color: #124296; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#1b337b">
+      <SplitMenuButton alignment="CENTER" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#EditPersonalInfo" prefHeight="62.0" prefWidth="210.0" style="-fx-border-color: #124296; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#1b337b">
          <items>
             <MenuItem mnemonicParsing="false">
                <graphic>
-                  <TextField fx:id="From" promptText="Username" style="-fx-border-width: 1; -fx-border-color: black;" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false">
-               <graphic>
-                  <TextField fx:id="To" promptText="password" style="-fx-border-color: black; -fx-border-width: 1;" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false">
-               <graphic>
-                  <TextField fx:id="Amount" promptText="Phone number" style="-fx-border-color: black; -fx-border-width: 1;" />
+                  <TextField fx:id="TelText" promptText="Phone number" style="-fx-border-color: black; -fx-border-width: 1;" />
                </graphic>
             </MenuItem>
          </items>
@@ -162,8 +141,8 @@
             <Font name="System Bold" size="32.0" />
          </font>
       </Text>
-      <Line endX="-315.4000244140625" endY="-165.0" layoutX="756.0" layoutY="345.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
-      <Text fill="WHITE" layoutX="478.0" layoutY="154.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Account in use :" wrappingWidth="324.40625">
+      <Line endX="-315.4000244140625" endY="-165.0" layoutX="783.0" layoutY="346.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
+      <Text fill="WHITE" layoutX="478.0" layoutY="142.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Account in use :" wrappingWidth="324.40625">
          <font>
             <Font name="System Bold" size="42.0" />
          </font>
@@ -184,6 +163,29 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </SplitMenuButton>
-      <ListView fx:id="myListView2" blendMode="SCREEN" editable="true" fixedCellSize="75.0" layoutX="451.0" layoutY="190.0" prefHeight="170.0" prefWidth="348.0" style="-fx-background-color: #adbce1; -fx-border-color: black; -fx-border-width: 5px; -fx-background-radius: 20px; -fx-border-radius: 18px;" />
+      <TextField fx:id="AccountNofield" alignment="CENTER" layoutX="518.0" layoutY="235.0" prefHeight="70.0" prefWidth="251.0" promptText="Account No" style="-fx-border-width: 5px; -fx-border-color: #5978c3; -fx-border-radius: 15px; -fx-background-radius: 15px;">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextField>
+      <Button alignment="CENTER" layoutX="576.0" layoutY="320.0" mnemonicParsing="false" onAction="#AccinUseButton" prefHeight="56.0" prefWidth="131.0" style="-fx-background-color: #5978c3; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Confirm" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text fx:id="Accountnotext" fill="WHITE" layoutX="622.0" layoutY="199.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text=".." wrappingWidth="69.62351989746094">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Text>
+      <Line endX="-315.4000244140625" endY="-165.0" layoutX="1119.0" layoutY="352.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
+      <Text fill="WHITE" layoutX="1082.0" layoutY="357.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text=":" wrappingWidth="26.00634765625">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

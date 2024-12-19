@@ -70,15 +70,12 @@ abstract public class Account {
   }
  }
 
- public void deposit() throws NegativeAmountException {
+ public void deposit()  {
   double amount;
   Scanner s = new Scanner(System.in);
   System.out.println("Enter Amount Of Deposit : ");
   amount = s.nextDouble();
-  // Check for negative or zero amount
-  if (amount <= 0) {
-   throw new NegativeAmountException("Invalid deposit amount. Amount must be positive");
-  }
+
 
   // Perform deposit
   this.setBalance(this.getBalance() + amount);
@@ -199,7 +196,7 @@ abstract public class Account {
 
    Date d = new Date();
    // Create transfer transaction
-   Moneytrans trans = new Moneytrans(this.accountnumber, receiverAccount.getAccountnumber(), transamount, "Money Transfer", d,maker);
+   Moneytrans trans = new Moneytrans(this.accountnumber, receiverAccount.getAccountnumber(), transamount, "Money Transfer",new Date());
 
    // Add transaction for both sender and receiver
    this.moneytransfer.add(trans);

@@ -11,6 +11,8 @@ public class Client extends User {
     protected ArrayList<Transaction> credittrans = new ArrayList<>();
 
 
+
+
     public ArrayList<SavingAccount> getSaving() {
         return saving;
     }
@@ -40,6 +42,10 @@ public class Client extends User {
 
 
     public Long getClient_id() {return client_id;}
+    public Long getTelephone() {return super.telephoneNumber;}
+    public void setTelephone(Long Tel) {
+        this.telephoneNumber = Tel;
+    }
 
     // Custom exception for empty list
     public static class EmptyAccountListException extends Exception {

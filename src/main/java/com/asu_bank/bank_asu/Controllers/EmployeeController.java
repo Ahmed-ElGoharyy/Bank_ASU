@@ -164,6 +164,7 @@ public class EmployeeController implements Initializable {
                             break;
                         }
                     }
+
                     utility.ShowSuccessAlert("Current Account added successfully for Client: " + clientId + "\n" +
                             "Your Account Number: " + newCurrentAcc.getAccountnumber() + "\n" +
                             "Your Account State: " + newCurrentAcc.getAccountState() + "\n" +

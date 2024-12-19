@@ -6,7 +6,7 @@ public class Transaction {
     protected Long accnumber;
     protected Integer transid;
     protected Double amount;
-    public static int counter=0;
+    public static int counter=14;
     protected String type;
     protected Date Date;
 
@@ -40,7 +40,7 @@ public class Transaction {
         return Date;
     }
 
-    public Transaction(long accnumber, double amount, String type, Date Date){
+    public Transaction(Long accnumber, double amount, String type, Date Date){
         counter++;
         this.transid=counter;
         this.accnumber=accnumber;

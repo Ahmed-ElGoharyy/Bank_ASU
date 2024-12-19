@@ -10,14 +10,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class ClientController {
 
     private Client currentUser;
+    private Account currentAccount;
+
+    Bank bank= Bank.getInstance();
+
 
 
     @FXML
@@ -47,9 +48,46 @@ public class ClientController {
     @FXML
     private TextField recieveraccnumText;
     @FXML
-    private ListView<String> myListView2;
+    private TextField AccountNofield;
+    @FXML
+    private Text Accountnotext;
 
 
+
+    public void AccinUseButton() {
+        Long accnum =Long.valueOf(AccountNofield.getText());
+        boolean accfound =false;
+
+        for (CurrentAccount Acc : bank.BankCurrentAccounts){
+           if( currentUser.getClient_id().equals(Acc.getClient_id()) ){
+               if(Acc.getAccountnumber().equals(accnum)){
+                    accfound = true;
+                    currentAccount = Acc;
+                    Accountnotext.setText(""+currentAccount.getAccountnumber()+"");
+                }else{
+                }
+
+            }
+
+        }
+        for (SavingAccount Acc : bank.BankSavingAccounts){
+            if( currentUser.getClient_id().equals(Acc.getClient_id()) ){
+                if(Acc.getAccountnumber().equals(accnum)){
+                    accfound = true;
+                    currentAccount = Acc;
+                    Accountnotext.setText(""+currentAccount.getAccountnumber()+"");
+
+                }else{
+                }
+
+            }
+
+        }
+        if(!accfound){
+            utility.ShowErrorAlert("unable to access this Account !");
+        }
+
+    }
 
 
 
@@ -74,7 +112,6 @@ public class ClientController {
 
     @FXML
     private ListView<String> myListView;
-    Bank bank = Bank.getInstance();
 
     @FXML
     public void showaccountinfo(ActionEvent event) {
@@ -179,9 +216,9 @@ public class ClientController {
                         for (Transaction transaction :TransactionObservableList  ) {
                             if (account.getAccountnumber().equals(transaction.getAccnumber())) {
                                 TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
-                                        "         Transaction Account :" + transaction.getAccnumber() +
-                                        "       Type : " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
-                                        "Date  :" + transaction.getDate());
+                                        "         Transaction Account :  " + transaction.getAccnumber() +
+                                        "       Type :  " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
+                                        "    Date  :  " + transaction.getDate());
                             }
                         }
 
@@ -193,10 +230,10 @@ public class ClientController {
                         for (Moneytrans transfer : TransferObservableList) {
                             if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
                             {
-                                TransactionsListStrings.add("   Account number  :    " + transfer.getAccnumber()+
-                                        "         Transaction id :" + transfer.getTransid() +
-                                        "       Amount : " + transfer.getAmount() + "       Type :  " + transfer.getType() +
-                                        "     To: " + transfer.getRecieveraccnum() + "     Date  :" + transfer.getDate());
+                                TransactionsListStrings.add("   Transaction No  :  " + transfer.getTransid() +
+                                        "       Transaction number  :   " + transfer.getAccnumber()+
+                                         "       Type :  " + transfer.getType()+"       Amount :  " + transfer.getAmount()
+                                        + "      Date  :  " + transfer.getDate() + "          Reciever :  " + transfer.getRecieveraccnum());
                             }
                         }
 
@@ -209,10 +246,10 @@ public class ClientController {
                         for (Moneytrans transfer : TransferObservableList) {
                             if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
                             {
-                                TransactionsListStrings.add("   Account number  :    " + transfer.getAccnumber()+
-                                        "         Transaction id :" + transfer.getTransid() +
-                                        "       Amount : " + transfer.getAmount() + "       Type :  " + transfer.getType() +
-                                        "     To: " + transfer.getRecieveraccnum() + "     Date  :" + transfer.getDate());
+                                TransactionsListStrings.add("   Transaction No  :   " + transfer.getTransid() +
+                                        "       Transaction number  :    " + transfer.getAccnumber() +
+                                        "       Type :  " + transfer.getType()+"       Amount :  " + transfer.getAmount()
+                                        + "     Date  :" + transfer.getDate() + "         Reciever :   " + transfer.getRecieveraccnum());
                             }
                         }
 
@@ -229,125 +266,114 @@ public class ClientController {
     }
     @FXML
     private TextField AmountField;
-@FXML
+
+    @FXML
     public void Deposit(ActionEvent event) {
-    ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
-    ObservableList<Transaction> Transactions = TransactionObservableList;
+        double amoount=Double.valueOf(AmountField.getText());
 
-    ObservableList<CurrentAccount> currentaccountObservableList = FXCollections.observableArrayList(bank.getCurrentAccount());
-    ObservableList<CurrentAccount> currentaccount = currentaccountObservableList;
-    ObservableList<SavingAccount> savingaccountObservableList = FXCollections.observableArrayList(bank.getSavingAccount());
-    ObservableList<SavingAccount> savingaccount = savingaccountObservableList;
-    String deposit = AmountField.getText();
-    double depositAmount = Double.parseDouble(deposit);
+        currentAccount.setBalance(currentAccount.getBalance()+amoount);
 
-    for (SavingAccount acc : savingaccountObservableList) {
-        if (currentUser.getClient_id().equals(acc.getClient_id())) {
-            double x = acc.getBalance();
-            x = acc.getBalance() + depositAmount;
-            acc.setBalance(x);
-
-        }
-    }
-
-    for (CurrentAccount account : currentaccountObservableList) {
-        if (currentUser.getClient_id().equals(account.getClient_id()))
-        {
-            double x=account.getBalance();
-            x= account.getBalance()+depositAmount;
-            account.setBalance(x);
-
-        }
-    }
+        Transaction transaction= new Transaction(currentAccount.getAccountnumber(),
+                amoount,"Deposit", new Date());
 
 
+        bank.BankATMTrans.add(transaction);
 
+        utility.ShowSuccessAlert("Deposit of : "+amoount+" Successful.");
 }
-@FXML
+
+
+    @FXML
     private TextField AmountField2;
     @FXML
     public void WithDraw(ActionEvent event) {
-        ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
-        ObservableList<Transaction> Transactions = TransactionObservableList;
 
-        ObservableList<CurrentAccount> currentaccountObservableList = FXCollections.observableArrayList(bank.getCurrentAccount());
-        ObservableList<CurrentAccount> currentaccount = currentaccountObservableList;
-        ObservableList<SavingAccount> savingaccountObservableList = FXCollections.observableArrayList(bank.getSavingAccount());
-        ObservableList<SavingAccount> savingaccount = savingaccountObservableList;
-        String withdraw = AmountField2.getText();
-        double withdrawalAmount = Double.parseDouble(withdraw);
+        double amoount=Double.valueOf(AmountField2.getText());
 
-        for (SavingAccount acc : savingaccountObservableList) {
-            if (currentUser.getClient_id().equals(acc.getClient_id())) {
+        currentAccount.setBalance(currentAccount.getBalance()-amoount);
 
-                double y = acc.getBalance();
-                y = acc.getBalance() - withdrawalAmount;
-                acc.setBalance(y);
+        Transaction transaction= new Transaction(currentAccount.getAccountnumber(),
+                amoount,"Withdraw", new Date());
 
-            }
-        }
 
-        for (CurrentAccount account : currentaccountObservableList) {
-            if (currentUser.getClient_id().equals(account.getClient_id()))
-            {
-                double y =account.getBalance();
-                y= account.getBalance()- withdrawalAmount;
-                account.setBalance(y);
+        bank.BankATMTrans.add(transaction);
 
-            }
-        }
-
+        utility.ShowSuccessAlert("Withdraw of : "+amoount+" Successful.");
 
 
     }
-    @FXML
-    private TextField From;
+
+
+
+
+
     @FXML
     private TextField To;
     @FXML
     private TextField Amount;
-    //function transfer MSH KHLSANAAAA
+
    @FXML
      public void Transfer(ActionEvent event){
-
-       ObservableList<CurrentAccount> currentaccountObservableList = FXCollections.observableArrayList(bank.getCurrentAccount());
-        ObservableList<CurrentAccount> currentaccount = currentaccountObservableList;
-        ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.getBankMoneyTransfers());
-        ObservableList<Moneytrans> Transfers = TransferObservableList;
-
-        String Fromm = From.getText();
-        Long F = Long.parseLong(Fromm);
-
-        String Too = To.getText();
-        Long T = Long.parseLong(Too);
+        try{
+            Long Reciever = Long.valueOf(To.getText());
+            double Amount4 = Double.valueOf(Amount.getText());
+            boolean recieverfound =false;
 
 
-        String Amountt = Amount.getText();
-        double transferAmount = Double.parseDouble(Amountt);
-
-        for (CurrentAccount account : currentaccountObservableList) {
-            if (currentUser.getClient_id().equals(account.getClient_id())) {
-                for (Moneytrans transfer : TransferObservableList) {
-                    if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
-                    {
-                     double  sender_balance= account.getBalance();
-                     sender_balance= account.getBalance()-transferAmount;
-                     account.setBalance(sender_balance);
-
-                        double  reciever_balance= account.getBalance();
-                        reciever_balance= account.getBalance()+transferAmount;
-                        account.setBalance(reciever_balance);
-
-                    }
+            for(CurrentAccount Rec: bank.BankCurrentAccounts){
+                if(Reciever.equals(Rec.getAccountnumber())){
+                    recieverfound = true ;
+                    currentAccount.setBalance(currentAccount.getBalance()-Amount4);
+                    Rec.setBalance(Rec.getBalance()+ Amount4 );
+                    Moneytrans newtrans = new Moneytrans(currentAccount.getAccountnumber(),
+                    Rec.getAccountnumber(), Amount4,"Transfer" , new Date());
+                    bank.BankMoneyTransfers.add(newtrans);
+                    utility.ShowSuccessAlert(Amount4 +" EGP is  Transfered from Account: "+currentAccount.getAccountnumber()
+                            +"  to Account: "+Rec.getAccountnumber());
                 }
-
             }
-        }
+            for(SavingAccount Rec: bank.BankSavingAccounts){
+                if(Reciever.equals(Rec.getAccountnumber())){
+                    recieverfound = true ;
+                    currentAccount.setBalance(currentAccount.getBalance()-Amount4);
+                    Rec.setBalance(Rec.getBalance()+ Amount4 );
 
+                    Moneytrans newtrans = new Moneytrans(currentAccount.getAccountnumber(),
+                            Rec.getAccountnumber(), Amount4,"Transfer" , new Date());
+                    utility.ShowSuccessAlert(Amount4 +" EGP is Transfered from Account: "+currentAccount.getAccountnumber()
+                    +"  to Account: "+Rec.getAccountnumber());
+                    bank.BankMoneyTransfers.add(newtrans);
+
+                }
+            }
+
+            if(!recieverfound){
+                utility.ShowErrorAlert("Couldn't find Reciever Account , Check Acc No Again.");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
 
+    @FXML
+    private TextField TelText;
+    public void EditPersonalInfo(){
+
+        try {
+            Long newTel = Long.valueOf(TelText.getText());
+
+            currentUser.setTelephone(newTel);
+
+            utility.ShowSuccessAlert("Telephone Number Changed to : "+currentUser.getTelephoneNumber()
+            +" Successfully. ");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }
 
