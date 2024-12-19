@@ -185,7 +185,7 @@ public class Client extends User {
                 throw new TransactionException("Credit card list is null.");
             }
             // Create a new credit card for the client using their client ID and full name
-            CreditCard newcard = new CreditCard(this.client_id, this.firstName + " " + this.lastName);
+            CreditCard newcard = new CreditCard(this.client_id );
             // Add the newly created credit card to the list of cards
             card.add(newcard);
             // Print the details of the newly created credit card
@@ -195,63 +195,8 @@ public class Client extends User {
         }
     }
 
-    public void paywithcreditcard(ArrayList<CreditCard> card) throws TransactionException {
-        Scanner s = new Scanner(System.in);
 
-        try {
-            // Validate card list
-            if (card == null || card.isEmpty()) {
-                throw new TransactionException("No credit cards available.");
-            }
 
-            // Get payment amount
-            System.out.println("Enter The Amount You Want To Pay : ");
-            int n = s.nextInt();
-
-            // Show client's cards
-            System.out.println("Your Cards : ");
-            boolean hasClientCards = false;
-            for (CreditCard c : card) {
-                if (c.getClient_id() == this.client_id) {
-                    System.out.println(c);
-                    hasClientCards = true;
-                }
-            }
-
-            if (!hasClientCards) {
-                throw new TransactionException("No credit cards found for this client.");
-            }
-
-            // Get card details
-            System.out.println("Enter The Card You Want To Pay With : ");
-            String cardnum = s.next();
-            System.out.println("Enter Cvv : ");
-            int cvv = s.nextInt();
-
-            for (CreditCard c : card) {
-                if (cardnum.equals(c.getCardNumber()) &&
-                        cvv == c.getCvv() &&
-                        c.getClient_id() == this.client_id) {
-                    if(n<0)
-                    {
-                        throw new CreditCard.CreditCardException("Invalid Amount,Please Enter Positive One");
-                    }
-                    c.pay(n);
-                    Date d = new Date();
-                    Transaction credit = new Transaction(n,"CREDIT CARD TRANSACTION",d);
-                    credittrans.add(credit);
-                    break;
-                }
-            }
-
-        } catch (InputMismatchException e) {
-            throw new TransactionException("Invalid input. Please enter numeric values.");
-        } catch (NoSuchElementException e) {
-            throw new TransactionException("Incorrect Card Or Cvv");
-        } catch (CreditCard.CreditCardException e) {
-            throw new TransactionException("Credit card payment failed: " + e.getMessage());
-        }
-    }
 
     public void disablecreditcard(ArrayList<CreditCard> card) throws TransactionException {
         Scanner s = new Scanner(System.in);
