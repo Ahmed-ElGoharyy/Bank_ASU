@@ -32,7 +32,7 @@
                 <Font name="Times New Roman Italic" size="38.0" />
             </font>
         </Text>
-        <Button fx:id="DisolayAccount" alignment="CENTER" layoutX="900.0" layoutY="565.0" mnemonicParsing="false" onAction="#showaccountinfo" prefHeight="91.0" prefWidth="199.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Account Details" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+        <Button fx:id="DisolayAccount" alignment="CENTER" layoutX="900.0" layoutY="565.0" mnemonicParsing="false" onAction="#showaccountinfo" prefHeight="91.0" prefWidth="199.0" style="-fx-background-color: #5978c3; -fx-border-color: black; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text="Display Accounts Details" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
