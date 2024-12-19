@@ -74,11 +74,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <SplitMenuButton alignment="CENTER" layoutX="102.0" layoutY="137.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="62.0" prefWidth="219.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Pay With Credit" textAlignment="CENTER" textFill="#0b1d3d">
+      <SplitMenuButton alignment="CENTER" layoutX="102.0" layoutY="137.0" mnemonicParsing="false" onAction="#paywithcreditcard" popupSide="RIGHT" prefHeight="62.0" prefWidth="219.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Pay With Credit" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
             <MenuItem mnemonicParsing="false" text="LE">
                <graphic>
-                  <TextField fx:id="addressTextField1" alignment="CENTER" promptText="Amount" style="-fx-border-width: 1; -fx-border-color: black;" />
+                  <TextField fx:id="creditamountpaid" alignment="CENTER" promptText="Amount" style="-fx-border-width: 1; -fx-border-color: black;" />
                </graphic>
             </MenuItem>
          </items>

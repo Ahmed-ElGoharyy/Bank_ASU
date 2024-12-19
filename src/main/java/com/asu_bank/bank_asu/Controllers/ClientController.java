@@ -162,7 +162,10 @@ public class ClientController {
 
     @FXML
     private TextField creditamountpaid;
+
+
     public void paywithcreditcard(){
+
         if(currentUser.getCreditCard() != null) {
             if (currentUser.getCreditCard().isActive()) {
                 double amount = Double.valueOf(creditamountpaid.getText());
@@ -188,7 +191,6 @@ public class ClientController {
 
     @FXML
     private Text Loyaltpointstext;
-
     public void ShowloyaltyPoints(){
         if(currentUser.getCreditCard() != null) {
             if(currentUser.getCreditCard().isActive()) {
