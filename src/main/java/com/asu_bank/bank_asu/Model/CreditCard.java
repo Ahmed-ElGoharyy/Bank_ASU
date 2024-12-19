@@ -5,7 +5,7 @@ public class CreditCard {
     private final int cvv;
     public boolean isActive;
     protected double loyaltyPoints = 0;
-    protected static final double limit = 20000;
+    protected static double limit = 20000;
     protected double spending = 0;
     private long client_id;
 
@@ -30,9 +30,13 @@ public class CreditCard {
     }
 
 
+    public double getLimit() {
+        return limit;
+    }
 
-
-
+    public void setLimit(double limit) {
+        CreditCard.limit = limit;
+    }
 
     public int getCvv() {
         return cvv;

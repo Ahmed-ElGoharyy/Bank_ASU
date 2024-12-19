@@ -160,6 +160,31 @@ public class ClientController {
 
     }
 
+    @FXML
+    private TextField creditamountpaid;
+    public void paywithcreditcard(){
+        if(currentUser.getCreditCard() != null) {
+            if (currentUser.getCreditCard().isActive()) {
+                double amount = Double.valueOf(creditamountpaid.getText());
+                if (amount + currentUser.getCreditCard().getSpending() <= currentUser.getCreditCard().getLimit()) {
+                    currentUser.getCreditCard().setSpending(currentUser.getCreditCard().getSpending() + amount);
+                    currentUser.getCreditCard().setLoyaltyPoints(currentUser.getCreditCard().getLoyaltyPoints() + (amount * 0.1));
+                    utility.ShowSuccessAlert("credit card transaction is done successfully\n\n" +
+                            "your new loyalty points after update: " + currentUser.getCreditCard().getLoyaltyPoints() + "\n" +
+                            "your current spending : " + currentUser.getCreditCard().getSpending());
+                } else {
+                    utility.ShowErrorAlert("transaction failed as you exceeded your limit \n \n try a smaller amount");
+                }
+
+
+            } else {
+                utility.ShowErrorAlert("Card Credit is Disabled, Activate it to make a credit card transaction");
+            }
+
+        }else{
+            utility.ShowErrorAlert("Cant find your Credit Card!  Request for one.");
+        }
+    }
 
     @FXML
     private Text Loyaltpointstext;
@@ -249,6 +274,8 @@ public class ClientController {
             utility.ShowErrorAlert("Error : " + e);
         }
     }
+
+
 
    @FXML
     public void showwTransButtonClicked(ActionEvent event) {
