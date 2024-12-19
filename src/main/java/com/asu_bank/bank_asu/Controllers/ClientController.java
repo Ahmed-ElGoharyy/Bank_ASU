@@ -110,6 +110,81 @@ public class ClientController {
         utility.LogOut(event);
     }
 
+
+
+
+
+    public void RequestCreditCard(){
+        if(currentUser.getCreditCard() == null) {
+            CreditCard credit = new CreditCard(currentUser.getClient_id());
+            currentUser.setCreditCard(credit);
+            utility.ShowSuccessAlert("Credit Card is made successfully\n\n"+
+                    " Client ID : "+credit.getClient_id()+"\n"+
+                    " Credit Card Number : "+ credit.getCardNumber()+"\n"+
+                    " Credit Card CVV : "+credit.getCvv()+"\n"+
+                    " Credit Card Active  : "+credit.isActive()+"\n"+
+                    "  Loyalty points : "+credit.getLoyaltyPoints());
+        }
+        else{
+            utility.ShowErrorAlert("You already have a Credit Card.");
+        }
+
+    }
+
+    public  void ActivateCard(){
+        if(currentUser.getCreditCard() != null) {
+            if (!currentUser.getCreditCard().isActive) {
+                currentUser.getCreditCard().setActive(true);
+                utility.ShowSuccessAlert("Credit Card Status is Active :" + currentUser.getCreditCard().isActive);
+            } else {
+                utility.ShowErrorAlert("Credit Card is already active.");
+            }
+        }else {
+            utility.ShowErrorAlert("Cant find your Credit Card!  Request for one.");
+        }
+
+    }
+
+    public void DisableCard(){
+        if(currentUser.getCreditCard() != null) {
+            if (currentUser.getCreditCard().isActive) {
+                currentUser.getCreditCard().setActive(false);
+                utility.ShowSuccessAlert("Credit Card Status is Active :" + currentUser.getCreditCard().isActive);
+            } else {
+                utility.ShowErrorAlert("Credit Card is already Disabled");
+            }
+
+        }else {
+            utility.ShowErrorAlert("Cant find your Credit Card!  Request for one.");
+        }
+
+    }
+
+
+    @FXML
+    private Text Loyaltpointstext;
+
+    public void ShowloyaltyPoints(){
+        if(currentUser.getCreditCard() != null) {
+            if(currentUser.getCreditCard().isActive()) {
+                String ss = String.valueOf(currentUser.getCreditCard().getLoyaltyPoints());
+                Loyaltpointstext.setText(ss);
+            }else{
+                utility.ShowErrorAlert("Card Credit is Disabled, Activate it to see your Loyalty Points.");
+
+            }
+        }else{
+            utility.ShowErrorAlert("Cant find your Credit Card!  Request for one.");
+        }
+
+    }
+
+
+
+
+
+
+
     @FXML
     private ListView<String> myListView;
 

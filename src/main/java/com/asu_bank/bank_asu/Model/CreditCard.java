@@ -10,8 +10,9 @@ public class CreditCard {
     private long client_id;
 
 
-
-// Constructor with validation
+    static int  cvvmax=999;
+    static int cvvmin=100;
+    static int cardmax=9999,cardmin=1000 ;
 
     public CreditCard(long id ){
         this.client_id=id;
@@ -19,12 +20,12 @@ public class CreditCard {
         // Generate Random Card Number
         String part1;
         part1="1111 1111 1111 ";
-        int cardmax=9999,cardmin=1000;
         this.cardNumber=part1 +cardmin;
-        cardmin++;
+         cardmin++;
+
 
         // Generate Random Cvv
-        int cvvmax=999,cvvmin=100;
+
         this.cvv=cvvmin + (int)(Math.random() * ((cvvmax - cvvmin) + 1));
     }
 

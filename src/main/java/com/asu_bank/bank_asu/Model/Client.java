@@ -5,13 +5,21 @@ import java.util.*;
 public class Client extends User {
     protected Long client_id ;
     protected  int counterr = 2005 ;
-
+    protected CreditCard creditCard;
     protected ArrayList<CurrentAccount> current = new ArrayList<>() ;
     protected ArrayList<SavingAccount> saving = new ArrayList<>();
     protected ArrayList<Transaction> credittrans = new ArrayList<>();
 
 
 
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCard credit) {
+        this.creditCard = credit;
+    }
 
     public ArrayList<SavingAccount> getSaving() {
         return saving;
