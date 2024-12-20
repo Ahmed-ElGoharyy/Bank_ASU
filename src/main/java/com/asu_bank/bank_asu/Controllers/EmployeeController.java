@@ -68,6 +68,17 @@ public class EmployeeController implements Initializable {
     @FXML
     private TextField CurrentStartBalance;
 
+    @FXML
+    private TextField FirstNameText;
+    @FXML
+    private TextField LastNameText;
+    @FXML
+    private TextField UsernameText;
+    @FXML
+    private TextField PasswordText;
+    @FXML
+    private TextField TeleText;
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -78,7 +89,58 @@ public class EmployeeController implements Initializable {
     }
 
 
+    @FXML
+    private void CreateClientaccButton(ActionEvent event) {
 
+        String adminUsername = "admin";
+        int graduationYear;
+        Long telephoneNumber;
+
+
+            if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
+                    UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
+                    TeleText.getText().isEmpty()) {
+                utility.ShowErrorAlert("Error: All fields must be filled out.");
+                return;
+            }
+            for (Client c : bank.BankClients) {
+                if (c.getUserName().equals(UsernameText.getText())) {
+                    utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
+                    return;
+                }
+            }
+            if (FirstNameText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
+                return;
+            }
+            if (LastNameText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Lastname cannot contain numbers!");
+                return;
+            }
+        try {
+            telephoneNumber = Long.parseLong(TeleText.getText());
+            if (String.valueOf(telephoneNumber).length() < 6 || String.valueOf(telephoneNumber).length() > 10) {
+                utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");
+                return;
+            }
+            if (telephoneNumber < 0) {
+                utility.ShowErrorAlert("Error: The Telephone Number cannot be negative!");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Error: The Telephone Number must be a valid number!");
+            return;
+        }
+            Client c = new Client(
+
+                    FirstNameText.getText(),
+                    LastNameText.getText(),
+                    UsernameText.getText(),
+                    PasswordText.getText(),
+                    Long.parseLong(TeleText.getText()));
+            bank.BankClients.add(c);
+            utility.ShowSuccessAlert("New Client added  successfully!");
+    }
         public void CreateSavingAccButton() {
             try {
                 String ClientId = SavingClientID.getText();
@@ -142,6 +204,7 @@ public class EmployeeController implements Initializable {
                 throw new RuntimeException(e);
 
             }
+
         }
 
 
