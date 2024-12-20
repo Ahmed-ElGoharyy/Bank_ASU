@@ -100,7 +100,17 @@ public class AdminController implements Initializable {
         String adminUsername = "admin";
         int graduationYear;
         Long telephoneNumber;
+
+
         try {
+            if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
+                    UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
+                    TeleText.getText().isEmpty() || AddressText.getText().isEmpty() ||
+                    PositionText.getText().isEmpty() || GradCollegeText.getText().isEmpty() ||
+                    GradYearText.getText().isEmpty() || TotalGradeText.getText().isEmpty()) {
+                utility.ShowErrorAlert("Error: All fields must be filled out.");
+                return;
+            }
             telephoneNumber = Long.parseLong(TeleText.getText());
             if (String.valueOf(telephoneNumber).length() < 6 || String.valueOf(telephoneNumber).length() > 10) {
                 utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");
@@ -137,14 +147,7 @@ public class AdminController implements Initializable {
                 return;
             }
 
-            if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
-                    UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
-                    TeleText.getText().isEmpty() || AddressText.getText().isEmpty() ||
-                    PositionText.getText().isEmpty() || GradCollegeText.getText().isEmpty() ||
-                    GradYearText.getText().isEmpty() || TotalGradeText.getText().isEmpty()) {
-                utility.ShowErrorAlert("Error: All fields must be filled out.");
-                return;
-            }
+
             for (Employee employee : bank.BankEmployees) {
                 if (employee.getUserName().equals(UsernameText.getText())) {
                     utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
