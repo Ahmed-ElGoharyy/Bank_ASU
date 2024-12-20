@@ -4,14 +4,14 @@ import java.util.*;
 
 public class Client extends User {
     protected Long client_id ;
-    private  int counterr = 2005 ;
+    protected  int counterr = 5 ;
     protected CreditCard creditCard;
-    protected ArrayList<CurrentAccount> current = new ArrayList<>() ;
-    protected ArrayList<SavingAccount> saving = new ArrayList<>();
-    protected ArrayList<Transaction> credittrans = new ArrayList<>();
+    protected List<CurrentAccount> current = new ArrayList<>() ;
+    protected List<SavingAccount> saving = new ArrayList<>();
+    protected List<Transaction> credittrans = new ArrayList<>();
 
 
-    public ArrayList<Transaction> getCredittrans() {
+    public List<Transaction> getCredittrans() {
         return credittrans;
     }
 
@@ -23,7 +23,7 @@ public class Client extends User {
         this.creditCard = credit;
     }
 
-    public ArrayList<SavingAccount> getSaving() {
+    public List<SavingAccount> getSaving() {
         return saving;
     }
 
@@ -32,7 +32,7 @@ public class Client extends User {
     }
 
 
-    public ArrayList<CurrentAccount> getCurrent() {
+    public List<CurrentAccount> getCurrent() {
         return current;
     }
 
@@ -48,7 +48,10 @@ public class Client extends User {
     }
 
 
-    public Client(){}
+    public Client(){
+        counterr++;
+        this.client_id = Long.valueOf(counterr);
+    }
 
 
     public Long getClient_id() {return client_id;}
@@ -388,8 +391,8 @@ public class Client extends User {
             throw new AccountException("Input error. No information provided.");
         } catch (IllegalArgumentException e) {
             throw new AccountException("Validation Error: " + e.getMessage());
+        }
     }
-  }
 
     public void showclientinfo() {
         try {

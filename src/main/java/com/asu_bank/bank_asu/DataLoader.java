@@ -3,213 +3,289 @@ package com.asu_bank.bank_asu;
 import com.asu_bank.bank_asu.Model.*;
 
 
-import java.io.BufferedReader;
+import com.asu_bank.bank_asu.Model.*;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+
+
+
 import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Field;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DataLoader {
+    private static final String BASE_PATH = "com/asu_bank/bank_asu/";
+    private static final String CLIENTS_FILE_PATH = BASE_PATH + "clients.json";
+    private static final String EMPLOYEES_FILE_PATH = BASE_PATH + "employees.json";
+    public static List<Client> clientsList = new ArrayList<>();
+    public static List<Employee> employeesList = new ArrayList<>();
 
+    /**
+     * Reads client and employee data from JSON files at program startup
+     * Creates directory structure and files if they don't exist
+     * @return boolean indicating if the read operation was successful
+     */
 
-
-    public void loadData(Bank bank) {
-
-        Map<String, Map<Long, Object>> datamap = new HashMap<String, Map<Long, Object>>();
-
-        Map<Long, Object> empMap = new HashMap<Long, Object>();
-        Map<Long, List<Account>> accountMap = new HashMap<Long, List<Account>>();
-        Map<Long, Client> clientMap = new HashMap<Long, Client>();
-
-        List<Employee> emps = readFile("Employee.csv", Employee.class);
-
-        List<Client> Clients = readFile("Clients.csv", Client.class);
-
-        List<Transaction> atmTansactions = readFile("ATMTransactions.csv", Transaction.class);
-
-        List<Moneytrans> TransTansactions = readFile("TransferTransactions.csv", Moneytrans.class);
-
-        List<CurrentAccount> CurrentAccs = readFile("CuurentAccs.csv", CurrentAccount.class);
-
-        List<SavingAccount> SavingAccs = readFile("SavingAcc.csv", SavingAccount.class);
-
-
-        bank.BankEmployees = emps;
-        bank.BankClients = Clients;
-        bank.BankATMTrans = atmTansactions;
-        bank.BankMoneyTransfers = TransTansactions;
-        bank.BankCurrentAccounts = CurrentAccs;
-        bank.BankSavingAccounts = SavingAccs;
-
-
-
-
-
-        //set account client relation
-        for(Client client : Clients) {
-              clientMap.put(client.getClient_id(), client);
-              System.out.println("Client ID :"+client.getClient_id());
-        }
-        for(SavingAccount acc : SavingAccs) {
-           Long clientId=   acc.getClient_id();
-            System.out.println(" Client id 444: "+ clientId);
-
-            Client client = clientMap.get(clientId);
-           ArrayList<SavingAccount> savings = client.getSaving();
-           if(savings == null){
-               savings = new ArrayList<SavingAccount>();
-               client.setSaving(savings);
-           }
-           savings.add(acc);
-        }
-
-        for(CurrentAccount acc : CurrentAccs) {
-            Long clientId=   acc.getClient_id();
-
-            Client client = clientMap.get(clientId);
-            ArrayList<CurrentAccount> currents = client.getCurrent();
-            if(currents == null){
-                currents = new ArrayList<CurrentAccount>();
-                client.setCurrent(currents);
-            }
-            currents.add(acc);
-        }
-
-        Client c = clientMap.get(Long.valueOf(2003));
-        System.out.println("Client Test ID :"+c);
-
-        System.out.println(" Client id: "+ c.getCurrent().get(0).getBalance());
-         // + "   "+c.getCurrent().get(1).getBalance());
-    }
-
-
-
-    public <T> List<T> readFile(String filename,Class<T> clazz) {
-        String filepath = "";
-        List<T> objects = new ArrayList<T>();
+    public static boolean loadDataFromFiles() {
         try {
-
-            filepath = this.getClass().getResource(filename).toURI().getPath();
-            System.out.println(filepath);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
-
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            List objAttributes = null;
-
-            if (line != null) {
-
-                objAttributes = getTokens(line, clazz,null, objAttributes);
-                System.out.println("objAttributes:"+objAttributes);
-            }
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
-                if(line !=null) {
-                    T obj = clazz.newInstance();
-                    getTokens(line, clazz, obj, objAttributes);
-                    objects.add(obj);
-                    System.out.println("Line :" + line);
+            // Create directory structure if it doesn't exist
+            File directory = new File(BASE_PATH);
+            if (!directory.exists()) {
+                if (directory.mkdirs()) {
+                    System.out.println("Created directory structure: " + BASE_PATH);
+                } else {
+                    throw new IOException("Failed to create directory structure");
                 }
             }
-            String everything = sb.toString();
+
+            // Configure Gson with settings matching our save method
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .serializeNulls()
+                    .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                    .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+                    .create();
+
+            File clientFile = new File(CLIENTS_FILE_PATH);
+            File employeeFile = new File(EMPLOYEES_FILE_PATH);
+
+            // Create files if they don't exist
+            if (!clientFile.exists()) {
+                System.out.println("Clients file not found. Creating new file: " + CLIENTS_FILE_PATH);
+                try (Writer writer = new FileWriter(clientFile)) {
+                    JsonObject rootObject = new JsonObject();
+                    rootObject.add("clients", new JsonArray());
+                    gson.toJson(rootObject, writer);
+                }
+            }
+
+            if (!employeeFile.exists()) {
+                System.out.println("Employees file not found. Creating new file: " + EMPLOYEES_FILE_PATH);
+                try (Writer writer = new FileWriter(employeeFile)) {
+                    JsonObject rootObject = new JsonObject();
+                    rootObject.add("employees", new JsonArray());
+                    gson.toJson(rootObject, writer);
+                }
+            }
+
+            // Read clients data
+            try (Reader clientReader = new FileReader(CLIENTS_FILE_PATH)) {
+                JsonObject rootObject = JsonParser.parseReader(clientReader).getAsJsonObject();
+                JsonArray clientsArray = rootObject.getAsJsonArray("clients");
+                clientsList = new ArrayList<>();
+
+                for (JsonElement element : clientsArray) {
+                    Client client = gson.fromJson(element, Client.class);
+                    clientsList.add(client);
+                }
+                System.out.println("Successfully loaded " + clientsList.size() + " clients.");
+            }
+
+            // Read employees data
+            try (Reader employeeReader = new FileReader(EMPLOYEES_FILE_PATH)) {
+                JsonObject rootObject = JsonParser.parseReader(employeeReader).getAsJsonObject();
+                JsonArray employeesArray = rootObject.getAsJsonArray("employees");
+                employeesList = new ArrayList<>();
+
+                for (JsonElement element : employeesArray) {
+                    Employee employee = gson.fromJson(element, Employee.class);
+                    employeesList.add(employee);
+                }
+                System.out.println("Successfully loaded " + employeesList.size() + " employees.");
+            }
+
+            return true;
+
+        } catch (IOException e) {
+            System.err.println("Error: Failed to read or create data files. " + e.getMessage());
+            return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error: Failed to parse JSON data. " + e.getMessage());
+            e.printStackTrace(); // This will help debug any JSON parsing issues
+            return false;
         }
-        return objects;
     }
 
-    public List<Object> getTokens(String line,Class clazz,Object obj,List<String> fieldNames){
-        List<Object> tokens =new ArrayList<>();
-
+    /**
+     * Writes client and employee data to JSON files when program exits
+     * @return boolean indicating if the write operation was successful
+     */
+    public static boolean saveDataToFiles(Bank bank) {
         try {
+            for(Moneytrans money: bank.BankMoneyTransfers){
+                for(Client c : bank.BankClients){
+                    for(CurrentAccount curr : c.getCurrent()){
+                        if(curr.getAccountnumber()==money.getAccnumber()||curr.getAccountnumber()==money.getRecieveraccnum()){
+                            curr.moneytransfer.add(money);
+                        }
+                    }
+                    for(SavingAccount sav : c.getSaving()){
+                        if(sav.getAccountnumber()==money.getAccnumber()||sav.getAccountnumber()==money.getRecieveraccnum()){
+                            sav.moneytransfer.add(money);
+                        }
+                    }
 
-            StringTokenizer st = new StringTokenizer(line, ",");
+                }
+            }
+            for(Transaction trans: bank.BankATMTrans){
+                for(Client c : bank.BankClients){
+                    for(CurrentAccount curr : c.getCurrent()){
+                        if(curr.getAccountnumber()==trans.getAccnumber()){
+                            curr.trasactions.add(trans);
+                        }
+                    }
+                    for(SavingAccount sav : c.getSaving()){
+                        if(sav.getAccountnumber()==trans.getAccnumber()){
+                            sav.trasactions.add(trans);
+                        }
+                    }
 
-            int index = 0;
-            String fieldName = null;
-            Field field = null;
-
-
-            while (st.hasMoreTokens()) {
-                String token = st.nextToken();
-                if(fieldNames != null) {
-                    fieldName = fieldNames.get(index);
-                    if(fieldName != null ) {
-                        setFieldValue(obj,fieldName, token);
+                }
+            }
+            for(Client c :bank.BankClients ){
+                for(CurrentAccount curr : c.getCurrent()){
+                    for(CurrentAccount maincurr: bank.BankCurrentAccounts){
+                        if(maincurr.getClient_id().equals(curr.getClient_id())){
+                            curr=maincurr;
+                        }
                     }
                 }
-
-                System.out.println("token :" + token);
-                tokens.add(token);
-                index++;
+                for(SavingAccount sav : c.getSaving()){
+                    for(SavingAccount mainsav: bank.BankSavingAccounts){
+                        if(mainsav.getClient_id().equals(sav.getClient_id())){
+                            sav=mainsav;
+                        }
+                    }
+                }
             }
+
+            // Create Gson instance with settings to include all fields
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .serializeNulls()
+                    .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                    .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+                    .create();
+
+            // Write clients data with ordered attributes
+            try (Writer clientWriter = new FileWriter(CLIENTS_FILE_PATH)) {
+                JsonObject rootObject = new JsonObject();
+                JsonArray clientsArray = new JsonArray();
+
+                for (Client client : clientsList) {
+                    JsonObject clientObject = new JsonObject(); // Create empty object to control order
+
+                    // Start from the topmost superclass and work down
+                    List<Class<?>> classHierarchy = new ArrayList<>();
+                    Class<?> currentClass = client.getClass();
+                    while (currentClass != null) {
+                        classHierarchy.add(0, currentClass); // Add to start of list
+                        currentClass = currentClass.getSuperclass();
+                    }
+
+                    // Process fields from each class in order (parent to child)
+                    for (Class<?> clazz : classHierarchy) {
+                        Field[] fields = clazz.getDeclaredFields();
+                        for (Field field : fields) {
+                            field.setAccessible(true);
+                            if (!Modifier.isTransient(field.getModifiers()) &&
+                                    !Modifier.isStatic(field.getModifiers())) {
+                                try {
+                                    Object value = field.get(client);
+                                    clientObject.add(field.getName(), gson.toJsonTree(value));
+                                } catch (IllegalAccessException e) {
+                                    System.err.println("Warning: Could not access field " + field.getName());
+                                }
+                            }
+                        }
+                    }
+                    clientsArray.add(clientObject);
+                }
+                rootObject.add("clients", clientsArray);
+                gson.toJson(rootObject, clientWriter);
+                System.out.println("Successfully saved " + clientsList.size() + " clients with ordered attributes.");
+            }
+
+            // Write employees data with ordered attributes
+            try (Writer employeeWriter = new FileWriter(EMPLOYEES_FILE_PATH)) {
+                JsonObject rootObject = new JsonObject();
+                JsonArray employeesArray = new JsonArray();
+
+                for (Employee employee : employeesList) {
+                    JsonObject employeeObject = new JsonObject(); // Create empty object to control order
+
+                    // Start from the topmost superclass and work down
+                    List<Class<?>> classHierarchy = new ArrayList<>();
+                    Class<?> currentClass = employee.getClass();
+                    while (currentClass != null) {
+                        classHierarchy.add(0, currentClass); // Add to start of list
+                        currentClass = currentClass.getSuperclass();
+                    }
+
+                    // Process fields from each class in order (parent to child)
+                    for (Class<?> clazz : classHierarchy) {
+                        Field[] fields = clazz.getDeclaredFields();
+                        for (Field field : fields) {
+                            field.setAccessible(true);
+                            if (!Modifier.isTransient(field.getModifiers()) &&
+                                    !Modifier.isStatic(field.getModifiers())) {
+                                try {
+                                    Object value = field.get(employee);
+                                    employeeObject.add(field.getName(), gson.toJsonTree(value));
+                                } catch (IllegalAccessException e) {
+                                    System.err.println("Warning: Could not access field " + field.getName());
+                                }
+                            }
+                        }
+                    }
+                    employeesArray.add(employeeObject);
+                }
+                rootObject.add("employees", employeesArray);
+                gson.toJson(rootObject, employeeWriter);
+                System.out.println("Successfully saved " + employeesList.size() + " employees with ordered attributes.");
+            }
+
+            return true;
+        } catch (IOException e) {
+            System.err.println("Error: Failed to write data files. " + e.getMessage());
+            return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error: Failed to convert data to JSON. " + e.getMessage());
+            return false;
         }
-        return tokens;
     }
-
-
-
-    private static Field getField(Class mClass, String fieldName) throws NoSuchFieldException {
-        try {
-            System.out.println("fieldName::"+fieldName);
-            return mClass.getDeclaredField(fieldName);
-        } catch (NoSuchFieldException e) {
-            Class superClass = mClass.getSuperclass();
-            if (superClass == null) {
-                throw e;
-            } else {
-                return getField(superClass, fieldName);
+    public static void loadData(Bank bank){
+        DataLoader.loadDataFromFiles();
+        bank.BankClients=clientsList;
+        bank.BankEmployees=employeesList;
+        bank.BankCurrentAccounts=new ArrayList<>();
+        bank.BankSavingAccounts=new ArrayList<>();
+        for(Client c : bank.BankClients) {
+            for (CurrentAccount curr : c.getCurrent()) {
+                bank.BankCurrentAccounts.add(curr);
+                for(Moneytrans trans:curr.moneytransfer){
+                    bank.BankMoneyTransfers.add(trans);
+                }
+                for(Transaction trans:curr.trasactions){
+                    bank.BankATMTrans.add(trans);
+                }
             }
-        }
-    }
-
-    public static Field setFieldValue(Object object, String fieldName, String valueString) throws NoSuchFieldException, IllegalAccessException {
-        Field field = getField(object.getClass(), fieldName);
-        Object objVal = null;
-        String fieldClassName = field.getType().getCanonicalName();
-
-        System.out.println("fieldClassName:"+fieldClassName);
-        if(fieldClassName.equals(Long.class.getCanonicalName())) {
-            objVal = Long.valueOf(valueString);
-        } else  if(fieldClassName.equals(Integer.class.getCanonicalName())) {
-            objVal = Integer.valueOf(valueString);
-        } else  if(fieldClassName.equals(Double.class.getCanonicalName())) {
-            objVal = Double.valueOf(valueString);
-        } else  if(fieldClassName.equals(String.class.getCanonicalName())) {
-            objVal = valueString;
-        } else  if(fieldClassName.equals(Character.class.getCanonicalName())) {
-            objVal = Character.valueOf(valueString.charAt(0));
-        }else  if(fieldClassName.equals(Date.class.getCanonicalName())) {
-            try {
-                objVal = new SimpleDateFormat("yyyy-MM-dd").parse(valueString);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+            for (SavingAccount sav : c.getSaving()) {
+                bank.BankSavingAccounts.add(sav);
+                for(Moneytrans trans:sav.moneytransfer){
+                    bank.BankMoneyTransfers.add(trans);
+                }
+                for(Transaction trans:sav.trasactions){
+                    bank.BankATMTrans.add(trans);
+                }
             }
         }
 
-
-        field.setAccessible(true);
-        System.out.println("set field name: "+fieldName + "   val:"+objVal);
-        field.set(object, objVal);
-        return field;
-    }
-
-    public static void main(String[] args) {
-        Bank bank = Bank.getInstance();
-
-        DataLoader dl = new DataLoader();
-        dl.loadData(bank);
     }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 
 public class Main extends Application {
+    static Bank bank = Bank.getInstance();
     @Override
 
 
@@ -24,14 +25,17 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    @Override
+    public void stop(){
+        DataLoader.saveDataToFiles(bank);
+    }
 
 
     public static void main(String[] args) throws Exception {
 
-        // Run data loading
-            Bank bank = Bank.getInstance();
-            DataLoader dl = new DataLoader();
-            dl.loadData(bank);
+        // Run data loading asynchronously
+
+        DataLoader.loadData(bank);
 
         // Launch the JavaFX application
         launch();

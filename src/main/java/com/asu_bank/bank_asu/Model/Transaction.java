@@ -6,13 +6,14 @@ public class Transaction {
     protected Long accnumber;
     protected Integer transid;
     protected Double amount;
-    protected static int counter=14;
+    public static int counter=0;
     protected String type;
     protected Date Date;
 
 
-
-    public Transaction(){}
+    public Transaction(){
+        counter++;
+    }
 
 
 
