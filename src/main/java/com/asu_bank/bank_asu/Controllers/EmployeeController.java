@@ -91,12 +91,20 @@ public class EmployeeController implements Initializable {
                     utility.ShowErrorAlert("Client ID must be numeric!");
                     return;
                 }
+
+
                 if (!StartBalance.matches(".*\\d.*")) {
                     utility.ShowErrorAlert("Start Balance must be numeric!");
                     return;
                 }
                 Double startBalance = Double.valueOf(SavingStartBalance.getText());
                 Long clientId = Long.valueOf(SavingClientID.getText());
+
+
+                if(startBalance<0){
+                    utility.ShowErrorAlert("Balance cannot be negative!");
+                    return;
+                }
 
 
                 SavingAccount newSavingAcc = new SavingAccount(startBalance, clientId);
@@ -106,12 +114,21 @@ public class EmployeeController implements Initializable {
 
                 // Find the client with the matching client ID and add the account to their list
 
+                boolean clientFound = false;
                 for (Client client : bank.BankClients) {
                     if (client.getClient_id().equals(clientId)) {
                         client.getSaving().add(newSavingAcc);
+                        clientFound = true;
                         break;
+
                     }
+
                 }
+                if(!clientFound){
+                    utility.ShowErrorAlert("Client does not exist...Enter a valid Client ID!");
+                    return;
+                }
+
 
                 utility.ShowSuccessAlert("Saving Account added successfully for Client: " + clientId + "\n" +
                         "Your Account Number: " + newSavingAcc.getAccountnumber() + "\n" +
@@ -148,6 +165,11 @@ public class EmployeeController implements Initializable {
             Double startBalance = Double.valueOf(CurrentStartBalance.getText());
             Long clientId = Long.valueOf(CurrentClientID.getText());
 
+            if(startBalance<0){
+                utility.ShowErrorAlert("Balance cannot be negative!");
+                return;
+            }
+
 
             //need t check balance before!!!!!!!!!!!!!!
 
@@ -179,12 +201,24 @@ public class EmployeeController implements Initializable {
                 bank.BankCurrentAccounts.add(newCurrentAcc);
 
                 // Find the client with the matching client ID and add the account to their list
+
+                boolean clientFound = false;
                 for (Client client : bank.BankClients) {
                     if (client.getClient_id().equals(clientId)) {
                         client.getCurrent().add(newCurrentAcc);
+                        clientFound = true;
                         break;
+
                     }
+
                 }
+                if(!clientFound){
+                    utility.ShowErrorAlert("Client does not exist...Enter a valid Client ID!");
+                    return;
+                }
+
+
+
 
                 utility.ShowSuccessAlert("Current Account added successfully for Client: " + clientId + "\n" +
                         "Your Account Number: " + newCurrentAcc.getAccountnumber() + "\n" +
