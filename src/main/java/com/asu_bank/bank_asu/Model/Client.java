@@ -11,7 +11,9 @@ public class Client extends User {
     protected ArrayList<Transaction> credittrans = new ArrayList<>();
 
 
-
+    public ArrayList<Transaction> getCredittrans() {
+        return credittrans;
+    }
 
     public CreditCard getCreditCard() {
         return creditCard;

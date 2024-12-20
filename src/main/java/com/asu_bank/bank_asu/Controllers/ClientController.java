@@ -175,6 +175,8 @@ public class ClientController {
                     utility.ShowSuccessAlert("credit card transaction is done successfully\n\n" +
                             "your new loyalty points after update: " + currentUser.getCreditCard().getLoyaltyPoints() + "\n" +
                             "your current spending : " + currentUser.getCreditCard().getSpending());
+                    Transaction newtran =new Transaction(amount," Credit Card transaction",new Date());
+                    currentUser.getCredittrans().add(newtran);
                 } else {
                     utility.ShowErrorAlert("transaction failed as you exceeded your limit \n \n try a smaller amount");
                 }
@@ -340,7 +342,7 @@ public class ClientController {
                             if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
                             {
                                 TransactionsListStrings.add("   Transaction No  :  " + transfer.getTransid() +
-                                        "       Transaction number  :   " + transfer.getAccnumber()+
+                                        "       Transaction Acc number  :   " + transfer.getAccnumber()+
                                          "       Type :  " + transfer.getType()+"       Amount :  " + transfer.getAmount()
                                         + "      Date  :  " + transfer.getDate() + "          Reciever :  " + transfer.getRecieveraccnum());
                             }
@@ -357,13 +359,21 @@ public class ClientController {
                             if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
                             {
                                 TransactionsListStrings.add("   Transaction No  :   " + transfer.getTransid() +
-                                        "       Transaction number  :    " + transfer.getAccnumber() +
+                                        "       Transaction Acc number  :    " + transfer.getAccnumber() +
                                         "       Type :  " + transfer.getType()+"       Amount :  " + transfer.getAmount()
                                         + "     Date  :" + transfer.getDate() + "         Reciever :   " + transfer.getRecieveraccnum());
                             }
                         }
 
                     }
+                }
+                for(Transaction tr : currentUser.getCredittrans()){
+
+                    TransactionsListStrings.add("   Transaction No  :   " + tr.getTransid() +
+                            "       Client ID  :    " + currentUser.getClient_id() +
+                            "       Type :  " + tr.getType()+"       Amount :  " + tr.getAmount()
+                            + "     Date  :  " + tr.getDate() );
+
                 }
 
                 myListView.setItems(TransactionsListStrings);

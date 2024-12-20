@@ -3,7 +3,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
@@ -76,7 +75,7 @@
       </Button>
       <SplitMenuButton alignment="CENTER" layoutX="102.0" layoutY="137.0" mnemonicParsing="false" onAction="#paywithcreditcard" popupSide="RIGHT" prefHeight="62.0" prefWidth="219.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Pay With Credit" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
-            <MenuItem mnemonicParsing="false" text="LE">
+            <MenuItem mnemonicParsing="false" text="EGP">
                <graphic>
                   <TextField fx:id="creditamountpaid" alignment="CENTER" promptText="Amount" style="-fx-border-width: 1; -fx-border-color: black;" />
                </graphic>
@@ -88,12 +87,12 @@
       </SplitMenuButton>
       <SplitMenuButton alignment="CENTER" layoutX="102.0" layoutY="221.0" mnemonicParsing="false" onAction="#Transfer" popupSide="RIGHT" prefHeight="62.0" prefWidth="219.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Transfer Money" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
-            <MenuItem mnemonicParsing="false">
+            <MenuItem mnemonicParsing="false" text="To :">
                <graphic>
-                  <TextField fx:id="To" alignment="CENTER" promptText="To:" style="-fx-border-color: black; -fx-border-width: 1;" />
+                  <TextField fx:id="To" alignment="CENTER" promptText="Receiver Account no" style="-fx-border-color: black; -fx-border-width: 1;" />
                </graphic>
             </MenuItem>
-            <MenuItem mnemonicParsing="false">
+            <MenuItem mnemonicParsing="false" text="EGP">
                <graphic>
                   <TextField fx:id="Amount" alignment="CENTER" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
                </graphic>
@@ -105,15 +104,11 @@
       </SplitMenuButton>
       <SplitMenuButton alignment="CENTER" layoutX="37.0" layoutY="313.0" mnemonicParsing="false" onAction="#Deposit" prefHeight="62.0" prefWidth="166.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Deposit" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
-            <Menu mnemonicParsing="false" text="Amount">
-              <items>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <TextField fx:id="AmountField" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
-                     </graphic>
-                  </MenuItem>
-              </items>
-            </Menu>
+            <MenuItem mnemonicParsing="false" text="EGP">
+               <graphic>
+                  <TextField fx:id="AmountField" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
+               </graphic>
+            </MenuItem>
          </items>
          <font>
             <Font name="System Bold" size="16.0" />
@@ -121,7 +116,7 @@
       </SplitMenuButton>
       <SplitMenuButton alignment="CENTER" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#EditPersonalInfo" prefHeight="62.0" prefWidth="210.0" style="-fx-border-color: #124296; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#1b337b">
          <items>
-            <MenuItem mnemonicParsing="false">
+            <MenuItem mnemonicParsing="false" text="New Phone No :">
                <graphic>
                   <TextField fx:id="TelText" promptText="Phone number" style="-fx-border-color: black; -fx-border-width: 1;" />
                </graphic>
@@ -144,15 +139,11 @@
       </Text>
       <SplitMenuButton alignment="CENTER" layoutX="239.0" layoutY="315.0" mnemonicParsing="false" onAction="#WithDraw" prefHeight="62.0" prefWidth="187.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Withdraw" textAlignment="CENTER" textFill="#0b1d3d">
          <items>
-            <Menu mnemonicParsing="false" text="amount">
-               <items>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <TextField fx:id="AmountField2" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
-                     </graphic>
-                  </MenuItem>
-               </items>
-            </Menu>
+            <MenuItem mnemonicParsing="false" text="EGP">
+               <graphic>
+                  <TextField fx:id="AmountField2" promptText="Amount:" style="-fx-border-width: 1; -fx-border-color: black;" />
+               </graphic>
+            </MenuItem>
          </items>
          <font>
             <Font name="System Bold" size="16.0" />

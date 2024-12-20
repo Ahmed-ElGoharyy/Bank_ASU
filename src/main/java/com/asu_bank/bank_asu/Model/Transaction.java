@@ -48,10 +48,13 @@ public class Transaction {
         this.type=type;
         this.Date =Date;
     }
-    public Transaction( double amount, String type, Date Date){
+
+
+
+
+    public Transaction( double amount, String type, Date Date){   // For credit card ( because no account is linked with it)
         counter++;
         this.transid=counter;
-      //  this.accnumber= 00000;
         this.amount=amount;
         this.type=type;
         this.Date =Date;
