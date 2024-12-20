@@ -8,16 +8,17 @@ import java.util.Scanner;
 abstract public class Account {
 
  protected Long client_id;
- private  Long accountnumber;
- protected ArrayList<Transaction> trasactions = new ArrayList<>();
- protected ArrayList<Moneytrans> moneytransfer = new ArrayList<>();
+ protected Long accountnumber;
+ public ArrayList<Transaction> trasactions = new ArrayList<>();
+ public ArrayList<Moneytrans> moneytransfer = new ArrayList<>();
  protected String AccountState;
  protected String AccountType;
  private Double balance;
- private static Integer counter = 8;
+ private static Integer counter = 8020;
 
  public Account(){
-                        // For data loading
+  counter++;
+  this.accountnumber = Long.valueOf(counter);// For data loading
  }
 
  public Long getClient_id() {

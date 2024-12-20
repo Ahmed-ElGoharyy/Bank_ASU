@@ -252,12 +252,12 @@ public class EmployeeController implements Initializable {
 
                 String SearchAcc = SearchAccTextField.getText();
 
-                    Long idsearch = currentUser.getclientidbyname(SearchAcc); // function we made to get id
+                    Long idsearch = currentUser.getclientidbyname(SearchAcc,bank); // function we made to get id
                 if(SearchAcc.matches(".*\\d.*")){
                     utility.ShowErrorAlert("Full Name cannot be a number!");
                     return;
                 }
-                    if (idsearch !=null) {
+                    if (idsearch !=0) {
                         accfound=true;
                         resultsText.append("Found! Your Client ID is : ").append(idsearch);
                     }

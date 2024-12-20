@@ -15,7 +15,6 @@ public class Employee extends User {
     protected Character totalGrade;
 
 
-    Bank bank = Bank.getInstance();
 
     public void setAddress(String address) {
         this.address = address;
@@ -25,10 +24,9 @@ public class Employee extends User {
         this.position = position;
     }
 
-    Scanner s=new Scanner(System.in);
     //Constructor
     public Employee ( String firstName, String lastName, String userName, String password, long telephoneNumber,
-                     String address,String position,String graduatedCollege,int yearOfGraduation,char totalGrade) {
+                      String address,String position,String graduatedCollege,int yearOfGraduation,char totalGrade) {
         super( firstName, lastName, userName, password, telephoneNumber);
         this.address=address;
         this.position=position;
@@ -53,6 +51,7 @@ public class Employee extends User {
     public Integer getYearOfGradutaion() {return yearOfGraduation;}
 
     public void createClientBankAccount(ArrayList<Client> clients) {
+        Scanner s=new Scanner(System.in);
         try {
             // Validate input parameters
             if (clients == null || clients.isEmpty()) {
@@ -111,7 +110,7 @@ public class Employee extends User {
 
                             System.out.println("Current Account Added Successfully");
                         }
-                         else {
+                        else {
                             System.out.println("Invalid account type. Please choose C or S.");
                         }
                         break;
@@ -134,6 +133,7 @@ public class Employee extends User {
     }
 
     public void editAccountInfo(ArrayList<Client> clients) {
+        Scanner s=new Scanner(System.in);
         try {
             // Validate input parameters
             if (clients == null || clients.isEmpty()) {
@@ -269,7 +269,7 @@ public class Employee extends User {
     }
 
     public void removeAccount(ArrayList<Client> clients) {
-
+        Scanner s=new Scanner(System.in);
         try {
             System.out.println("Enter the Account Number you want to remove: ");
             long accountNumber = s.nextLong();
@@ -385,6 +385,7 @@ public class Employee extends User {
 
     public void editPersonalInfo() throws Client.AccountException
     {
+        Scanner s=new Scanner(System.in);
         try {
             // First Name Validation
             System.out.println("Enter Your FirstName : ");
@@ -450,6 +451,7 @@ public class Employee extends User {
     }
 
     public void maketrans(ArrayList<Client> clients) throws  Account.TransferException {
+        Scanner s=new Scanner(System.in);
         try {
             System.out.println("Enter Sender Acc Num : ");
             long sendaccnum = s.nextLong();
@@ -465,9 +467,9 @@ public class Employee extends User {
             for (Client sender : clients) {
                 for (CurrentAccount curr : sender.current) {
                     if (curr.getAccountnumber() == sendaccnum) {
-                            curr.transfermoney(clients, this.firstName + this.lastName);
-                            isfound = true;
-                            return; // Exit method after successful transfer
+                        curr.transfermoney(clients, this.firstName + this.lastName);
+                        isfound = true;
+                        return; // Exit method after successful transfer
                     }
                 }
 
@@ -475,9 +477,9 @@ public class Employee extends User {
                 if (!isfound) {
                     for (SavingAccount sav : sender.saving) {
                         if (sav.getAccountnumber() == sendaccnum) {
-                                sav.transfermoney(clients, this.firstName +" "+ this.lastName);
-                                isfound = true;
-                                return; // Exit method after successful transfer
+                            sav.transfermoney(clients, this.firstName +" "+ this.lastName);
+                            isfound = true;
+                            return; // Exit method after successful transfer
                         }
                     }
                 }
@@ -499,22 +501,23 @@ public class Employee extends User {
         }
     }
 
-    public Long getclientidbyname( String name){
-
+    public Long getclientidbyname( String name,Bank bank){
+        long returnedid;
         for(Client client : bank.BankClients){
             String s = client.firstName +" "+ client.lastName;
             if(name.equalsIgnoreCase(s)){
-                id= client.getClient_id();
+                returnedid= client.getClient_id();
                 break;
             }
             else {
-                id= null;
+                returnedid = 0;
             }
+            return returnedid;
         }
         //lw raga3 -1 yebaa mala2ho4
         return id;
     }
-    public String getclientnamebyid( Long clientid){
+    public String getclientnamebyid( Long clientid,Bank bank){
         String name=new String();
         boolean isfound=false;
         for(Client client : bank.BankClients){
@@ -525,13 +528,12 @@ public class Employee extends User {
             }
         }
         if(!isfound) {
-        name=null;
+            name=null;
         }
         //lw raga3 null yebaa mala2aho4
         return name;
     }
 }
-
 
 
 

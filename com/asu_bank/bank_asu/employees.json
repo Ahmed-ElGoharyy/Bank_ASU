@@ -1,0 +1,82 @@
+{
+  "employees": [
+    {
+      "id": 6,
+      "firstName": "ali",
+      "lastName": "ali",
+      "userName": "robertanderson",
+      "password": "emp1008",
+      "telephoneNumber": 2546889,
+      "address": "123 Oak Street, Boston, MA 02108",
+      "position": "Senior Bank Manager",
+      "graduatedCollege": "Harvard Business School",
+      "yearOfGraduation": 2015,
+      "totalGrade": "A"
+    },
+    {
+      "id": 7,
+      "firstName": "Lisa",
+      "lastName": "Martinez",
+      "userName": "lisamartinez",
+      "password": "emp1009",
+      "telephoneNumber": 2546889,
+      "address": "456 Pine Avenue, Boston, MA 02109",
+      "position": "Financial Advisor",
+      "graduatedCollege": "Boston University",
+      "yearOfGraduation": 2017,
+      "totalGrade": "B"
+    },
+    {
+      "id": 8,
+      "firstName": "James",
+      "lastName": "Thompson",
+      "userName": "jamesthompson",
+      "password": "emp1010",
+      "telephoneNumber": 2546889,
+      "address": "789 Maple Road, Cambridge, MA 02138",
+      "position": "Investment Analyst",
+      "graduatedCollege": "MIT",
+      "yearOfGraduation": 2018,
+      "totalGrade": "A"
+    },
+    {
+      "id": 9,
+      "firstName": "Michelle",
+      "lastName": "Garcia",
+      "userName": "michellegarcia",
+      "password": "emp1011",
+      "telephoneNumber": 2546889,
+      "address": "321 Elm Street, Brookline, MA 02445",
+      "position": "Risk Management Specialist",
+      "graduatedCollege": "Northeastern University",
+      "yearOfGraduation": 2016,
+      "totalGrade": "A"
+    },
+    {
+      "id": 10,
+      "firstName": "Daniel",
+      "lastName": "Lee",
+      "userName": "daniellee",
+      "password": "emp1012",
+      "telephoneNumber": 2546889,
+      "address": "987 Birch Lane, Newton, MA 02458",
+      "position": "Compliance Officer",
+      "graduatedCollege": "Boston College",
+      "yearOfGraduation": 2019,
+      "totalGrade": "B"
+    },
+    {
+      "id": 21,
+      "firstName": "Ahmed",
+      "lastName": "Dahy",
+      "userName": "ahmeddahy",
+      "password": "Dahy2005",
+      "telephoneNumber": 1234567,
+      "address": "12 Cairo",
+      "position": "Manager",
+      "graduatedCollege": "ASU",
+      "yearOfGraduation": 2024,
+      "totalGrade": "A"
+    }
+  ]
+}

@@ -11,14 +11,14 @@ public class Bank {
     protected static Bank instance;
     public List<Client> BankClients;
     public List<Employee> BankEmployees;
-    public List<Transaction>  BankATMTrans;
-    public List<Moneytrans>  BankMoneyTransfers;
+    public List<Transaction>  BankATMTrans=new ArrayList<>();
+    public List<Moneytrans>  BankMoneyTransfers=new ArrayList<>();
     public List<SavingAccount>  BankSavingAccounts;
     public List<CurrentAccount> BankCurrentAccounts;
 
 
 
-    
+
     public List<Employee> getBankEmployees() {
         return BankEmployees;
     }

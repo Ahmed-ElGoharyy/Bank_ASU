@@ -1,0 +1,373 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Smith",
+      "userName": "ahmed",
+      "password": "ahmed",
+      "telephoneNumber": 568456,
+      "client_id": 1,
+      "counterr": 2005,
+      "creditCard": {
+        "cardNumber": "4532-7845-9632-1234",
+        "cvv": 123,
+        "isActive": false,
+        "loyaltyPoints": 400.0,
+        "limit": 20000.0,
+        "spending": 4000.0,
+        "client_id": 0,
+        "cvvmax": 999,
+        "cvvmin": 100,
+        "cardmax": 9999,
+        "cardmin": 1000
+      },
+      "current": [
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 1,
+          "accountnumber": 8001,
+          "trasactions": [
+            {
+              "accnumber": 8001,
+              "transid": 1,
+              "amount": 3000.0,
+              "counter": 1,
+              "type": "Withdraw",
+              "Date": "Dec 20, 2024, 9:31:15 PM"
+            }
+          ],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 7000.0,
+          "counter": 9
+        },
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 1,
+          "accountnumber": 8002,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 10500.0,
+          "counter": 9
+        }
+      ],
+      "saving": [
+        {
+          "interestRate": 0.05,
+          "client_id": 1,
+          "accountnumber": 8003,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 10000.0,
+          "counter": 9
+        },
+        {
+          "interestRate": 0.05,
+          "client_id": 1,
+          "accountnumber": 8004,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 15000.0,
+          "counter": 9
+        }
+      ],
+      "credittrans": []
+    },
+    {
+      "id": 2,
+      "firstName": "Emma",
+      "lastName": "Johnson",
+      "userName": "emmajohnson",
+      "password": "pass1009",
+      "telephoneNumber": 12345678902,
+      "client_id": 2,
+      "counterr": 2005,
+      "creditCard": {
+        "cardNumber": "4532-7845-9632-5678",
+        "cvv": 456,
+        "isActive": false,
+        "loyaltyPoints": 0.0,
+        "limit": 20000.0,
+        "spending": 0.0,
+        "client_id": 0,
+        "cvvmax": 999,
+        "cvvmin": 100,
+        "cardmax": 9999,
+        "cardmin": 1000
+      },
+      "current": [
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 2,
+          "accountnumber": 8005,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 6000.0,
+          "counter": 9
+        },
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 2,
+          "accountnumber": 8006,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 8500.0,
+          "counter": 9
+        }
+      ],
+      "saving": [
+        {
+          "interestRate": 0.05,
+          "client_id": 2,
+          "accountnumber": 8007,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 12000.0,
+          "counter": 9
+        },
+        {
+          "interestRate": 0.05,
+          "client_id": 2,
+          "accountnumber": 8008,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 17000.0,
+          "counter": 9
+        }
+      ],
+      "credittrans": []
+    },
+    {
+      "id": 3,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "userName": "michaelbrown",
+      "password": "pass1010",
+      "telephoneNumber": 12345678903,
+      "client_id": 3,
+      "counterr": 2005,
+      "creditCard": {
+        "cardNumber": "4532-7845-9632-9012",
+        "cvv": 789,
+        "isActive": false,
+        "loyaltyPoints": 0.0,
+        "limit": 20000.0,
+        "spending": 0.0,
+        "client_id": 0,
+        "cvvmax": 999,
+        "cvvmin": 100,
+        "cardmax": 9999,
+        "cardmin": 1000
+      },
+      "current": [
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 3,
+          "accountnumber": 8009,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 5500.0,
+          "counter": 9
+        },
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 3,
+          "accountnumber": 8010,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 9500.0,
+          "counter": 9
+        }
+      ],
+      "saving": [
+        {
+          "interestRate": 0.05,
+          "client_id": 3,
+          "accountnumber": 8011,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 11000.0,
+          "counter": 9
+        },
+        {
+          "interestRate": 0.05,
+          "client_id": 3,
+          "accountnumber": 8012,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 16000.0,
+          "counter": 9
+        }
+      ],
+      "credittrans": []
+    },
+    {
+      "id": 4,
+      "firstName": "Sarah",
+      "lastName": "Davis",
+      "userName": "sarahdavis",
+      "password": "pass1011",
+      "telephoneNumber": 12345678904,
+      "client_id": 4,
+      "counterr": 2005,
+      "creditCard": {
+        "cardNumber": "4532-7845-9632-3456",
+        "cvv": 12,
+        "isActive": false,
+        "loyaltyPoints": 0.0,
+        "limit": 20000.0,
+        "spending": 0.0,
+        "client_id": 0,
+        "cvvmax": 999,
+        "cvvmin": 100,
+        "cardmax": 9999,
+        "cardmin": 1000
+      },
+      "current": [
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 4,
+          "accountnumber": 8013,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 4500.0,
+          "counter": 9
+        },
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 4,
+          "accountnumber": 8014,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 8000.0,
+          "counter": 9
+        }
+      ],
+      "saving": [
+        {
+          "interestRate": 0.05,
+          "client_id": 4,
+          "accountnumber": 8015,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 13000.0,
+          "counter": 9
+        },
+        {
+          "interestRate": 0.05,
+          "client_id": 4,
+          "accountnumber": 8016,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 18000.0,
+          "counter": 9
+        }
+      ],
+      "credittrans": []
+    },
+    {
+      "id": 5,
+      "firstName": "David",
+      "lastName": "Wilson",
+      "userName": "davidwilson",
+      "password": "pass1012",
+      "telephoneNumber": 12345678905,
+      "client_id": 5,
+      "counterr": 2005,
+      "creditCard": {
+        "cardNumber": "4532-7845-9632-7890",
+        "cvv": 345,
+        "isActive": false,
+        "loyaltyPoints": 0.0,
+        "limit": 20000.0,
+        "spending": 0.0,
+        "client_id": 0,
+        "cvvmax": 999,
+        "cvvmin": 100,
+        "cardmax": 9999,
+        "cardmin": 1000
+      },
+      "current": [
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 5,
+          "accountnumber": 8017,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 5200.0,
+          "counter": 9
+        },
+        {
+          "minimumBalance": 3000.0,
+          "client_id": 5,
+          "accountnumber": 8018,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Current",
+          "balance": 7800.0,
+          "counter": 9
+        }
+      ],
+      "saving": [
+        {
+          "interestRate": 0.05,
+          "client_id": 5,
+          "accountnumber": 8019,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 14000.0,
+          "counter": 9
+        },
+        {
+          "interestRate": 0.05,
+          "client_id": 5,
+          "accountnumber": 8020,
+          "trasactions": [],
+          "moneytransfer": [],
+          "AccountState": "Active",
+          "AccountType": "Saving",
+          "balance": 19000.0,
+          "counter": 9
+        }
+      ],
+      "credittrans": []
+    }
+  ]
+}

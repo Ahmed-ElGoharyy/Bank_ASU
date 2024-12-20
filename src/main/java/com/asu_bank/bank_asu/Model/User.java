@@ -10,7 +10,7 @@ abstract public class User {
     protected String userName;
     protected String password;
     protected Long telephoneNumber;
-    private static int counter=1008;
+    private static int counter=0;
 
     public String getUserName() {
         return userName;
@@ -28,7 +28,9 @@ abstract public class User {
         this.password = password;
     }
     public User() {
-                // DONT CHANGE THIS !!!!!!!!!!! (needed for data loading)
+        counter++;
+        this.id = Long.valueOf(counter);
+        // DONT CHANGE THIS !!!!!!!!!!! (needed for data loading)
     }
     public User( String firstName, String lastName, String userName, String password, long telephoneNumber) {
         counter++;

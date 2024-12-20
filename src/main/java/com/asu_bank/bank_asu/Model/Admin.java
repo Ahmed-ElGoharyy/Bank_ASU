@@ -12,9 +12,9 @@ public class Admin extends Employee {
     //singleton design pattern (because there is only 1 admin)
 
     private Admin( String firstName, String lastName,
-                  String userName, String password, long telephoneNumber,
-                  String address, String position, String graduatedCollege,
-                  int yearOfGraduation, char totalGrade) {
+                   String userName, String password, long telephoneNumber,
+                   String address, String position, String graduatedCollege,
+                   int yearOfGraduation, char totalGrade) {
 
         super( firstName, lastName, userName, password, telephoneNumber,
                 address, position, graduatedCollege, yearOfGraduation, totalGrade);
@@ -25,7 +25,7 @@ public class Admin extends Employee {
     public static Admin getInstance() {
         if (instance == null) {
             instance = new Admin( "Amr","Ahmed","admin","admin"
-            ,01111122454, "10 Wow st","System Admin","Cairo",
+                    ,01111122454, "10 Wow st","System Admin","Cairo",
                     2010,'C');
         }
         return instance;
@@ -228,4 +228,5 @@ public class Admin extends Employee {
         }
     }
 }
+
 
