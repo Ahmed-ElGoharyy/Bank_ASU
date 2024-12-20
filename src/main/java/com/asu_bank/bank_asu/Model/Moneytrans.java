@@ -6,6 +6,9 @@ public class Moneytrans extends Transaction{
     protected Long recieveraccnum ;
     protected String made_by;
 
+
+
+
     public Moneytrans(){}
     public Long getRecieveraccnum() {
         return recieveraccnum;

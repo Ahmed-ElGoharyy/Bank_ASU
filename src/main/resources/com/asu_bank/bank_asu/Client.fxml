@@ -132,9 +132,9 @@
          </font>
       </Text>
       <Line endX="-315.4000244140625" endY="-165.0" layoutX="783.0" layoutY="346.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
-      <Text fill="WHITE" layoutX="478.0" layoutY="142.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Account in use :" wrappingWidth="324.40625">
+      <Text fx:id="Accountnotext" fill="WHITE" layoutX="451.0" layoutY="153.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="Choose an Account." wrappingWidth="409.20623779296875">
          <font>
-            <Font name="System Bold" size="42.0" />
+            <Font name="System Bold" size="39.0" />
          </font>
       </Text>
       <SplitMenuButton alignment="CENTER" layoutX="239.0" layoutY="315.0" mnemonicParsing="false" onAction="#WithDraw" prefHeight="62.0" prefWidth="187.0" style="-fx-border-color: #5978c3; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Withdraw" textAlignment="CENTER" textFill="#0b1d3d">
@@ -162,11 +162,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Text fx:id="Accountnotext" fill="WHITE" layoutX="622.0" layoutY="199.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text=".." wrappingWidth="69.62351989746094">
-         <font>
-            <Font name="System Bold" size="48.0" />
-         </font>
-      </Text>
       <Line endX="-315.4000244140625" endY="-165.0" layoutX="1119.0" layoutY="352.0" startX="-315.4000244140625" startY="0.600006103515625" stroke="#adbce1" strokeWidth="3.0" />
       <Text fill="WHITE" layoutX="1082.0" layoutY="357.0" stroke="#1b4d7b" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text=":" wrappingWidth="26.00634765625">
          <font>

@@ -234,7 +234,7 @@ public class EmployeeController implements Initializable {
             }
 
 
-            //need t check balance before!!!!!!!!!!!!!!
+            //need t check balance before  !!!!!!!!!!!!!!
 
             CurrentAccount newCurrentAcc = new CurrentAccount(startBalance, clientId);
 
@@ -242,6 +242,7 @@ public class EmployeeController implements Initializable {
                 if (utility.ConfirmAction("Warning :\nThere will be Fees of 100 EGP since the Balance is less than 3000 EGP \n\n"
                         +"Would you like to continue ?")) {
                     bank.BankCurrentAccounts.add(newCurrentAcc);
+
                     // Find the client with the matching client ID and add the account to their list
                     for (Client client : bank.BankClients) {
                         if (client.getClient_id().equals(clientId)) {
