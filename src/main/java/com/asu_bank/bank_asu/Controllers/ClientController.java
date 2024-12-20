@@ -53,46 +53,46 @@ public class ClientController {
     private Text Accountnotext;
 
 
+    boolean accfound = false;
 
     public void AccinUseButton() {
-        Long accnum = Long.valueOf(AccountNofield.getText());
-        boolean accfound = false;
 
+        if (AccountNofield.getText().trim().isEmpty()) {         // Check if the text field is empty
+            utility.ShowErrorAlert("Please enter an Account Number!   Field can't be empty");
+            return;
+        }
 
-        for (CurrentAccount Acc : bank.BankCurrentAccounts) {
-            if (currentUser.getClient_id().equals(Acc.getClient_id())) {
-                if (Acc.getAccountnumber().equals(accnum)) {
-                    accfound = true;
-                    currentAccount = Acc;
-                    Accountnotext.setText("" + currentAccount.getAccountnumber() + "");
+        try {
+            Long accnum = Long.valueOf(AccountNofield.getText());
+            boolean accfound = false;  // Added missing declaration
+
+            for (CurrentAccount Acc : bank.BankCurrentAccounts) {
+                if (currentUser.getClient_id().equals(Acc.getClient_id())) {
+                    if (Acc.getAccountnumber().equals(accnum)) {
+                        accfound = true;
+                        currentAccount = Acc;
+                        Accountnotext.setText("Account in use : " + currentAccount.getAccountnumber());
+                    }
                 }
-
             }
 
-        }
-        for (SavingAccount Acc : bank.BankSavingAccounts) {
-            if (currentUser.getClient_id().equals(Acc.getClient_id())) {
-                if (Acc.getAccountnumber().equals(accnum)) {
-                    accfound = true;
-                    currentAccount = Acc;
-                    Accountnotext.setText("" + currentAccount.getAccountnumber() + "");
-
+            for (SavingAccount Acc : bank.BankSavingAccounts) {
+                if (currentUser.getClient_id().equals(Acc.getClient_id())) {
+                    if (Acc.getAccountnumber().equals(accnum)) {
+                        accfound = true;
+                        currentAccount = Acc;
+                        Accountnotext.setText("Account in use : " + currentAccount.getAccountnumber());
+                    }
                 }
-
             }
 
-        }
-        if (!accfound) {
-            utility.ShowErrorAlert("unable to access this Account !");
+            if (!accfound) {
+                utility.ShowErrorAlert("Unable to access this Account!");
+            }
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Please enter a valid Account Number!");
         }
     }
-
-
-
-
-
-
-
 
 
 
@@ -171,49 +171,66 @@ public class ClientController {
     private TextField creditamountpaid;
 
 
-    public void paywithcreditcard(){
+    public void paywithcreditcard() {
 
+        if (currentUser.getCreditCard() == null) {
+            utility.ShowErrorAlert("Cant find your Credit Card! Request for one.");
+            return;
+        }
 
-        try{
+        // Check if card is active
+        if (!currentUser.getCreditCard().isActive()) {
+            utility.ShowErrorAlert("Card Credit is Disabled, Activate it to make a credit card transaction");
+            return;
+        }
 
-            if(currentUser.getCreditCard() != null) {
-                if(creditamountpaid.getText().isEmpty()){
-                    utility.ShowErrorAlert("Amount can't be empty");
-                    return;
-                }
-                if (currentUser.getCreditCard().isActive()) {
-                    double amount = Double.valueOf(creditamountpaid.getText());
-                    if(amount<0){
-                        utility.ShowErrorAlert("Amount can't be negative");
-                        return;
-                    }
+        String amountText = creditamountpaid.getText().trim();
+        if (amountText.isEmpty()) {
+            utility.ShowErrorAlert("Amount can't be empty");
+            return;
+        }
 
-                    if (amount + currentUser.getCreditCard().getSpending() <= currentUser.getCreditCard().getLimit()) {
-                        currentUser.getCreditCard().setSpending(currentUser.getCreditCard().getSpending() + amount);
-                        currentUser.getCreditCard().setLoyaltyPoints(currentUser.getCreditCard().getLoyaltyPoints() + (amount * 0.1));
-                        utility.ShowSuccessAlert("credit card transaction is done successfully\n\n" +
-                                "your new loyalty points after update: " + currentUser.getCreditCard().getLoyaltyPoints() + "\n" +
-                                "your current spending : " + currentUser.getCreditCard().getSpending());
-                        Transaction newtran =new Transaction(amount," Credit Card transaction",new Date());
-                        currentUser.getCredittrans().add(newtran);
-                    } else {
-                        utility.ShowErrorAlert("transaction failed as you exceeded your limit \n \n try a smaller amount");
-                    }
+        try {
+            double amount = Double.parseDouble(amountText);
 
-
-                } else {
-                    utility.ShowErrorAlert("Card Credit is Disabled, Activate it to make a credit card transaction");
-                }
-
-            }else{
-                utility.ShowErrorAlert("Cant find your Credit Card!  Request for one.");
+            if (amount < 0) {
+                utility.ShowErrorAlert("Amount can't be negative");
+                return;
             }
-        }catch (NullPointerException e){
-            utility.ShowErrorAlert("Error:"+e.getMessage());
-        }catch (NumberFormatException e){
+
+            double currentSpending = currentUser.getCreditCard().getSpending();
+            double cardLimit = currentUser.getCreditCard().getLimit();
+
+            // Check if transaction would exceed limit
+            if (amount + currentSpending > cardLimit) {
+                utility.ShowErrorAlert("Transaction failed as you exceeded your limit\n\nTry a smaller amount");
+                return;
+            }
+
+            // Process the transaction
+            double loyaltyPoints = amount * 0.1;
+            currentUser.getCreditCard().setSpending(currentSpending + amount);
+            currentUser.getCreditCard().setLoyaltyPoints(
+                    currentUser.getCreditCard().getLoyaltyPoints() + loyaltyPoints
+            );
+
+            // Create and add transaction record
+            Transaction newTran = new Transaction(amount, "Credit Card transaction", new Date());
+            currentUser.getCredittrans().add(newTran);
+
+            // Show success message
+            utility.ShowSuccessAlert(String.format(
+                    "Credit card transaction is done successfully\n\n" +
+                            "Your new loyalty points after update: %.2f\n" +
+                            "Your current spending: %.2f",
+                    currentUser.getCreditCard().getLoyaltyPoints(),
+                    currentUser.getCreditCard().getSpending()
+            ));
+
+        } catch (NumberFormatException e) {
             utility.ShowErrorAlert("Please enter a valid amount");
-        }catch (Exception e){
-            utility.ShowErrorAlert("An unexpected error Occurred"+e.getMessage());
+        } catch (Exception e) {
+            utility.ShowErrorAlert("An unexpected error occurred: " + e.getMessage());
         }
     }
 
@@ -308,13 +325,18 @@ public class ClientController {
 
 
    @FXML
-    public void showwTransButtonClicked(ActionEvent event) {
+    public void showwTransButtonClicked() {
 
 
         // Clear any existing items
         myListView.getItems().clear();
 
         try {
+            if(currentAccount == null){
+                utility.ShowErrorAlert("You must choose an Account first.");
+                return;
+
+            }
             if (bank == null) {
                 System.out.println("Transaction unavailable ");
             } else {
@@ -414,63 +436,103 @@ public class ClientController {
     private TextField AmountField;
 
     @FXML
-    public void Deposit(ActionEvent event) {
-        double amoount=Double.valueOf(AmountField.getText());
-        try{
-            if(amoount<0){
-                utility.ShowErrorAlert("Deposit cannot be negative!");
+    public void Deposit() {
+        try {
+            // Check for account selection first
+            if (currentAccount == null) {
+                utility.ShowErrorAlert("You must choose an Account first.");
                 return;
             }
-        }catch(NumberFormatException e){
-            utility.ShowErrorAlert("Error:"+ e.getMessage());
-        }catch(Exception e){
-            utility.ShowErrorAlert("Please enter a valid amount!");
+
+            // Check for empty field
+            if (AmountField.getText().trim().isEmpty()) {
+                utility.ShowErrorAlert("Amount field can't be empty.");
+                return;
+            }
+
+            // Parse amount after validation
+            double amount = Double.valueOf(AmountField.getText().trim());
+
+            // Validate amount
+            if (amount < 0) {
+                utility.ShowErrorAlert("Deposit amount cannot be negative!");
+                return;
+            }
+
+            // Process deposit
+            currentAccount.setBalance(currentAccount.getBalance() + amount);
+
+            // Create and save transaction record
+            Transaction transaction = new Transaction(
+                    currentAccount.getAccountnumber(),
+                    amount,
+                    "Deposit",
+                    new Date()
+            );
+            bank.BankATMTrans.add(transaction);
+
+            // Show success message
+            utility.ShowSuccessAlert(String.format("Deposit of %.2f EGP successful.", amount));
+
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Please enter a valid number for the amount.");
+        } catch (Exception e) {
+            utility.ShowErrorAlert("An unexpected error occurred: " + e.getMessage());
         }
-
-        currentAccount.setBalance(currentAccount.getBalance()+amoount);
-
-        Transaction transaction= new Transaction(currentAccount.getAccountnumber(),
-                amoount,"Deposit", new Date());
-
-
-        bank.BankATMTrans.add(transaction);
-
-        utility.ShowSuccessAlert("Deposit of : "+amoount+" Successful.");
-}
+    }
 
 
     @FXML
     private TextField AmountField2;
     @FXML
-    public void WithDraw(ActionEvent event) {
-
-        double amoount=Double.valueOf(AmountField2.getText());
-
-        try{
-            if(amoount<0){
-                utility.ShowErrorAlert("Withdraw cannot be negative!");
+    public void WithDraw() {
+        try {
+            // Check for account selection first
+            if (currentAccount == null) {
+                utility.ShowErrorAlert("You must choose an Account first.");
                 return;
             }
-            if(amoount>currentAccount.getBalance()){
+
+            // Check for empty field
+            if (AmountField2.getText().trim().isEmpty()) {
+                utility.ShowErrorAlert("Amount field can't be empty.");
+                return;
+            }
+
+            // Parse amount after validation
+            double amount = Double.valueOf(AmountField2.getText().trim());
+
+            // Validate amount
+            if (amount < 0) {
+                utility.ShowErrorAlert("Withdraw amount cannot be negative!");
+                return;
+            }
+
+            if (amount > currentAccount.getBalance()) {
                 utility.ShowErrorAlert("The withdrawal amount cannot be greater than current account balance!");
                 return;
             }
-        }catch(NumberFormatException e){
-            utility.ShowErrorAlert("Error:"+ e.getMessage());
-        }catch(Exception e){
-            utility.ShowErrorAlert("An unexpected error occurred!");
+
+            // Process withdrawal
+            currentAccount.setBalance(currentAccount.getBalance() - amount);
+
+            // Create and save transaction record
+            Transaction transaction = new Transaction(
+                    currentAccount.getAccountnumber(),
+                    amount,
+                    "Withdraw",
+                    new Date()
+            );
+            bank.BankATMTrans.add(transaction);
+
+            // Show success message
+            utility.ShowSuccessAlert(String.format("Withdrawal of %.2f EGP successful.", amount));
+
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Please enter a valid number for the amount.");
+        } catch (Exception e) {
+            utility.ShowErrorAlert("An unexpected error occurred: " + e.getMessage());
         }
-        currentAccount.setBalance(currentAccount.getBalance()-amoount);
-
-        Transaction transaction= new Transaction(currentAccount.getAccountnumber(),
-                amoount,"Withdraw", new Date());
-
-
-        bank.BankATMTrans.add(transaction);
-
-        utility.ShowSuccessAlert("Withdraw of : "+amoount+" Successful.");
-
-
     }
 
 
@@ -483,58 +545,77 @@ public class ClientController {
     private TextField Amount;
 
    @FXML
-     public void Transfer(ActionEvent event){
-        try{
-            Long Reciever = Long.valueOf(To.getText());
-            double Amount4 = Double.valueOf(Amount.getText());
-            boolean recieverfound =false;
+   public void Transfer() {
+       try {
+           // Check for empty fields first before parsing
+           if (To.getText().trim().isEmpty() || Amount.getText().trim().isEmpty()) {
+               utility.ShowErrorAlert("Fields can't be empty.");
+               return;
+           }
 
-            if(Amount4<0){
-                utility.ShowErrorAlert("Transfer cannot be negative!");
-                return;
-            }
-            if(Amount4>currentAccount.getBalance()){
-                utility.ShowErrorAlert("Transfer cannot be greater than current account balance!");
-                return;
-            }
+           if (currentAccount == null) {
+               utility.ShowErrorAlert("You must choose an Account first.");
+               return;
+           }
 
+           try {
+               Long Receiver = Long.valueOf(To.getText().trim());
+               double Amount4 = Double.valueOf(Amount.getText().trim());
+               boolean receiverfound = false;
 
-            for(CurrentAccount Rec: bank.BankCurrentAccounts){
-                if(Reciever.equals(Rec.getAccountnumber())){
-                    recieverfound = true ;
-                    currentAccount.setBalance(currentAccount.getBalance()-Amount4);
-                    Rec.setBalance(Rec.getBalance()+ Amount4 );
-                    Moneytrans newtrans = new Moneytrans(currentAccount.getAccountnumber(),
-                    Rec.getAccountnumber(), Amount4,"Transfer" , new Date());
-                    bank.BankMoneyTransfers.add(newtrans);
-                    utility.ShowSuccessAlert(Amount4 +" EGP is  Transfered from Account: "+currentAccount.getAccountnumber()
-                            +"  to Account: "+Rec.getAccountnumber());
-                }
-            }
-            for(SavingAccount Rec: bank.BankSavingAccounts){
-                if(Reciever.equals(Rec.getAccountnumber())){
-                    recieverfound = true ;
-                    currentAccount.setBalance(currentAccount.getBalance()-Amount4);
-                    Rec.setBalance(Rec.getBalance()+ Amount4 );
+               if (Amount4 < 0) {
+                   utility.ShowErrorAlert("Transfer cannot be negative!");
+                   return;
+               }
+               if (Amount4 > currentAccount.getBalance()) {
+                   utility.ShowErrorAlert("Transfer cannot be greater than current account balance!");
+                   return;
+               }
 
-                    Moneytrans newtrans = new Moneytrans(currentAccount.getAccountnumber(),
-                            Rec.getAccountnumber(), Amount4,"Transfer" , new Date());
-                    utility.ShowSuccessAlert(Amount4 +" EGP is Transfered from Account: "+currentAccount.getAccountnumber()
-                    +"  to Account: "+Rec.getAccountnumber());
-                    bank.BankMoneyTransfers.add(newtrans);
+               for (CurrentAccount Rec : bank.BankCurrentAccounts) {
+                   if (Receiver.equals(Rec.getAccountnumber())) {
+                       receiverfound = true;
+                       currentAccount.setBalance(currentAccount.getBalance() - Amount4);
+                       Rec.setBalance(Rec.getBalance() + Amount4);
+                       Moneytrans newtrans = new Moneytrans(currentAccount.getAccountnumber(),
+                               Rec.getAccountnumber(), Amount4, "Transfer", new Date());
+                       bank.BankMoneyTransfers.add(newtrans);
+                       utility.ShowSuccessAlert(Amount4 + " EGP is Transfered from Account: " + currentAccount.getAccountnumber()
+                               + "  to Account: " + Rec.getAccountnumber());
+                       break; // Exit loop once found
+                   }
+               }
 
-                }
-            }
+               if (!receiverfound) {
+                   for (SavingAccount Rec : bank.BankSavingAccounts) {
+                       if (Receiver.equals(Rec.getAccountnumber())) {
+                           receiverfound = true;
+                           currentAccount.setBalance(currentAccount.getBalance() - Amount4);
+                           Rec.setBalance(Rec.getBalance() + Amount4);
 
-            if(!recieverfound){
-                utility.ShowErrorAlert("Couldn't find Reciever Account , Check Acc No Again.");
-            }
+                           Moneytrans newtrans = new Moneytrans(currentAccount.getAccountnumber(),
+                                   Rec.getAccountnumber(), Amount4, "Transfer", new Date());
+                           utility.ShowSuccessAlert(Amount4 + " EGP is Transfered from Account: " + currentAccount.getAccountnumber()
+                                   + "  to Account: " + Rec.getAccountnumber());
+                           bank.BankMoneyTransfers.add(newtrans);
+                           break; // Exit loop once found
+                       }
+                   }
+               }
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+               if (!receiverfound) {
+                   utility.ShowErrorAlert("Couldn't find Receiver Account, Check Acc No Again.");
+               }
 
-    }
+           } catch (NumberFormatException e) {
+               utility.ShowErrorAlert("Please enter valid numbers for amount and account number.");
+           }
+
+       } catch (Exception e) {
+           // Show error alert instead of throwing RuntimeException
+           utility.ShowErrorAlert("An unexpected error occurred: " + e.getMessage());
+       }
+   }
 
 
     @FXML
@@ -542,6 +623,10 @@ public class ClientController {
     public void EditPersonalInfo() {
 
         try {
+            if (TelText.getText().trim().isEmpty()) {
+                utility.ShowErrorAlert("Fields can't be empty.");
+                return;
+            }
             Long newTel = Long.parseLong(TelText.getText());
             if (String.valueOf(newTel).length() < 6 || String.valueOf(newTel).length() > 10) {
                 utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");

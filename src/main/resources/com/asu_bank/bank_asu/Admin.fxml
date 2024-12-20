@@ -45,7 +45,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="CENTER" layoutX="963.0" layoutY="191.0" mnemonicParsing="false" onAction="#showTransButtonClicked" prefHeight="98.0" prefWidth="200.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text=" Display Transactions by:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button alignment="CENTER" layoutX="963.0" layoutY="191.0" mnemonicParsing="false" onAction="#showTransButtonClicked" prefHeight="98.0" prefWidth="200.0" style="-fx-background-color: #300274; -fx-border-color: white; -fx-border-width: 4px; -fx-background-radius: 18px; -fx-border-radius: 15px;" text=" Display Transactions" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
