@@ -55,39 +55,46 @@ public class ClientController {
 
 
     public void AccinUseButton() {
-        Long accnum =Long.valueOf(AccountNofield.getText());
-        boolean accfound =false;
+        Long accnum = Long.valueOf(AccountNofield.getText());
+        boolean accfound = false;
 
-        for (CurrentAccount Acc : bank.BankCurrentAccounts){
-           if( currentUser.getClient_id().equals(Acc.getClient_id()) ){
-               if(Acc.getAccountnumber().equals(accnum)){
+
+        for (CurrentAccount Acc : bank.BankCurrentAccounts) {
+            if (currentUser.getClient_id().equals(Acc.getClient_id())) {
+                if (Acc.getAccountnumber().equals(accnum)) {
                     accfound = true;
                     currentAccount = Acc;
-                    Accountnotext.setText(""+currentAccount.getAccountnumber()+"");
-                }else{
+                    Accountnotext.setText("" + currentAccount.getAccountnumber() + "");
                 }
 
             }
 
         }
-        for (SavingAccount Acc : bank.BankSavingAccounts){
-            if( currentUser.getClient_id().equals(Acc.getClient_id()) ){
-                if(Acc.getAccountnumber().equals(accnum)){
+        for (SavingAccount Acc : bank.BankSavingAccounts) {
+            if (currentUser.getClient_id().equals(Acc.getClient_id())) {
+                if (Acc.getAccountnumber().equals(accnum)) {
                     accfound = true;
                     currentAccount = Acc;
-                    Accountnotext.setText(""+currentAccount.getAccountnumber()+"");
+                    Accountnotext.setText("" + currentAccount.getAccountnumber() + "");
 
-                }else{
                 }
 
             }
 
         }
-        if(!accfound){
+        if (!accfound) {
             utility.ShowErrorAlert("unable to access this Account !");
         }
-
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -135,7 +142,7 @@ public class ClientController {
         if(currentUser.getCreditCard() != null) {
             if (!currentUser.getCreditCard().isActive) {
                 currentUser.getCreditCard().setActive(true);
-                utility.ShowSuccessAlert("Credit Card Status is Active :" + currentUser.getCreditCard().isActive);
+                utility.ShowSuccessAlert("Credit Card Status is Active " );
             } else {
                 utility.ShowErrorAlert("Credit Card is already active.");
             }
@@ -149,7 +156,7 @@ public class ClientController {
         if(currentUser.getCreditCard() != null) {
             if (currentUser.getCreditCard().isActive) {
                 currentUser.getCreditCard().setActive(false);
-                utility.ShowSuccessAlert("Credit Card Status is Active :" + currentUser.getCreditCard().isActive);
+                utility.ShowSuccessAlert("Credit Card Status is Disabled " );
             } else {
                 utility.ShowErrorAlert("Credit Card is already Disabled");
             }
@@ -166,28 +173,47 @@ public class ClientController {
 
     public void paywithcreditcard(){
 
-        if(currentUser.getCreditCard() != null) {
-            if (currentUser.getCreditCard().isActive()) {
-                double amount = Double.valueOf(creditamountpaid.getText());
-                if (amount + currentUser.getCreditCard().getSpending() <= currentUser.getCreditCard().getLimit()) {
-                    currentUser.getCreditCard().setSpending(currentUser.getCreditCard().getSpending() + amount);
-                    currentUser.getCreditCard().setLoyaltyPoints(currentUser.getCreditCard().getLoyaltyPoints() + (amount * 0.1));
-                    utility.ShowSuccessAlert("credit card transaction is done successfully\n\n" +
-                            "your new loyalty points after update: " + currentUser.getCreditCard().getLoyaltyPoints() + "\n" +
-                            "your current spending : " + currentUser.getCreditCard().getSpending());
-                    Transaction newtran =new Transaction(amount," Credit Card transaction",new Date());
-                    currentUser.getCredittrans().add(newtran);
+
+        try{
+
+            if(currentUser.getCreditCard() != null) {
+                if(creditamountpaid.getText().isEmpty()){
+                    utility.ShowErrorAlert("Amount can't be empty");
+                    return;
+                }
+                if (currentUser.getCreditCard().isActive()) {
+                    double amount = Double.valueOf(creditamountpaid.getText());
+                    if(amount<0){
+                        utility.ShowErrorAlert("Amount can't be negative");
+                        return;
+                    }
+
+                    if (amount + currentUser.getCreditCard().getSpending() <= currentUser.getCreditCard().getLimit()) {
+                        currentUser.getCreditCard().setSpending(currentUser.getCreditCard().getSpending() + amount);
+                        currentUser.getCreditCard().setLoyaltyPoints(currentUser.getCreditCard().getLoyaltyPoints() + (amount * 0.1));
+                        utility.ShowSuccessAlert("credit card transaction is done successfully\n\n" +
+                                "your new loyalty points after update: " + currentUser.getCreditCard().getLoyaltyPoints() + "\n" +
+                                "your current spending : " + currentUser.getCreditCard().getSpending());
+                        Transaction newtran =new Transaction(amount," Credit Card transaction",new Date());
+                        currentUser.getCredittrans().add(newtran);
+                    } else {
+                        utility.ShowErrorAlert("transaction failed as you exceeded your limit \n \n try a smaller amount");
+                    }
+
+
                 } else {
-                    utility.ShowErrorAlert("transaction failed as you exceeded your limit \n \n try a smaller amount");
+                    utility.ShowErrorAlert("Card Credit is Disabled, Activate it to make a credit card transaction");
                 }
 
-
-            } else {
-                utility.ShowErrorAlert("Card Credit is Disabled, Activate it to make a credit card transaction");
+            }else{
+                utility.ShowErrorAlert("Cant find your Credit Card!  Request for one.");
             }
-
-        }else{
-            utility.ShowErrorAlert("Cant find your Credit Card!  Request for one.");
+        }catch (NullPointerException e){
+            utility.ShowErrorAlert("Error:"+e.getMessage());
+        }catch (NumberFormatException e){
+            utility.ShowErrorAlert("Please enter a valid amount");
+        }catch (Exception e){
+            utility.ShowErrorAlert("An unexpected error Occurred"+e.getMessage());
         }
     }
 
@@ -390,6 +416,16 @@ public class ClientController {
     @FXML
     public void Deposit(ActionEvent event) {
         double amoount=Double.valueOf(AmountField.getText());
+        try{
+            if(amoount<0){
+                utility.ShowErrorAlert("Deposit cannot be negative!");
+                return;
+            }
+        }catch(NumberFormatException e){
+            utility.ShowErrorAlert("Error:"+ e.getMessage());
+        }catch(Exception e){
+            utility.ShowErrorAlert("Please enter a valid amount!");
+        }
 
         currentAccount.setBalance(currentAccount.getBalance()+amoount);
 
@@ -410,6 +446,20 @@ public class ClientController {
 
         double amoount=Double.valueOf(AmountField2.getText());
 
+        try{
+            if(amoount<0){
+                utility.ShowErrorAlert("Withdraw cannot be negative!");
+                return;
+            }
+            if(amoount>currentAccount.getBalance()){
+                utility.ShowErrorAlert("The withdrawal amount cannot be greater than current account balance!");
+                return;
+            }
+        }catch(NumberFormatException e){
+            utility.ShowErrorAlert("Error:"+ e.getMessage());
+        }catch(Exception e){
+            utility.ShowErrorAlert("An unexpected error occurred!");
+        }
         currentAccount.setBalance(currentAccount.getBalance()-amoount);
 
         Transaction transaction= new Transaction(currentAccount.getAccountnumber(),
@@ -438,6 +488,15 @@ public class ClientController {
             Long Reciever = Long.valueOf(To.getText());
             double Amount4 = Double.valueOf(Amount.getText());
             boolean recieverfound =false;
+
+            if(Amount4<0){
+                utility.ShowErrorAlert("Transfer cannot be negative!");
+                return;
+            }
+            if(Amount4>currentAccount.getBalance()){
+                utility.ShowErrorAlert("Transfer cannot be greater than current account balance!");
+                return;
+            }
 
 
             for(CurrentAccount Rec: bank.BankCurrentAccounts){
@@ -480,22 +539,38 @@ public class ClientController {
 
     @FXML
     private TextField TelText;
-    public void EditPersonalInfo(){
+    public void EditPersonalInfo() {
 
         try {
-            Long newTel = Long.valueOf(TelText.getText());
+            Long newTel = Long.parseLong(TelText.getText());
+            if (String.valueOf(newTel).length() < 6 || String.valueOf(newTel).length() > 10) {
+                utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");
+                return;
+            } else if (newTel < 0) {
+                utility.ShowErrorAlert("Error: The Telephone Number cannot be negative!");
+                return;
+
+            }
 
             currentUser.setTelephone(newTel);
 
-            utility.ShowSuccessAlert("Telephone Number Changed to : "+currentUser.getTelephoneNumber()
-            +" Successfully. ");
+            utility.ShowSuccessAlert("Telephone Number Changed to : " + currentUser.getTelephoneNumber()
+                    + " Successfully. ");
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Error:" + e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException(e);
+
         }
 
     }
-
 }
+
+
+
+
+
+
 
 
 
