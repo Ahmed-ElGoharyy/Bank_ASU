@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Client extends User {
     protected Long client_id ;
-    protected  int counterr = 2005 ;
+    private  int counterr = 2005 ;
     protected CreditCard creditCard;
     protected ArrayList<CurrentAccount> current = new ArrayList<>() ;
     protected ArrayList<SavingAccount> saving = new ArrayList<>();

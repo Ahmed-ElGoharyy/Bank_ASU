@@ -26,12 +26,9 @@ public class Main extends Application {
     }
 
 
-
     public static void main(String[] args) throws Exception {
 
-        // Run data loading asynchronously
-
-
+        // Run data loading
             Bank bank = Bank.getInstance();
             DataLoader dl = new DataLoader();
             dl.loadData(bank);
