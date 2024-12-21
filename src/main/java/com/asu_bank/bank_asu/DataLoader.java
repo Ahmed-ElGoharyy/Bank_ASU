@@ -136,38 +136,7 @@ public class DataLoader {
                     }
                 }
             }
-            for(Moneytrans trans: bank.BankMoneyTransfers){
-                for(Client c : bank.BankClients){
-                    for(CurrentAccount curr : c.getCurrent()){
-                        if(curr.getAccountnumber().equals(trans.getAccnumber())){
-                            curr.moneytransfer.add(trans);
-                        }
-                    }
-                    for(SavingAccount sav : c.getSaving()){
-                        if(sav.getAccountnumber().equals(trans.getAccnumber())){
-                            sav.moneytransfer.add(trans);
-                        }
-                    }
 
-                }
-
-
-            }
-            for(Transaction trans: bank.BankATMTrans){
-                for(Client c : bank.BankClients){
-                    for(CurrentAccount curr : c.getCurrent()){
-                        if(curr.getAccountnumber().equals(trans.getAccnumber())){
-                            curr.trasactions.add(trans);
-                        }
-                    }
-                    for(SavingAccount sav : c.getSaving()){
-                        if(sav.getAccountnumber().equals(trans.getAccnumber())){
-                            sav.trasactions.add(trans);
-                        }
-                    }
-
-                }
-            }
 
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()

@@ -715,8 +715,8 @@ public class EmployeeController implements Initializable {
                             Moneytrans t = new Moneytrans(sendaccnum, recaccnum, balance, "Money Transfer", d,
                                     currentUser.getFirstName() + " " + currentUser.getLastName());
                             bank.BankMoneyTransfers.add(t);
-                            sendc.moneytransfer.add(t);
                             recc.moneytransfer.add(t);
+                            sendc.moneytransfer.add(t);
                             utility.ShowSuccessAlert("Money Transferred Successfully");
                             transferCompleted = true;
                             break;
@@ -742,8 +742,8 @@ public class EmployeeController implements Initializable {
                                 Moneytrans t = new Moneytrans(sendaccnum, recaccnum, balance, "Money Transfer", d,
                                         currentUser.getFirstName() + " " + currentUser.getLastName());
                                 bank.BankMoneyTransfers.add(t);
-                                sendc.moneytransfer.add(t);
                                 recs.moneytransfer.add(t);
+                                sendc.moneytransfer.add(t);
                                 utility.ShowSuccessAlert("Money Transferred Successfully");
                                 transferCompleted = true;
                                 break;
@@ -772,8 +772,8 @@ public class EmployeeController implements Initializable {
                                 Moneytrans t = new Moneytrans(sendaccnum, recaccnum, balance, "Money Transfer", d,
                                         currentUser.getFirstName() + " " + currentUser.getLastName());
                                 bank.BankMoneyTransfers.add(t);
-                                sends.moneytransfer.add(t);
                                 recc.moneytransfer.add(t);
+                                sends.moneytransfer.add(t);
                                 utility.ShowSuccessAlert("Money Transferred Successfully");
                                 transferCompleted = true;
                                 break;

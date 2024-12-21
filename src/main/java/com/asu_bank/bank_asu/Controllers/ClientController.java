@@ -508,7 +508,6 @@ public class ClientController {
             );
             bank.BankATMTrans.add(transaction);
             currentAccount.trasactions.add(transaction);
-
             // Show success message
             utility.ShowSuccessAlert(String.format("Withdrawal of %.2f EGP successful.", amount));
 
