@@ -139,12 +139,12 @@ public class DataLoader {
             for(Moneytrans trans: bank.BankMoneyTransfers){
                 for(Client c : bank.BankClients){
                     for(CurrentAccount curr : c.getCurrent()){
-                        if(curr.getAccountnumber()==trans.getAccnumber()){
+                        if(curr.getAccountnumber().equals(trans.getAccnumber())){
                             curr.moneytransfer.add(trans);
                         }
                     }
                     for(SavingAccount sav : c.getSaving()){
-                        if(sav.getAccountnumber()==trans.getAccnumber()){
+                        if(sav.getAccountnumber().equals(trans.getAccnumber())){
                             sav.moneytransfer.add(trans);
                         }
                     }
@@ -156,12 +156,12 @@ public class DataLoader {
             for(Transaction trans: bank.BankATMTrans){
                 for(Client c : bank.BankClients){
                     for(CurrentAccount curr : c.getCurrent()){
-                        if(curr.getAccountnumber()==trans.getAccnumber()){
+                        if(curr.getAccountnumber().equals(trans.getAccnumber())){
                             curr.trasactions.add(trans);
                         }
                     }
                     for(SavingAccount sav : c.getSaving()){
-                        if(sav.getAccountnumber()==trans.getAccnumber()){
+                        if(sav.getAccountnumber().equals(trans.getAccnumber())){
                             sav.trasactions.add(trans);
                         }
                     }
@@ -169,7 +169,6 @@ public class DataLoader {
                 }
             }
 
-            // Create Gson instance with settings to include all fields
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
                     .serializeNulls()
@@ -177,7 +176,7 @@ public class DataLoader {
                     .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
                     .create();
 
-            // Write clients data with ordered attributes
+            //Write Clientsss
             try (Writer clientWriter = new FileWriter(CLIENTS_FILE_PATH)) {
                 JsonObject rootObject = new JsonObject();
                 JsonArray clientsArray = new JsonArray();
@@ -185,7 +184,6 @@ public class DataLoader {
                 for (Client client : clientsList) {
                     JsonObject clientObject = new JsonObject(); // Create empty object to control order
 
-                    // Start from the topmost superclass and work down
                     List<Class<?>> classHierarchy = new ArrayList<>();
                     Class<?> currentClass = client.getClass();
                     while (currentClass != null) {
@@ -216,7 +214,7 @@ public class DataLoader {
                 System.out.println("Successfully saved " + clientsList.size() + " clients with ordered attributes.");
             }
 
-            // Write employees data with ordered attributes
+            // Write Employeees
             try (Writer employeeWriter = new FileWriter(EMPLOYEES_FILE_PATH)) {
                 JsonObject rootObject = new JsonObject();
                 JsonArray employeesArray = new JsonArray();
@@ -224,7 +222,7 @@ public class DataLoader {
                 for (Employee employee : employeesList) {
                     JsonObject employeeObject = new JsonObject(); // Create empty object to control order
 
-                    // Start from the topmost superclass and work down
+                    //Beyrateb El Hierarchy beta3t el classes
                     List<Class<?>> classHierarchy = new ArrayList<>();
                     Class<?> currentClass = employee.getClass();
                     while (currentClass != null) {
@@ -232,14 +230,17 @@ public class DataLoader {
                         currentClass = currentClass.getSuperclass();
                     }
 
-                    // Process fields from each class in order (parent to child)
+                    //Beycheck el fields el gowa el class
                     for (Class<?> clazz : classHierarchy) {
                         Field[] fields = clazz.getDeclaredFields();
                         for (Field field : fields) {
+                            //bey5ale el private accessible
                             field.setAccessible(true);
+                            //beysheel el static wel transient fields
                             if (!Modifier.isTransient(field.getModifiers()) &&
                                     !Modifier.isStatic(field.getModifiers())) {
                                 try {
+                                    //bey5ale el object ad el employee
                                     Object value = field.get(employee);
                                     employeeObject.add(field.getName(), gson.toJsonTree(value));
                                 } catch (IllegalAccessException e) {

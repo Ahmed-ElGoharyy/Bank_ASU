@@ -512,20 +512,16 @@ public class Employee extends User {
     }
 
     public Long getclientidbyname( String name,Bank bank){
-        long returnedid;
+        long returnedid=0;
         for(Client client : bank.BankClients){
             String s = client.firstName +" "+ client.lastName;
             if(name.equalsIgnoreCase(s)){
                 returnedid= client.getClient_id();
                 break;
             }
-            else {
-                returnedid = 0;
-            }
-            return returnedid;
         }
         //lw raga3 -1 yebaa mala2ho4
-        return id;
+        return returnedid;
     }
     public String getclientnamebyid( Long clientid,Bank bank){
         String name=new String();

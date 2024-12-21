@@ -84,7 +84,6 @@ public class Client extends User {
 
     public void displayaccountsinfo() throws AccountException, EmptyAccountListException {
 
-        // Check for empty lists
         boolean isCurrentEmpty = current.isEmpty();
         boolean isSavingEmpty = saving.isEmpty();
 
@@ -93,7 +92,6 @@ public class Client extends User {
         }
 
         try {
-            // Display current accounts
             if (!isCurrentEmpty) {
                 System.out.println("Current Accounts:");
                 for (CurrentAccount account : current) {
@@ -103,7 +101,6 @@ public class Client extends User {
                 }
             }
 
-            // Display saving accounts
             if (!isSavingEmpty) {
                 System.out.println("Saving Accounts:");
                 for (SavingAccount account : saving) {
@@ -121,31 +118,27 @@ public class Client extends User {
         Scanner s = new Scanner(System.in);
 
         try {
-            // First, ensure accounts exist
             displayaccountsinfo();
 
-            // Prompt for account number
             System.out.println("Choose The Account You Want: ");
             long Accnum = s.nextLong();
 
-            // Flag to track if account is found
             boolean isfound = false;
 
             // Search in current accounts
             for (CurrentAccount account : current) {
                 if (Accnum == account.getAccountnumber()) {
-                    // Check if transaction lists are empty
                     if (account.trasactions.isEmpty() && account.moneytransfer.isEmpty()) {
                         throw new TransactionException("No transactions found for this current account.");
                     }
 
                     System.out.println("ATM Transactions for Current Account:");
-                    for (Object transaction : account.trasactions) {
+                    for (Transaction transaction : account.trasactions) {
                         System.out.println(transaction);
                     }
 
                     System.out.println("Money Transfers for Current Account:");
-                    for (Object transaction : account.moneytransfer) {
+                    for (Moneytrans transaction : account.moneytransfer) {
                         System.out.println(transaction);
                     }
 
@@ -154,7 +147,6 @@ public class Client extends User {
                 }
             }
 
-            // If not found in current accounts, search in saving accounts
             if (!isfound) {
                 for (SavingAccount account : saving) {
                     if (Accnum == account.getAccountnumber()) {
@@ -193,16 +185,17 @@ public class Client extends User {
 
     public void requestcreditcard(ArrayList<CreditCard> card) throws TransactionException {
         try {
-            // Check if the provided credit card list is null
             if (card == null) {
-                throw new TransactionException("Credit card list is null.");
+
+                // Create a new credit card for the client using their client ID and full name
+                CreditCard newcard = new CreditCard(this.client_id);
+                // Add the newly created credit card to the list of cards
+                card.add(newcard);
+                // Print the details of the newly created credit card
+                System.out.println(newcard);
             }
-            // Create a new credit card for the client using their client ID and full name
-            CreditCard newcard = new CreditCard(this.client_id );
-            // Add the newly created credit card to the list of cards
-            card.add(newcard);
-            // Print the details of the newly created credit card
-            System.out.println(newcard);
+            else
+                System.out.println("Already Have One");
         } catch (Exception e) {
             throw new TransactionException("Error requesting credit card: " + e.getMessage());
         }
@@ -211,42 +204,17 @@ public class Client extends User {
 
 
 
-    public void disablecreditcard(ArrayList<CreditCard> card) throws TransactionException {
+    public void disablecreditcard() throws TransactionException {
         Scanner s = new Scanner(System.in);
 
         try {
-            // Validate card list
-            if (card == null || card.isEmpty()) {
+            if (this.creditCard == null ) {
                 throw new TransactionException("No credit cards available.");
             }
 
-            // Show client's cards
-            System.out.println("Your Cards : ");
-            boolean hasClientCards = false;
-            for (CreditCard c : card) {
-                if (c.getClient_id() == this.client_id) {
-                    System.out.println(c);
-                    hasClientCards = true;
-                }
-            }
 
-            if (!hasClientCards) {
-                throw new NoSuchElementException("No credit cards found for this client.");
-            }
-
-            // Get card to disable
-            System.out.println("Enter The Card You Want To Disable : ");
-            String cardnum = s.next();
-
-            boolean iscorrect = false;
-            for (CreditCard c : card) {
-                if (cardnum.equals(c.getCardNumber()) && c.getClient_id() == this.client_id) {
-                    iscorrect = true;
-                    c.isActive = false;
+                    this.creditCard.isActive = false;
                     System.out.println("Card disabled successfully.");
-                    break;
-                }
-            }
 
 
         } catch (InputMismatchException e) {
@@ -261,17 +229,15 @@ public class Client extends User {
         long accnum;
         // Index of the selected account
         int index = 0;
-        // Flag to determine account type (a: unset, C: current, S: saving)
+        // Acc Type
         char x = 'a';
-        // Flag to track if an account is found
+        // Acc Foundd Or Not
         boolean isfound = false;
-        // Scanner for user input
         Scanner s = new Scanner(System.in);
 
-        // Display available accounts to the user
         System.out.println("Your Accounts :");
         try {
-            // Show account information
+
             this.displayaccountsinfo();
 
             // Prompt user to select an account

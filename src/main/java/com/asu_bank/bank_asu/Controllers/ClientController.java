@@ -64,14 +64,14 @@ public class ClientController {
 
     public void AccinUseButton() {
 
-        if (AccountNofield.getText().trim().isEmpty()) {         // Check if the text field is empty
+        if (AccountNofield.getText().trim().isEmpty()) {
             utility.ShowErrorAlert("Please enter an Account Number!   Field can't be empty");
             return;
         }
 
         try {
             Long accnum = Long.valueOf(AccountNofield.getText());
-            boolean accfound = false;  // Added missing declaration
+            boolean accfound = false;
 
             for (CurrentAccount Acc : bank.BankCurrentAccounts) {
                 if (currentUser.getClient_id().equals(Acc.getClient_id())) {
@@ -83,12 +83,14 @@ public class ClientController {
                 }
             }
 
-            for (SavingAccount Acc : bank.BankSavingAccounts) {
-                if (currentUser.getClient_id().equals(Acc.getClient_id())) {
-                    if (Acc.getAccountnumber().equals(accnum)) {
-                        accfound = true;
-                        currentAccount = Acc;
-                        Accountnotext.setText("Account in use : " + currentAccount.getAccountnumber());
+            if(!accfound) {
+                for (SavingAccount Acc : bank.BankSavingAccounts) {
+                    if (currentUser.getClient_id().equals(Acc.getClient_id())) {
+                        if (Acc.getAccountnumber().equals(accnum)) {
+                            accfound = true;
+                            currentAccount = Acc;
+                            Accountnotext.setText("Account in use : " + currentAccount.getAccountnumber());
+                        }
                     }
                 }
             }
@@ -214,18 +216,16 @@ public class ClientController {
                 return;
             }
 
-            // Process the transaction
+
             double loyaltyPoints = amount * 0.1;
             currentUser.getCreditCard().setSpending(currentSpending + amount);
             currentUser.getCreditCard().setLoyaltyPoints(
                     currentUser.getCreditCard().getLoyaltyPoints() + loyaltyPoints
             );
 
-            // Create and add transaction record
             Transaction newTran = new Transaction(amount, "Credit Card transaction", new Date());
             currentUser.getCredittrans().add(newTran);
 
-            // Show success message
             utility.ShowSuccessAlert(String.format(
                     "Credit card transaction is done successfully\n\n" +
                             "Your new loyalty points after update: %.2f\n" +
@@ -277,40 +277,23 @@ public class ClientController {
                 System.out.println("Warning: Account data might not be available.");
             } else {
                 ObservableList<CurrentAccount> currentaccountObservableList = FXCollections.observableArrayList(bank.getCurrentAccount());
-                ObservableList<CurrentAccount> currentaccount = currentaccountObservableList;
                 ObservableList<SavingAccount> savingaccountObservableList = FXCollections.observableArrayList(bank.getSavingAccount());
-                ObservableList<SavingAccount> savingaccount = savingaccountObservableList;
 
                 ObservableList<Client> ClientObservableList = FXCollections.observableArrayList(bank.BankClients);
-                ObservableList<Client> Clients = ClientObservableList;
 
                 ObservableList<String> accountListStrings = FXCollections.observableArrayList();
-                //ObservableList<String> savingaccountListStrings = FXCollections.observableArrayList();
-
-                //for (int i = 0; i < Clients.size(); i++) {
                 for (CurrentAccount account : currentaccountObservableList) {
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
-
-
-                        // Customize employee display format as needed (e.g., name, ID, department)
                         accountListStrings.add("   ID:  " + account.getClient_id() + "       Account number:  " +
                                 account.getAccountnumber() + "          Account State:  " + account.getAccountState() +
                                 "         Account type : " + account.getAccountType() + "         Account balance :  " +
                                 account.getBalance());
-
                     }
-
-
                 }
 
                 for (SavingAccount account : savingaccountObservableList)
                 {
-
-
-
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
-
-
                         accountListStrings.add("   ID:  " + account.getClient_id() + "       Account number:  " +
                                 account.getAccountnumber() + "          Account State:  " + account.getAccountState() +
                                 "         Account type : " + account.getAccountType() + "         Account balance :  " +
