@@ -225,13 +225,12 @@ public class Client extends User {
     }
 
     public void Accfuncs(ArrayList<Client> clients) throws TransactionException {
-        // Account number to be used
+
         long accnum;
         // Index of the selected account
         int index = 0;
         // Acc Type
         char x = 'a';
-        // Acc Foundd Or Not
         boolean isfound = false;
         Scanner s = new Scanner(System.in);
 
@@ -240,11 +239,8 @@ public class Client extends User {
 
             this.displayaccountsinfo();
 
-            // Prompt user to select an account
             System.out.println("Enter The Account You Want To Use : ");
             accnum = s.nextLong();
-
-            // Search for account in current accounts list
             for (int i = 0; i < current.size(); i++) {
                 if (current.get(i).getAccountnumber() == accnum) {
                     isfound = true;
@@ -253,7 +249,6 @@ public class Client extends User {
                 }
             }
 
-            // If not found in current accounts, search in savings accounts
             if (!isfound) {
                 for (int i = 0; i < saving.size(); i++) {
                     if (saving.get(i).getAccountnumber() == accnum) {
@@ -263,21 +258,15 @@ public class Client extends User {
                     }
                 }
             }
-
-            // Throw exception if no matching account is found
             if (!isfound) {
                 throw new AccountException("No account found with number " + accnum);
             }
 
-            // If account is found, proceed with account operations
             if (isfound) {
-                // Variable to store user's chosen action
                 char c;
-                // Prompt user for desired action
                 System.out.println("Press(M:Money Transfer , D:Deposit , W:Withdraw ) : ");
                 c = s.next().charAt(0);
 
-                // Handle money transfer
                 if (c == 'M' || c == 'm') {
                     if (x == 'S') {
                         saving.get(index).transfermoney(clients,"Client");
@@ -285,7 +274,6 @@ public class Client extends User {
                         current.get(index).transfermoney(clients,"Client");
                     }
                 }
-                // Handle withdrawal
                 else if (c == 'W' || c == 'w') {
                     if (x == 'S') {
                         saving.get(index).withdraw();
@@ -293,7 +281,6 @@ public class Client extends User {
                         current.get(index).withdraw();
                     }
                 }
-                // Handle deposit
                 else if (c == 'D' || c == 'd') {
                     if (x == 'S') {
                         saving.get(index).deposit();
@@ -301,7 +288,6 @@ public class Client extends User {
                         current.get(index).deposit();
                     }
                 }
-                // Throw exception for invalid action
                 else {
                     throw new AccountException("Invalid Action selected. Choose M, D, or W.");
                 }
@@ -342,7 +328,6 @@ public class Client extends User {
             System.out.println("Enter Your Telephone Number : ");
             long newTelephoneNumber = validateTelephoneNumber(s.next());
 
-            // If all validations pass, update the information
             this.firstName = newFirstName;
             this.lastName = newLastName;
             this.setUserName(newUsername);
@@ -362,7 +347,6 @@ public class Client extends User {
 
     public void showclientinfo() {
         try {
-            // Validate critical fields before printing
             if (this.id == null) {
                 throw new IllegalStateException("Client ID cannot be null");
             }
@@ -375,26 +359,18 @@ public class Client extends User {
                 throw new IllegalArgumentException("Last Name is required");
             }
 
-            // Print client information with null checks
             System.out.println("ID : " + this.id);
             System.out.println("FirstName : " + this.firstName);
             System.out.println("LastName : " + this.lastName);
 
-            // Add null check for username
             String username = this.getUserName();
-            System.out.println("Username : " + (username != null ? username : "N/A"));
-
-            // Avoid printing passwords directly - this is a security risk
+            System.out.println("Username : " + this.userName);
             System.out.println("Password : [PROTECTED]");
 
-            // Add null check for telephone number
-            System.out.println("TelephoneNumber : " +
-                    (this.telephoneNumber != null ? this.telephoneNumber : "Not Provided"));
+            System.out.println("TelephoneNumber : " +this.getTelephoneNumber());
         } catch (IllegalStateException | IllegalArgumentException e) {
-            // Log the error or handle it appropriately
             System.err.println("Error displaying client information: " + e.getMessage());
         } catch (Exception e) {
-            // Catch any unexpected exceptions
             System.err.println("Unexpected error occurred: " + e.getMessage());
         }
     }

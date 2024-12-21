@@ -523,22 +523,6 @@ public class Employee extends User {
         //lw raga3 -1 yebaa mala2ho4
         return returnedid;
     }
-    public String getclientnamebyid( Long clientid,Bank bank){
-        String name=new String();
-        boolean isfound=false;
-        for(Client client : bank.BankClients){
-            if(clientid==client.getClient_id()){
-                name= client.firstName+client.lastName;
-                isfound=true;
-                break;
-            }
-        }
-        if(!isfound) {
-            name=null;
-        }
-        //lw raga3 null yebaa mala2aho4
-        return name;
-    }
 }
 
 
