@@ -6,43 +6,45 @@
       "lastName": "Dahy",
       "userName": "ahmed",
       "password": "ahmed",
-      "telephoneNumber": 568456,
+      "telephoneNumber": 123124,
       "client_id": 1,
       "counterr": 2005,
       "creditCard": {
         "cardNumber": "4532-7845-9632-0001",
         "cvv": 123,
         "isActive": false,
-        "loyaltyPoints": 400.0,
+        "loyaltyPoints": 0.0,
         "limit": 20000.0,
-        "spending": 4000.0,
-        "client_id": 0,
+        "spending": 0.0,
+        "client_id": 1,
         "cvvmax": 999,
         "cvvmin": 100,
         "cardmax": 9999,
-        "cardmin": 1000
+        "cardmin": 1001
       },
       "current": [
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 1,
           "accountnumber": 8001,
           "trasactions": [],
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 7000.0,
+          "balance": 3300.0,
           "counter": 9
         },
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 1,
           "accountnumber": 8002,
           "trasactions": [],
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 10500.0,
+          "balance": 12900.0,
           "counter": 9
         }
       ],
@@ -55,7 +57,7 @@
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Saving",
-          "balance": 10000.0,
+          "balance": 10700.0,
           "counter": 9
         },
         {
@@ -66,7 +68,7 @@
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Saving",
-          "balance": 15000.0,
+          "balance": 15400.0,
           "counter": 9
         }
       ],
@@ -81,22 +83,11 @@
       "telephoneNumber": 12345678902,
       "client_id": 2,
       "counterr": 2005,
-      "creditCard": {
-        "cardNumber": null,
-        "cvv": 0,
-        "isActive": false,
-        "loyaltyPoints": 0.0,
-        "limit": 20000.0,
-        "spending": 0.0,
-        "client_id": 0,
-        "cvvmax": 999,
-        "cvvmin": 100,
-        "cardmax": 9999,
-        "cardmin": 1000
-      },
+      "creditCard": null,
       "current": [
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 2,
           "accountnumber": 8005,
           "trasactions": [],
@@ -108,6 +99,7 @@
         },
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 2,
           "accountnumber": 8006,
           "trasactions": [],
@@ -153,22 +145,11 @@
       "telephoneNumber": 12345678903,
       "client_id": 3,
       "counterr": 2005,
-      "creditCard": {
-        "cardNumber": null,
-        "cvv": 0,
-        "isActive": false,
-        "loyaltyPoints": 0.0,
-        "limit": 20000.0,
-        "spending": 0.0,
-        "client_id": 0,
-        "cvvmax": 999,
-        "cvvmin": 100,
-        "cardmax": 9999,
-        "cardmin": 1000
-      },
+      "creditCard": null,
       "current": [
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 3,
           "accountnumber": 8009,
           "trasactions": [],
@@ -180,6 +161,7 @@
         },
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 3,
           "accountnumber": 8010,
           "trasactions": [],
@@ -225,22 +207,11 @@
       "telephoneNumber": 12345678904,
       "client_id": 4,
       "counterr": 2005,
-      "creditCard": {
-        "cardNumber": null,
-        "cvv": 0,
-        "isActive": false,
-        "loyaltyPoints": 0.0,
-        "limit": 20000.0,
-        "spending": 0.0,
-        "client_id": 0,
-        "cvvmax": 999,
-        "cvvmin": 100,
-        "cardmax": 9999,
-        "cardmin": 1000
-      },
+      "creditCard": null,
       "current": [
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 4,
           "accountnumber": 8013,
           "trasactions": [],
@@ -252,6 +223,7 @@
         },
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 4,
           "accountnumber": 8014,
           "trasactions": [],
@@ -297,22 +269,11 @@
       "telephoneNumber": 12345678905,
       "client_id": 5,
       "counterr": 2005,
-      "creditCard": {
-        "cardNumber": null,
-        "cvv": 0,
-        "isActive": false,
-        "loyaltyPoints": 0.0,
-        "limit": 20000.0,
-        "spending": 0.0,
-        "client_id": 0,
-        "cvvmax": 999,
-        "cvvmin": 100,
-        "cardmax": 9999,
-        "cardmin": 1000
-      },
+      "creditCard": null,
       "current": [
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 5,
           "accountnumber": 8017,
           "trasactions": [],
@@ -324,6 +285,7 @@
         },
         {
           "minimumBalance": 3000.0,
+          "Fees": 100.0,
           "client_id": 5,
           "accountnumber": 8018,
           "trasactions": [],

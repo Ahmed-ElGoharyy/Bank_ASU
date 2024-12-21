@@ -20,6 +20,18 @@ abstract public class User {
         return lastName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setTelephoneNumber(Long telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }

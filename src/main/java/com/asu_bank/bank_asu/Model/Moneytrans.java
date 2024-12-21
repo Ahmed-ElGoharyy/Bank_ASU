@@ -41,5 +41,11 @@ public class Moneytrans extends Transaction{
         this.recieveraccnum=recieveraccnum;
 
     }
+    public Moneytrans(long senderaccnum, long recieveraccnum, double amount, String type, Date Date,String madeby){
+        super(senderaccnum,amount,type,Date);
+        this.recieveraccnum=recieveraccnum;
+        this.made_by=madeby;
+
+    }
 
 }

@@ -118,36 +118,7 @@ public class DataLoader {
      */
     public static boolean saveDataToFiles(Bank bank) {
         try {
-            for(Moneytrans money: bank.BankMoneyTransfers){
-                for(Client c : bank.BankClients){
-                    for(CurrentAccount curr : c.getCurrent()){
-                        if(curr.getAccountnumber()==money.getAccnumber()||curr.getAccountnumber()==money.getRecieveraccnum()){
-                            curr.moneytransfer.add(money);
-                        }
-                    }
-                    for(SavingAccount sav : c.getSaving()){
-                        if(sav.getAccountnumber()==money.getAccnumber()||sav.getAccountnumber()==money.getRecieveraccnum()){
-                            sav.moneytransfer.add(money);
-                        }
-                    }
 
-                }
-            }
-            for(Transaction trans: bank.BankATMTrans){
-                for(Client c : bank.BankClients){
-                    for(CurrentAccount curr : c.getCurrent()){
-                        if(curr.getAccountnumber()==trans.getAccnumber()){
-                            curr.trasactions.add(trans);
-                        }
-                    }
-                    for(SavingAccount sav : c.getSaving()){
-                        if(sav.getAccountnumber()==trans.getAccnumber()){
-                            sav.trasactions.add(trans);
-                        }
-                    }
-
-                }
-            }
             for(Client c :bank.BankClients ){
                 for(CurrentAccount curr : c.getCurrent()){
                     for(CurrentAccount maincurr: bank.BankCurrentAccounts){
@@ -162,6 +133,38 @@ public class DataLoader {
                             sav=mainsav;
                         }
                     }
+                }
+            }
+            for(Moneytrans trans: bank.BankMoneyTransfers){
+                for(Client c : bank.BankClients){
+                    for(CurrentAccount curr : c.getCurrent()){
+                        if(curr.getAccountnumber()==trans.getAccnumber()){
+                            curr.moneytransfer.add(trans);
+                        }
+                    }
+                    for(SavingAccount sav : c.getSaving()){
+                        if(sav.getAccountnumber()==trans.getAccnumber()){
+                            sav.moneytransfer.add(trans);
+                        }
+                    }
+
+                }
+
+
+            }
+            for(Transaction trans: bank.BankATMTrans){
+                for(Client c : bank.BankClients){
+                    for(CurrentAccount curr : c.getCurrent()){
+                        if(curr.getAccountnumber()==trans.getAccnumber()){
+                            curr.trasactions.add(trans);
+                        }
+                    }
+                    for(SavingAccount sav : c.getSaving()){
+                        if(sav.getAccountnumber()==trans.getAccnumber()){
+                            sav.trasactions.add(trans);
+                        }
+                    }
+
                 }
             }
 

@@ -1,25 +1,18 @@
 package com.asu_bank.bank_asu.Controllers;
 
-import com.asu_bank.bank_asu.Main;
 import com.asu_bank.bank_asu.Model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.net.URL;
 
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class EmployeeController implements Initializable {
@@ -69,6 +62,17 @@ public class EmployeeController implements Initializable {
     private TextField CurrentStartBalance;
 
     @FXML
+    private TextField FirstNameclientText;
+    @FXML
+    private TextField LastNameclientText;
+    @FXML
+    private TextField UsernameclientText;
+    @FXML
+    private TextField PasswordclientText;
+    @FXML
+    private TextField TeleclientText;
+
+    @FXML
     private TextField FirstNameText;
     @FXML
     private TextField LastNameText;
@@ -78,8 +82,21 @@ public class EmployeeController implements Initializable {
     private TextField PasswordText;
     @FXML
     private TextField TeleText;
+    @FXML
+    private TextField AddressText;
+    @FXML
+    private TextField PositionText;
+    @FXML
+    private TextField GradCollegeText;
+    @FXML
+    private TextField GradYearText;
+    @FXML
+    private TextField TotalGradeText;
 
-
+    @FXML
+    private TextField transrec;
+    @FXML
+    private TextField transamout;
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         System.out.println("intialize Start");
@@ -97,28 +114,28 @@ public class EmployeeController implements Initializable {
         Long telephoneNumber;
 
 
-            if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
-                    UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
-                    TeleText.getText().isEmpty()) {
-                utility.ShowErrorAlert("Error: All fields must be filled out.");
+        if (FirstNameclientText.getText().isEmpty() || LastNameclientText.getText().isEmpty() ||
+                UsernameclientText.getText().isEmpty() || PasswordclientText.getText().isEmpty() ||
+                TeleclientText.getText().isEmpty()) {
+            utility.ShowErrorAlert("Error: All fields must be filled out.");
+            return;
+        }
+        for (Client c : bank.BankClients) {
+            if (c.getUserName().equals(UsernameclientText.getText())) {
+                utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
                 return;
             }
-            for (Client c : bank.BankClients) {
-                if (c.getUserName().equals(UsernameText.getText())) {
-                    utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
-                    return;
-                }
-            }
-            if (FirstNameText.getText().matches(".*\\d.*")) {
-                utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
-                return;
-            }
-            if (LastNameText.getText().matches(".*\\d.*")) {
-                utility.ShowErrorAlert("Error: The Lastname cannot contain numbers!");
-                return;
-            }
+        }
+        if (FirstNameclientText.getText().matches(".*\\d.*")) {
+            utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
+            return;
+        }
+        if (LastNameclientText.getText().matches(".*\\d.*")) {
+            utility.ShowErrorAlert("Error: The Lastname cannot contain numbers!");
+            return;
+        }
         try {
-            telephoneNumber = Long.parseLong(TeleText.getText());
+            telephoneNumber = Long.parseLong(TeleclientText.getText());
             if (String.valueOf(telephoneNumber).length() < 6 || String.valueOf(telephoneNumber).length() > 10) {
                 utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");
                 return;
@@ -131,81 +148,81 @@ public class EmployeeController implements Initializable {
             utility.ShowErrorAlert("Error: The Telephone Number must be a valid number!");
             return;
         }
-            Client c = new Client(
+        Client c = new Client(
 
-                    FirstNameText.getText(),
-                    LastNameText.getText(),
-                    UsernameText.getText(),
-                    PasswordText.getText(),
-                    Long.parseLong(TeleText.getText()));
-            bank.BankClients.add(c);
-            utility.ShowSuccessAlert("New Client added  successfully!");
+                FirstNameclientText.getText(),
+                LastNameclientText.getText(),
+                UsernameclientText.getText(),
+                PasswordclientText.getText(),
+                Long.parseLong(TeleclientText.getText()));
+        bank.BankClients.add(c);
+        utility.ShowSuccessAlert("New Client added  successfully!");
     }
-        public void CreateSavingAccButton() {
-            try {
-                String ClientId = SavingClientID.getText();
-                String StartBalance = SavingStartBalance.getText();
-                if (ClientId.isEmpty() || StartBalance.isEmpty()) {
-                    utility.ShowErrorAlert("All fields must be filled out!");
-                    return;
-                }
-                if (!ClientId.matches(".*\\d.*")) {
-                    utility.ShowErrorAlert("Client ID must be numeric!");
-                    return;
-                }
-
-
-                if (!StartBalance.matches(".*\\d.*")) {
-                    utility.ShowErrorAlert("Start Balance must be numeric!");
-                    return;
-                }
-                Double startBalance = Double.valueOf(SavingStartBalance.getText());
-                Long clientId = Long.valueOf(SavingClientID.getText());
-
-
-                if(startBalance<0){
-                    utility.ShowErrorAlert("Balance cannot be negative!");
-                    return;
-                }
-
-
-                SavingAccount newSavingAcc = new SavingAccount(startBalance, clientId);
-
-                // Add to the bank's list of saving accounts
-                bank.BankSavingAccounts.add(newSavingAcc);
-
-                // Find the client with the matching client ID and add the account to their list
-
-                boolean clientFound = false;
-                for (Client client : bank.BankClients) {
-                    if (client.getClient_id().equals(clientId)) {
-                        client.getSaving().add(newSavingAcc);
-                        clientFound = true;
-                        break;
-
-                    }
-
-                }
-                if(!clientFound){
-                    utility.ShowErrorAlert("Client does not exist...Enter a valid Client ID!");
-                    return;
-                }
-
-
-                utility.ShowSuccessAlert("Saving Account added successfully for Client: " + clientId + "\n" +
-                        "Your Account Number: " + newSavingAcc.getAccountnumber() + "\n" +
-                        "Your Account State: " + newSavingAcc.getAccountState() + "\n" +
-                        "Your Current Balance: " + newSavingAcc.getBalance() + "\n"+"\n"+
-                        "Note : Intrest rate of "+newSavingAcc.getInterestRate()+" Will be Evaluated Yearly\n"+
-                        "To Cancel this Refer to our Bank Branch.");
-            }catch(NumberFormatException e){
-                utility.ShowErrorAlert("Error: " +e.getMessage());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-
+    public void CreateSavingAccButton() {
+        try {
+            String ClientId = SavingClientID.getText();
+            String StartBalance = SavingStartBalance.getText();
+            if (ClientId.isEmpty() || StartBalance.isEmpty()) {
+                utility.ShowErrorAlert("All fields must be filled out!");
+                return;
+            }
+            if (!ClientId.matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Client ID must be numeric!");
+                return;
             }
 
+
+            if (!StartBalance.matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Start Balance must be numeric!");
+                return;
+            }
+            Double startBalance = Double.valueOf(SavingStartBalance.getText());
+            Long clientId = Long.valueOf(SavingClientID.getText());
+
+
+            if(startBalance<0){
+                utility.ShowErrorAlert("Balance cannot be negative!");
+                return;
+            }
+
+
+            SavingAccount newSavingAcc = new SavingAccount(startBalance, clientId);
+
+            // Add to the bank's list of saving accounts
+            bank.BankSavingAccounts.add(newSavingAcc);
+
+            // Find the client with the matching client ID and add the account to their list
+
+            boolean clientFound = false;
+            for (Client client : bank.BankClients) {
+                if (client.getClient_id().equals(clientId)) {
+                    client.getSaving().add(newSavingAcc);
+                    clientFound = true;
+                    break;
+
+                }
+
+            }
+            if(!clientFound){
+                utility.ShowErrorAlert("Client does not exist...Enter a valid Client ID!");
+                return;
+            }
+
+
+            utility.ShowSuccessAlert("Saving Account added successfully for Client: " + clientId + "\n" +
+                    "Your Account Number: " + newSavingAcc.getAccountnumber() + "\n" +
+                    "Your Account State: " + newSavingAcc.getAccountState() + "\n" +
+                    "Your Current Balance: " + newSavingAcc.getBalance() + "\n"+"\n"+
+                    "Note : Intrest rate of "+newSavingAcc.getInterestRate()+" Will be Evaluated Yearly\n"+
+                    "To Cancel this Refer to our Bank Branch.");
+        }catch(NumberFormatException e){
+            utility.ShowErrorAlert("Error: " +e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
         }
+
+    }
 
 
     public void CreateCurrentAccButton() {
@@ -316,18 +333,18 @@ public class EmployeeController implements Initializable {
 
                 String SearchAcc = SearchAccTextField.getText();
 
-                    Long idsearch = currentUser.getclientidbyname(SearchAcc,bank); // function we made to get id
+                Long idsearch = currentUser.getclientidbyname(SearchAcc,bank); // function we made to get id
                 if(SearchAcc.matches(".*\\d.*")){
                     utility.ShowErrorAlert("Full Name cannot be a number!");
                     return;
                 }
-                    if (idsearch !=0) {
-                        accfound=true;
-                        resultsText.append("Found! Your Client ID is : ").append(idsearch);
-                    }
-                    else {
-                         utility.ShowErrorAlert("Full  Name is incorrect! Can't find Your Client ID \n " +
-                                                "Please enter your 'FIRSTNAME LASTNAME' .");
+                if (idsearch !=0) {
+                    accfound=true;
+                    resultsText.append("Found! Your Client ID is : ").append(idsearch);
+                }
+                else {
+                    utility.ShowErrorAlert("Full  Name is incorrect! Can't find Your Client ID \n " +
+                            "Please enter your 'FIRSTNAME LASTNAME' .");
                 }
 
 
@@ -379,32 +396,100 @@ public class EmployeeController implements Initializable {
 
 
     public void EditPersonalButtonClick(){
-        String newAddress = addressTextField.getText();
-        String newPosition = PositionTextField.getText();
+        String adminUsername = "admin";
+        int graduationYear;
+        Long telephoneNumber;
         try {
-            // Check if either address or position is null or empty
-            if (newAddress == null || newAddress.trim().isEmpty() || newPosition == null || newPosition.trim().isEmpty()) {
-                utility.ShowErrorAlert("Fill all fields please!");
+            telephoneNumber = Long.parseLong(TeleText.getText());
+            if (String.valueOf(telephoneNumber).length() < 6 || String.valueOf(telephoneNumber).length() > 10) {
+                utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");
+                return;
             }
-            if (PositionTextField.getText().matches(".*\\d.*")) {
+            if (telephoneNumber < 0) {
+                utility.ShowErrorAlert("Error: The Telephone Number cannot be negative!");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Error: The Telephone Number must be a valid number!");
+            return;
+        }
+        try {
+            graduationYear = Integer.parseInt(GradYearText.getText());
+            if (graduationYear < 1980 || graduationYear > 2024) {
+                utility.ShowErrorAlert("Error: The Graduation Year must be between 1980-2024.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("The Graduation Year must be a valid number!");
+            return;
+        }
+        String totalGradeInput = TotalGradeText.getText();
+        if (totalGradeInput.length() != 1 || !("ABC".contains(totalGradeInput))) {
+            utility.ShowErrorAlert(" The Total Grade must be a single character (A, B, or C)!");
+            return;
+        }
+        try {
+            String newAdd = AddressText.getText();
+            if (UsernameText.getText().equals(adminUsername)) {
+                utility.ShowErrorAlert("Error: The Username '" + adminUsername + "' is reserved for the admin only.");
+                return;
+            }
+
+            if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
+                    UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
+                    TeleText.getText().isEmpty() || AddressText.getText().isEmpty() ||
+                    PositionText.getText().isEmpty() || GradCollegeText.getText().isEmpty() ||
+                    GradYearText.getText().isEmpty() || TotalGradeText.getText().isEmpty()) {
+                utility.ShowErrorAlert("Error: All fields must be filled out.");
+                return;
+            }
+            for (Employee employee : bank.BankEmployees) {
+                if (employee.getUserName().equals(UsernameText.getText())) {
+                    utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
+                    return;
+                }
+            }
+            if (PositionText.getText().matches(".*\\d.*")) {
                 utility.ShowErrorAlert("Error: The Position cannot be numbers! Please enter a valid Job Title.");
                 return;
             }
-            if(!newAddress.matches(".*[a-zA-Z].*")||!newAddress.matches(".*[0-9].*")){
-                throw new IllegalArgumentException("The Address must contain numbers and names!");
-            } else {
-                // Update the user information
-                currentUser.setAddress(newAddress);
-                currentUser.setPosition(newPosition);
-
-                // Show success alert
-                utility.ShowSuccessAlert("Your Address Changed to: " + currentUser.getAddress() +
-                        "\n"+ "Your Position Changed to: " + currentUser.getPosition());
+            if (GradCollegeText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Graduated College cannot be numbers. Please enter a valid College Name.");
+                return;
             }
-        }catch (Exception e){
-            utility.ShowErrorAlert("Error changing Your info :"+e.getMessage());
+            if (!newAdd.matches(".*[a-zA-Z].*") || !newAdd.matches(".*[0-9].*")) {
+                throw new IllegalArgumentException("The Address must contain numbers and names!");
+            }
+            if (FirstNameText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
+                return;
+            }
+            if (LastNameText.getText().matches(".*\\d.*")) {
+                utility.ShowErrorAlert("Error: The Lastname cannot contain numbers!");
+                return;
+            }
+            currentUser.setUserName(UsernameText.getText());
+            currentUser.setFirstName(FirstNameText.getText());
+            currentUser.setLastName(LastNameText.getText());
+            currentUser.setPassword(PasswordText.getText());
+            currentUser.setTelephoneNumber(telephoneNumber);
+            currentUser.setAddress(AddressText.getText());
+            currentUser.setGraduatedCollege(GradCollegeText.getText());
+            currentUser.setTotalGrade(TotalGradeText.getText().charAt(0));
+            currentUser.setYearOfGraduation(Integer.parseInt(GradYearText.getText()));
+            currentUser.setPosition(PositionText.getText());
+
+
+            utility.ShowSuccessAlert("Your Info Edited Successfully!");
+        } catch (NumberFormatException e) {
+            utility.ShowErrorAlert("Error: Please enter valid numeric values for telephone number and graduation year.");
+        } catch (IllegalArgumentException e) {
+            utility.ShowErrorAlert("Error: " + e.getMessage());
+        } catch (Exception e) {
+            utility.ShowErrorAlert("Error: " + e.getMessage());
         }
     }
+
 
 
     public void EditAccountButton(){
@@ -569,7 +654,7 @@ public class EmployeeController implements Initializable {
 // TO set the current user to the user logged in
 
 
-     public void setCurrentUser(User user) {
+    public void setCurrentUser(User user) {
 
         System.out.println("setuser start");
 
@@ -586,7 +671,186 @@ public class EmployeeController implements Initializable {
         System.out.println("setuser end");
 
     }
+    @FXML
+    public void tranmoneybutton(){
+        try {
+            String accountNumberText = AccountNofield.getText();
+            if (!accountNumberText.matches("\\d+")) {
+                utility.ShowErrorAlert("The Account Number must be numeric!");
+                return;
+            }
 
+            Long accn = Long.parseLong(AccountNofield.getText());
+            boolean accfound = false;
+            for (SavingAccount acc : bank.BankSavingAccounts) {
+                if (acc.getAccountnumber().equals(accn)) {
+                    accfound = true;
+                    long l = Long.parseLong(transrec.getText());
+                    double k = Double.parseDouble(transamout.getText());
+                    System.out.println(l+" "+k+" "+accn);
+                    trans(l,k,accn);
+                    AccountNofield.setText("");
+                }
+            }
+
+
+            for (CurrentAccount acc : bank.BankCurrentAccounts) {
+                if (acc.getAccountnumber().equals(accn)) {
+                    accfound = true;
+                    long l = Long.parseLong(transrec.getText());
+                    double k = Double.parseDouble(transamout.getText());
+                    System.out.println(l+" "+k+" "+accn);
+                    trans(l,k,accn);
+                    AccountNofield.setText("");
+                }
+            }
+            if (!accfound) {
+                utility.ShowErrorAlert("Account Number is incorrect!");
+
+            }
+        }catch(NumberFormatException e){
+            utility.ShowErrorAlert(" Error : "+e.getMessage());
+        }catch(IllegalArgumentException e){
+            utility.ShowErrorAlert(" Error : "+e.getMessage());
+        } catch (Exception e) {
+            utility.ShowErrorAlert(" Error :  "+e.getMessage());
+        }
+    }
+    public void trans(Long recaccnum, Double balance, Long sendaccnum) {
+        try {
+            boolean recaccisfound = false;
+            boolean transferCompleted = false;
+
+            // Input validation
+            if (recaccnum == null || balance == null || sendaccnum == null) {
+                utility.ShowErrorAlert("Account numbers and balance cannot be null");
+                return;
+            }
+
+            if (balance <= 0) {
+                utility.ShowErrorAlert("Transfer amount must be positive");
+                return;
+            }
+
+            if (recaccnum.equals(sendaccnum)) {
+                utility.ShowErrorAlert("Cannot transfer money to the same account");
+                return;
+            }
+
+            // Check Current Account as sender
+            for (CurrentAccount sendc : bank.BankCurrentAccounts) {
+                if (sendc.getAccountnumber().equals(sendaccnum)) {
+                    // Check Current Account as receiver
+                    for (CurrentAccount recc : bank.BankCurrentAccounts) {
+                        if (recc.getAccountnumber().equals(recaccnum)) {
+                            recaccisfound = true;
+                            if (sendc.getBalance() < balance) {
+                                utility.ShowErrorAlert("No Enough Balance In Account!");
+                                return;
+                            }
+                            sendc.setBalance(sendc.getBalance() - balance);
+                            recc.setBalance(recc.getBalance() + balance);
+                            Date d = new Date();
+                            Moneytrans t = new Moneytrans(sendaccnum, recaccnum, balance, "Money Transfer", d,
+                                    currentUser.getFirstName() + " " + currentUser.getLastName());
+                            bank.BankMoneyTransfers.add(t);
+                            sendc.moneytransfer.add(t);
+                            recc.moneytransfer.add(t);
+                            utility.ShowSuccessAlert("Money Transferred Successfully");
+                            transferCompleted = true;
+                            break;
+                        }
+                    }
+
+                    // If not found in Current Accounts, check Saving Accounts as receiver
+                    if (!transferCompleted) {
+                        for (SavingAccount recs : bank.BankSavingAccounts) {
+                            if (recs.getAccountnumber().equals(recaccnum)) {
+                                recaccisfound = true;
+                                if (sendc.getBalance() < balance) {
+                                    utility.ShowErrorAlert("No Enough Balance In Account!");
+                                    return;
+                                }
+                                sendc.setBalance(sendc.getBalance() - balance);
+                                recs.setBalance(recs.getBalance() + balance);
+                                Date d = new Date();
+                                Moneytrans t = new Moneytrans(sendaccnum, recaccnum, balance, "Money Transfer", d,
+                                        currentUser.getFirstName() + " " + currentUser.getLastName());
+                                bank.BankMoneyTransfers.add(t);
+                                sendc.moneytransfer.add(t);
+                                recs.moneytransfer.add(t);
+                                utility.ShowSuccessAlert("Money Transferred Successfully");
+                                transferCompleted = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (transferCompleted) break;
+                }
+            }
+
+            // If sender not found in Current Accounts, check Saving Accounts as sender
+            if (!transferCompleted) {
+                for (SavingAccount sends : bank.BankSavingAccounts) {
+                    if (sends.getAccountnumber().equals(sendaccnum)) {
+                        // Check Current Account as receiver
+                        for (CurrentAccount recc : bank.BankCurrentAccounts) {
+                            if (recc.getAccountnumber().equals(recaccnum)) {
+                                recaccisfound = true;
+                                if (sends.getBalance() < balance) {
+                                    utility.ShowErrorAlert("No Enough Balance In Account!");
+                                    return;
+                                }
+                                sends.setBalance(sends.getBalance() - balance);
+                                recc.setBalance(recc.getBalance() + balance);
+                                Date d = new Date();
+                                Moneytrans t = new Moneytrans(sendaccnum, recaccnum, balance, "Money Transfer", d,
+                                        currentUser.getFirstName() + " " + currentUser.getLastName());
+                                bank.BankMoneyTransfers.add(t);
+                                sends.moneytransfer.add(t);
+                                recc.moneytransfer.add(t);
+                                utility.ShowSuccessAlert("Money Transferred Successfully");
+                                transferCompleted = true;
+                                break;
+                            }
+                        }
+
+                        // If not found in Current Accounts, check Saving Accounts as receiver
+                        if (!transferCompleted) {
+                            for (SavingAccount recs : bank.BankSavingAccounts) {
+                                if (recs.getAccountnumber().equals(recaccnum)) {
+                                    recaccisfound = true;
+                                    if (sends.getBalance() < balance) {
+                                        utility.ShowErrorAlert("No Enough Balance In Account!");
+                                        return;
+                                    }
+                                    sends.setBalance(sends.getBalance() - balance);
+                                    recs.setBalance(recs.getBalance() + balance);
+                                    Date d = new Date();
+                                    Moneytrans t = new Moneytrans(sendaccnum, recaccnum, balance, "Money Transfer", d,
+                                            currentUser.getFirstName() + " " + currentUser.getLastName());
+                                    bank.BankMoneyTransfers.add(t);
+                                    sends.moneytransfer.add(t);
+                                    recs.moneytransfer.add(t);
+                                    utility.ShowSuccessAlert("Money Transferred Successfully");
+                                    transferCompleted = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (transferCompleted) break;
+                    }
+                }
+            }
+
+            if (!recaccisfound) {
+                utility.ShowErrorAlert("Receiver Account Not Found");
+            }
+
+        } catch (Exception e) {
+            utility.ShowErrorAlert("An error occurred during transfer: " + e.getMessage());
+        }
+    }
 
 
     @FXML

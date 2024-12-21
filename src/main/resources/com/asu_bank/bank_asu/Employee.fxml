@@ -32,7 +32,7 @@
          </font>
       </TextField>
       <Line endX="-772.0" endY="46.600006103515625" layoutX="994.0" layoutY="261.0" startX="80.800048828125" startY="46.600006103515625" stroke="#9fccae" strokeWidth="3.0" />
-      <Button fx:id="DeleteButton" alignment="CENTER" layoutX="1094.0" layoutY="477.0" mnemonicParsing="false" onAction="#DeleteAcc" prefHeight="54.0" prefWidth="134.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Delete" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="DeleteButton" alignment="CENTER" layoutX="869.0" layoutY="569.0" mnemonicParsing="false" onAction="#DeleteAcc" prefHeight="54.0" prefWidth="134.0" style="-fx-background-color: #0b3e1a; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 8px; -fx-border-radius: 7px;" text="Delete" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -46,27 +46,27 @@
                <items>
                   <MenuItem mnemonicParsing="false" text="FirstName">
                      <graphic>
-                        <TextField fx:id="FirstNameText" alignment="CENTER" promptText="FirstName" style="-fx-border-width: 2px;" />
+                        <TextField fx:id="FirstNameclientText" alignment="CENTER" promptText="FirstName" style="-fx-border-width: 2px;" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="LastName">
                      <graphic>
-                        <TextField fx:id="LastNameText" alignment="CENTER" promptText="LastName" />
+                        <TextField fx:id="LastNameclientText" alignment="CENTER" promptText="LastName" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Username">
                      <graphic>
-                        <TextField fx:id="UsernameText" alignment="CENTER" promptText="Username" />
+                        <TextField fx:id="UsernameclientText" alignment="CENTER" promptText="Username" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Passowrd">
                      <graphic>
-                        <TextField fx:id="PasswordText" alignment="CENTER" promptText="Password" />
+                        <TextField fx:id="PasswordclientText" alignment="CENTER" promptText="Password" />
                      </graphic>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="TelephoneNumber">
                      <graphic>
-                        <TextField fx:id="TeleText" alignment="CENTER" promptText="TelNumber" />
+                        <TextField fx:id="TeleclientText" alignment="CENTER" promptText="TelNumber" />
                      </graphic>
                   </MenuItem>
                </items>
@@ -80,13 +80,13 @@
          </cursor>
       </SplitMenuButton>
       <SplitMenuButton fx:id="EditButton" alignment="CENTER" contentDisplay="BOTTOM" layoutX="844.0" layoutY="478.0" mnemonicParsing="false" onAction="#EditAccountButton" prefHeight="54.0" prefWidth="134.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit" textAlignment="CENTER" textFill="#0b3e1a">
-        <items>
+         <items>
             <MenuItem mnemonicParsing="false" text="Change Account State:">
                <graphic>
                   <TextField fx:id="EditAccfield" alignment="CENTER" promptText="New Account State" style="-fx-border-color: black; -fx-border-width: 1px;" />
                </graphic>
             </MenuItem>
-        </items>
+         </items>
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -106,14 +106,54 @@
       </Button>
       <SplitMenuButton fx:id="EditPersButton" alignment="CENTER" layoutX="46.0" layoutY="26.0" mnemonicParsing="false" onAction="#EditPersonalButtonClick" prefHeight="54.0" prefWidth="207.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#0b3e1a">
          <items>
-            <MenuItem mnemonicParsing="false" text="New Address:">
+            <MenuItem mnemonicParsing="false" text="FirstName">
                <graphic>
-                  <TextField fx:id="addressTextField" promptText="Address" style="-fx-border-width: 1; -fx-border-color: black;" />
+                  <TextField fx:id="FirstNameText" alignment="CENTER" promptText="FirstName" style="-fx-border-width: 2px;" />
                </graphic>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" text="New Position:">
+            <MenuItem mnemonicParsing="false" text="LastName">
                <graphic>
-                  <TextField fx:id="PositionTextField" promptText="Position" style="-fx-border-color: black; -fx-border-width: 1;" />
+                  <TextField fx:id="LastNameText" alignment="CENTER" promptText="LastName" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Username">
+               <graphic>
+                  <TextField fx:id="UsernameText" alignment="CENTER" promptText="Username" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Passowrd">
+               <graphic>
+                  <TextField fx:id="PasswordText" alignment="CENTER" promptText="Password" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="TelephoneNumber">
+               <graphic>
+                  <TextField fx:id="TeleText" alignment="CENTER" promptText="TelNumber" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Address">
+               <graphic>
+                  <TextField fx:id="AddressText" alignment="CENTER" promptText="Address" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Position">
+               <graphic>
+                  <TextField fx:id="PositionText" alignment="CENTER" promptText="Position" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Graduated College">
+               <graphic>
+                  <TextField fx:id="GradCollegeText" alignment="CENTER" promptText="GraduatedCollege" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Graduation year">
+               <graphic>
+                  <TextField fx:id="GradYearText" alignment="CENTER" promptText="GradYear" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Total Grade">
+               <graphic>
+                  <TextField fx:id="TotalGradeText" alignment="CENTER" promptText="TotalGrade" />
                </graphic>
             </MenuItem>
          </items>
@@ -206,5 +246,27 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <SplitMenuButton alignment="CENTER" contentDisplay="BOTTOM" layoutX="1076.0" layoutY="478.0" mnemonicParsing="false" onAction="#tranmoneybutton" prefHeight="54.0" prefWidth="175.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Transfer Money" textAlignment="CENTER" textFill="#0b3e1a">
+         <items>
+            <MenuItem mnemonicParsing="false" text="To:">
+               <graphic>
+                  <TextField fx:id="transrec" alignment="CENTER" promptText="Reciever Acc No" style="-fx-border-color: black; -fx-border-width: 1px;" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="EGP">
+               <graphic>
+                  <TextField fx:id="transamout" alignment="CENTER" promptText="Amount" style="-fx-border-color: black; -fx-border-width: 1px;" />
+               </graphic>
+            </MenuItem>
+         </items>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </SplitMenuButton>
+      <Text fx:id="selectedAcctext111" fill="WHITE" fontSmoothingType="LCD" layoutX="792.0" layoutY="607.0" stroke="#101010" strokeDashOffset="11.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="33.0" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-weight: bold;" text="or" textAlignment="CENTER" wrappingWidth="63.199920654296875">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="30.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

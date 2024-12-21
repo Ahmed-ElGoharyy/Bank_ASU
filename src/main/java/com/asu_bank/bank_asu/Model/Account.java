@@ -1,16 +1,13 @@
 package com.asu_bank.bank_asu.Model;
 
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 abstract public class Account {
 
  protected Long client_id;
  protected Long accountnumber;
- public ArrayList<Transaction> trasactions = new ArrayList<>();
- public ArrayList<Moneytrans> moneytransfer = new ArrayList<>();
+ public List<Transaction> trasactions = new ArrayList<>();
+ public List<Moneytrans> moneytransfer = new ArrayList<>();
  protected String AccountState;
  protected String AccountType;
  private Double balance;
@@ -23,6 +20,14 @@ abstract public class Account {
 
  public Long getClient_id() {
   return client_id;           // Dont change this
+ }
+
+ public List<Moneytrans> getMoneytransfer() {
+  return moneytransfer;
+ }
+
+ public List<Transaction> getTrasactions() {
+  return trasactions;
  }
 
  public String getAccountType() {
@@ -208,5 +213,21 @@ abstract public class Account {
   } catch (Exception e) {
    throw new TransferException("Transfer failed: " + e.getMessage());
   }
+ }
+ public String getclientnamebyid( Long clientid,Bank bank){
+  String name=new String();
+  boolean isfound=false;
+  for(Client client : bank.BankClients){
+   if(clientid==client.getClient_id()){
+    name= client.firstName+" "+client.lastName;
+    isfound=true;
+    break;
+   }
+  }
+  if(!isfound) {
+   name=null;
+  }
+  //lw raga3 null yebaa mala2aho4
+  return name;
  }
 }

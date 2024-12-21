@@ -52,6 +52,17 @@ public class ClientController {
     @FXML
     private Text Accountnotext;
 
+    @FXML
+    private TextField FirstNameText;
+    @FXML
+    private TextField LastNameText;
+    @FXML
+    private TextField UsernameText;
+    @FXML
+    private TextField PasswordText;
+    @FXML
+    private TextField TeleText;
+
 
     boolean accfound = false;
 
@@ -578,8 +589,10 @@ public class ClientController {
                        currentAccount.setBalance(currentAccount.getBalance() - Amount4);
                        Rec.setBalance(Rec.getBalance() + Amount4);
                        Moneytrans newtrans = new Moneytrans(currentAccount.getAccountnumber(),
-                               Rec.getAccountnumber(), Amount4, "Transfer", new Date());
+                               Rec.getAccountnumber(), Amount4, "Money Transfer", new Date(),currentAccount.getclientnamebyid(currentAccount.getClient_id(),bank));
                        bank.BankMoneyTransfers.add(newtrans);
+                       Rec.moneytransfer.add(newtrans);
+                       currentAccount.moneytransfer.add(newtrans);
                        utility.ShowSuccessAlert(Amount4 + " EGP is Transfered from Account: " + currentAccount.getAccountnumber()
                                + "  to Account: " + Rec.getAccountnumber());
                        break; // Exit loop once found
@@ -622,31 +635,51 @@ public class ClientController {
     private TextField TelText;
     public void EditPersonalInfo() {
 
-        try {
-            if (TelText.getText().trim().isEmpty()) {
-                utility.ShowErrorAlert("Fields can't be empty.");
+        String adminUsername = "admin";
+        int graduationYear;
+        Long telephoneNumber;
+
+
+        if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
+                UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
+                TeleText.getText().isEmpty()) {
+            utility.ShowErrorAlert("Error: All fields must be filled out.");
+            return;
+        }
+        for (Client c : bank.BankClients) {
+            if (c.getUserName().equals(UsernameText.getText())) {
+                utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
                 return;
             }
-            Long newTel = Long.parseLong(TelText.getText());
-            if (String.valueOf(newTel).length() < 6 || String.valueOf(newTel).length() > 10) {
+        }
+        if (FirstNameText.getText().matches(".*\\d.*")) {
+            utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
+            return;
+        }
+        if (LastNameText.getText().matches(".*\\d.*")) {
+            utility.ShowErrorAlert("Error: The Lastname cannot contain numbers!");
+            return;
+        }
+        try {
+            telephoneNumber = Long.parseLong(TeleText.getText());
+            if (String.valueOf(telephoneNumber).length() < 6 || String.valueOf(telephoneNumber).length() > 10) {
                 utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");
                 return;
-            } else if (newTel < 0) {
+            }
+            if (telephoneNumber < 0) {
                 utility.ShowErrorAlert("Error: The Telephone Number cannot be negative!");
                 return;
-
             }
-
-            currentUser.setTelephone(newTel);
-
-            utility.ShowSuccessAlert("Telephone Number Changed to : " + currentUser.getTelephoneNumber()
-                    + " Successfully. ");
         } catch (NumberFormatException e) {
-            utility.ShowErrorAlert("Error:" + e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-
+            utility.ShowErrorAlert("Error: The Telephone Number must be a valid number!");
+            return;
         }
+        currentUser.setUserName(UsernameText.getText());
+        currentUser.setFirstName(FirstNameText.getText());
+        currentUser.setLastName(LastNameText.getText());
+        currentUser.setTelephoneNumber(telephoneNumber);
+        currentUser.setPassword(PasswordText.getText());
+        utility.ShowSuccessAlert("Your Info Edited Successfully!");
 
     }
 }

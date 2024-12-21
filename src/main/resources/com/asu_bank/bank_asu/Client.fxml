@@ -116,11 +116,31 @@
       </SplitMenuButton>
       <SplitMenuButton alignment="CENTER" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#EditPersonalInfo" prefHeight="62.0" prefWidth="210.0" style="-fx-border-color: #124296; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#1b337b">
          <items>
-            <MenuItem mnemonicParsing="false" text="New Phone No :">
-               <graphic>
-                  <TextField fx:id="TelText" promptText="Phone number" style="-fx-border-color: black; -fx-border-width: 1;" />
-               </graphic>
-            </MenuItem>
+             <MenuItem mnemonicParsing="false" text="FirstName">
+                 <graphic>
+                     <TextField fx:id="FirstNameText" alignment="CENTER" promptText="FirstName" style="-fx-border-width: 2px;" />
+                 </graphic>
+             </MenuItem>
+             <MenuItem mnemonicParsing="false" text="LastName">
+                 <graphic>
+                     <TextField fx:id="LastNameText" alignment="CENTER" promptText="LastName" />
+                 </graphic>
+             </MenuItem>
+             <MenuItem mnemonicParsing="false" text="Username">
+                 <graphic>
+                     <TextField fx:id="UsernameText" alignment="CENTER" promptText="Username" />
+                 </graphic>
+             </MenuItem>
+             <MenuItem mnemonicParsing="false" text="Passowrd">
+                 <graphic>
+                     <TextField fx:id="PasswordText" alignment="CENTER" promptText="Password" />
+                 </graphic>
+             </MenuItem>
+             <MenuItem mnemonicParsing="false" text="TelephoneNumber">
+                 <graphic>
+                     <TextField fx:id="TeleText" alignment="CENTER" promptText="TelNumber" />
+                 </graphic>
+             </MenuItem>
          </items>
          <font>
             <Font name="System Bold" size="17.0" />

@@ -14,7 +14,17 @@ public class Employee extends User {
     protected Integer yearOfGraduation;
     protected Character totalGrade;
 
+    public void setGraduatedCollege(String graduatedCollege) {
+        this.graduatedCollege = graduatedCollege;
+    }
 
+    public void setYearOfGraduation(Integer yearOfGraduation) {
+        this.yearOfGraduation = yearOfGraduation;
+    }
+
+    public void setTotalGrade(Character totalGrade) {
+        this.totalGrade = totalGrade;
+    }
 
     public void setAddress(String address) {
         this.address = address;
