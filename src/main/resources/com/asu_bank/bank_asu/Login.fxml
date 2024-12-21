@@ -47,5 +47,15 @@
             <Image url="@logo.png" />
          </image>
       </ImageView>
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="465.0" layoutY="681.0" stroke="#2a3346" strokeType="OUTSIDE" strokeWidth="2.0" text="Ahmed Gohary, Ahmed Dahy, Esraa Emad, Jumana Amr,           Sama Mohamed, Toqa Taha, Mostafa Ahmed" wrappingWidth="432.37347412109375">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="609.0" layoutY="650.0" stroke="#2a3346" strokeType="OUTSIDE" strokeWidth="2.0" text="Made by" wrappingWidth="117.17340087890625">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

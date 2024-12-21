@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -237,14 +238,22 @@ public class AdminController implements Initializable {
 
 
     @FXML
+    private CheckBox  clientradio;
+    @FXML
+    private CheckBox  employeeradio;
+    @FXML
+    private TextField byfullname;
+
+    @FXML
     public void showTransButtonClicked(ActionEvent event) {
         // Clear any existing items
         myListView.getItems().clear();
+        String searchName = byfullname.getText().trim();
 
         try {
             if (bank == null) {
-                System.out.println("Warning: Bank object not injected. Employee data might not be available.");
-            } else {
+                System.out.println("Warningm bank is mt");
+            } if(!employeeradio.isSelected() && !clientradio.isSelected()){
                 // Get employee data from Bank object (assuming getter method)
                 ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
                 ObservableList<Transaction> Transactions = TransactionObservableList;
@@ -267,7 +276,8 @@ public class AdminController implements Initializable {
                     "         Transaction Account :" +transfer.getAccnumber()+
                             "       Type : "+transfer.getType()+ "       Amount :  "+transfer.getAmount()+
                             "     From : "+transfer.getAccnumber()+"      Date  :" +transfer.getDate() +
-                            "      Reciever :" +transfer.getRecieveraccnum() );
+                            "      Reciever :" +transfer.getRecieveraccnum() +
+                            "       Made By ; "+transfer.getMade_by());
 
 
 
@@ -276,7 +286,16 @@ public class AdminController implements Initializable {
                 myListView.setItems(TransactionsListStrings);
                 Displaytext.setText("Transactions : ");
 
+            } else if (employeeradio.isSelected() && clientradio.isSelected()) {
+                utility.ShowErrorAlert("You can't choose both!  Pick one of them or None.");
             }
+            else if (employeeradio.isSelected() ) {
+
+            }
+            else if (clientradio.isSelected() ) {
+
+            }
+
         } catch (Exception e) {
             utility.ShowErrorAlert("Error loading Transaction : "+e);
         }
