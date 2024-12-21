@@ -478,7 +478,7 @@ public class ClientController {
             );
 
             bank.BankATMTrans.add(transaction);
-
+            currentAccount.trasactions.add(transaction);
             // Show success message
             utility.ShowSuccessAlert(String.format("Deposit of %.2f EGP successful.", amount));
 
@@ -532,6 +532,7 @@ public class ClientController {
                     new Date(),currentUser.getFirstName()+" "+currentUser.getLastName()
             );
             bank.BankATMTrans.add(transaction);
+            currentAccount.trasactions.add(transaction);
 
             // Show success message
             utility.ShowSuccessAlert(String.format("Withdrawal of %.2f EGP successful.", amount));
@@ -608,6 +609,8 @@ public class ClientController {
                            utility.ShowSuccessAlert(Amount4 + " EGP is Transfered from Account: " + currentAccount.getAccountnumber()
                                    + "  to Account: " + Rec.getAccountnumber());
                            bank.BankMoneyTransfers.add(newtrans);
+                           Rec.moneytransfer.add(newtrans);
+                           currentAccount.moneytransfer.add(newtrans);
                            break; // Exit loop once found
                        }
                    }

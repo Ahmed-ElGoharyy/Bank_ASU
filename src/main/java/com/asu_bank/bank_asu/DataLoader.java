@@ -100,6 +100,7 @@ public class DataLoader {
                 System.out.println("Successfully loaded " + employeesList.size() + " employees.");
             }
 
+
             return true;
 
         } catch (IOException e) {

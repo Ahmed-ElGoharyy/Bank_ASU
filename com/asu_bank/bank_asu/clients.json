@@ -16,11 +16,21 @@
           "Fees": 100.0,
           "client_id": 1,
           "accountnumber": 8001,
-          "trasactions": [],
+          "trasactions": [
+            {
+              "accnumber": 8001,
+              "transid": 1,
+              "amount": 200.0,
+              "counter": 2,
+              "type": "Withdraw",
+              "Date": "Dec 21, 2024, 1:19:16 PM",
+              "made_by": "Ahmed Dahy"
+            }
+          ],
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 3900.0,
+          "balance": 3700.0,
           "counter": 9
         },
         {
@@ -29,10 +39,21 @@
           "client_id": 1,
           "accountnumber": 8002,
           "trasactions": [],
-          "moneytransfer": [],
+          "moneytransfer": [
+            {
+              "recieveraccnum": 8003,
+              "accnumber": 8002,
+              "transid": 2,
+              "amount": 85.0,
+              "counter": 2,
+              "type": "Money Transfer",
+              "Date": "Dec 21, 2024, 1:19:58 PM",
+              "made_by": "Ahmed Gohary"
+            }
+          ],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 13300.0,
+          "balance": 13415.0,
           "counter": 9
         }
       ],
@@ -42,10 +63,21 @@
           "client_id": 1,
           "accountnumber": 8003,
           "trasactions": [],
-          "moneytransfer": [],
+          "moneytransfer": [
+            {
+              "recieveraccnum": 8003,
+              "accnumber": 8002,
+              "transid": 2,
+              "amount": 85.0,
+              "counter": 2,
+              "type": "Money Transfer",
+              "Date": "Dec 21, 2024, 1:19:58 PM",
+              "made_by": "Ahmed Gohary"
+            }
+          ],
           "AccountState": "Active",
           "AccountType": "Saving",
-          "balance": 10700.0,
+          "balance": 10785.0,
           "counter": 9
         },
         {

@@ -10,15 +10,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class AdminController implements Initializable {
 
@@ -238,7 +237,9 @@ public class AdminController implements Initializable {
 
 
     @FXML
-    private CheckBox  clientradio;
+    private RadioButton empradio;
+    @FXML
+    private RadioButton  clientradio;
     @FXML
     private TextField byfullname;
 
@@ -246,85 +247,116 @@ public class AdminController implements Initializable {
     public void showTransButtonClicked(ActionEvent event) {
         // Clear any existing items
         myListView.getItems().clear();
+        boolean isfound = false;
+
+        // Add null check for byfullname and validate for letters only
+        if (byfullname == null || byfullname.getText() == null || byfullname.getText().trim().isEmpty()) {
+            utility.ShowErrorAlert("Please enter a valid name to search");
+            return;
+        }
+
         String searchName = byfullname.getText().trim();
+
+        // Check if the name contains only letters and spaces
+        if (!searchName.matches("^[a-zA-Z\\s]+$")) {
+            utility.ShowErrorAlert("Name can only contain letters and spaces");
+            return;
+        }
 
         try {
             if (bank == null) {
-                System.out.println("Warningm bank is mt");
-            } if( !clientradio.isSelected()){
-
+                System.out.println("Warning bank is Empty");
+            } if (empradio.isSelected()) {
                 ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
                 ObservableList<Transaction> Transactions = TransactionObservableList;
 
                 ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.BankMoneyTransfers);
                 ObservableList<Moneytrans> Transfers = TransferObservableList;
 
+                // Create a HashSet to track unique transactions
+                Set<String> uniqueTransactions = new HashSet<>();
                 // Create an ObservableList of Strings to display in the ListView
                 ObservableList<String> TransactionsListStrings = FXCollections.observableArrayList();
-                for (Transaction transaction : Transactions) {
 
-                    TransactionsListStrings.add("   Transaction No  :    "+ transaction.getTransid() +
-                            "         Transaction Account :" +transaction.getAccnumber()+
-                            "       Type : "+transaction.getType()+ "       Amount :  "+transaction.getAmount()+
-                            "     To: "+transaction.getAccnumber()+"     Date  :"+transaction.getDate()+
-                            "      Made by : "+transaction.getMade_by());
-
-                }
-                for(Moneytrans transfer : Transfers){
-                    TransactionsListStrings.add("   Transaction No :"+transfer.getTransid()+
-                    "         Transaction Account :" +transfer.getAccnumber()+
-                            "       Type : "+transfer.getType()+ "       Amount :  "+transfer.getAmount()+
-                            "     From : "+transfer.getAccnumber()+"      Date  :" +transfer.getDate() +
-                            "      Reciever :" +transfer.getRecieveraccnum() +
-                            "       Made By ; "+transfer.getMade_by());
-
-
-
-                }
-
-                myListView.setItems(TransactionsListStrings);
-                Displaytext.setText("Transactions : ");
-
-            }
-
-            else if (clientradio.isSelected() ) {
-
-                ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
-                ObservableList<Transaction> Transactions = TransactionObservableList;
-
-                ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.BankMoneyTransfers);
-                ObservableList<Moneytrans> Transfers = TransferObservableList;
-
-                // Create an ObservableList of Strings to display in the ListView
-                ObservableList<String> TransactionsListStrings = FXCollections.observableArrayList();
-                for (Transaction transaction : Transactions) {
-                    if(searchName.equals(transaction.getMade_by())) {
-                        TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
-                                "         Transaction Account :" + transaction.getAccnumber() +
-                                "       Type : " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
-                                "     To: " + transaction.getAccnumber() + "     Date  :" + transaction.getDate() +
-                                "      Made by : " + transaction.getMade_by());
-                    }
-                }
-                for(Moneytrans transfer : Transfers){
-                    if(searchName.equals(transfer.getMade_by())) {
-                        TransactionsListStrings.add("   Transaction No :" + transfer.getTransid() +
+                for (Moneytrans transfer : Transfers) {
+                    if (transfer.getMade_by().equalsIgnoreCase(searchName)) {
+                        String transactionStr = "   Transaction No :" + transfer.getTransid() +
                                 "         Transaction Account :" + transfer.getAccnumber() +
                                 "       Type : " + transfer.getType() + "       Amount :  " + transfer.getAmount() +
                                 "     From : " + transfer.getAccnumber() + "      Date  :" + transfer.getDate() +
                                 "      Reciever :" + transfer.getRecieveraccnum() +
-                                "       Made By ; " + transfer.getMade_by());
+                                "       Made By ; " + transfer.getMade_by();
 
+                        // Only add if it's not a duplicate
+                        if (uniqueTransactions.add(transactionStr)) {
+                            TransactionsListStrings.add(transactionStr);
+                            isfound = true;
+                        } else {
+                            System.out.println("Duplicate transaction found and skipped: " + transfer.getTransid());
+                        }
                     }
+                }
 
+                myListView.setItems(TransactionsListStrings);
+                Displaytext.setText("Transactions : ");
+
+            } else if (clientradio.isSelected()) {
+                ObservableList<Transaction> TransactionObservableList2 = FXCollections.observableArrayList(bank.BankATMTrans);
+                ObservableList<Transaction> Transactions2 = TransactionObservableList2;
+
+                ObservableList<Moneytrans> TransferObservableList2 = FXCollections.observableArrayList(bank.BankMoneyTransfers);
+                ObservableList<Moneytrans> Transfers2 = TransferObservableList2;
+
+                // Create a HashSet to track unique transactions
+                Set<String> uniqueTransactions = new HashSet<>();
+                // Create an ObservableList of Strings to display in the ListView
+                ObservableList<String> TransactionsListStrings = FXCollections.observableArrayList();
+
+                for (Transaction transaction : Transactions2) {
+                    if (transaction.getMade_by().equalsIgnoreCase(searchName)) {
+                        String transactionStr = "   Transaction No  :    " + transaction.getTransid() +
+                                "         Transaction Account :" + transaction.getAccnumber() +
+                                "       Type : " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
+                                "     To: " + transaction.getAccnumber() + "     Date  :" + transaction.getDate() +
+                                "      Made by : " + transaction.getMade_by();
+
+                        // Only add if it's not a duplicate
+                        if (uniqueTransactions.add(transactionStr)) {
+                            TransactionsListStrings.add(transactionStr);
+                            isfound = true;
+                        } else {
+                            System.out.println("Duplicate transaction found and skipped: " + transaction.getTransid());
+                        }
+                    }
+                }
+
+                for (Moneytrans transfer : Transfers2) {
+                    if (transfer.getMade_by().equalsIgnoreCase(searchName)) {
+                        String transactionStr = "   Transaction No :" + transfer.getTransid() +
+                                "         Transaction Account :" + transfer.getAccnumber() +
+                                "       Type : " + transfer.getType() + "       Amount :  " + transfer.getAmount() +
+                                "     From : " + transfer.getAccnumber() + "      Date  :" + transfer.getDate() +
+                                "      Reciever :" + transfer.getRecieveraccnum() +
+                                "       Made By ; " + transfer.getMade_by();
+
+                        // Only add if it's not a duplicate
+                        if (uniqueTransactions.add(transactionStr)) {
+                            TransactionsListStrings.add(transactionStr);
+                            isfound = true;
+                        } else {
+                            System.out.println("Duplicate transaction found and skipped: " + transfer.getTransid());
+                        }
+                    }
                 }
 
                 myListView.setItems(TransactionsListStrings);
                 Displaytext.setText("Transactions : ");
             }
-
+            if (!isfound) {
+                utility.ShowErrorAlert("No Transactions Found");
+            }
         } catch (Exception e) {
-            utility.ShowErrorAlert("Error loading Transaction : "+e);
+            utility.ShowErrorAlert("Error loading Transaction : " + e);
         }
     }
 
