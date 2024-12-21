@@ -2,7 +2,8 @@ package com.asu_bank.bank_asu.Model;
 
 import java.util.*;
 
-abstract public class Account {
+abstract public class Account
+{
 
  protected Long client_id;
  protected Long accountnumber;
@@ -157,7 +158,7 @@ abstract public class Account {
     ));
    }
 
-   // Flag to track if account is found
+   // flag 3ashan y search 3ala receiver acc number
    boolean isfound = false;
 
    // Search in current accounts
@@ -171,7 +172,7 @@ abstract public class Account {
     }
    }
 
-   // Search in saving accounts if not found in current accounts
+   // Search in saving accounts law mal2ahoush in current accounts
    for (Client clientObj : clients) {
     for (SavingAccount receiverAccount : clientObj.saving) {
      if (receiverAccount.getAccountnumber() == recaccnum) {
@@ -182,7 +183,7 @@ abstract public class Account {
     }
    }
 
-   // If no account found
+   // law mal2ash acc number
    if (!isfound) {
     throw new TransferException("No account found with account number");
    }
@@ -192,13 +193,11 @@ abstract public class Account {
   }
  }
 
- // Helper method to perform the actual transfer
+ //  perform the actual transfer
  private void performTransfer(Account receiverAccount, double transamount, String maker) throws TransferException {
   try {
-   // Deduct amount from sender's account
    this.balance -= transamount;
 
-   // Add amount to receiver's account
    receiverAccount.setBalance(receiverAccount.getBalance() + transamount);
 
    Date d = new Date();

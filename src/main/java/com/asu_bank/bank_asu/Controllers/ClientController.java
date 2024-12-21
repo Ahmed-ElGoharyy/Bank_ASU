@@ -285,7 +285,6 @@ public class ClientController {
                 ObservableList<Client> Clients = ClientObservableList;
 
                 ObservableList<String> accountListStrings = FXCollections.observableArrayList();
-                //ObservableList<String> savingaccountListStrings = FXCollections.observableArrayList();
 
                 //for (int i = 0; i < Clients.size(); i++) {
                 for (CurrentAccount account : currentaccountObservableList) {
