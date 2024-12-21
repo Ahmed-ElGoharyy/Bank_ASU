@@ -240,8 +240,6 @@ public class AdminController implements Initializable {
     @FXML
     private CheckBox  clientradio;
     @FXML
-    private CheckBox  employeeradio;
-    @FXML
     private TextField byfullname;
 
     @FXML
@@ -253,8 +251,8 @@ public class AdminController implements Initializable {
         try {
             if (bank == null) {
                 System.out.println("Warningm bank is mt");
-            } if(!employeeradio.isSelected() && !clientradio.isSelected()){
-                // Get employee data from Bank object (assuming getter method)
+            } if( !clientradio.isSelected()){
+
                 ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
                 ObservableList<Transaction> Transactions = TransactionObservableList;
 
@@ -264,11 +262,12 @@ public class AdminController implements Initializable {
                 // Create an ObservableList of Strings to display in the ListView
                 ObservableList<String> TransactionsListStrings = FXCollections.observableArrayList();
                 for (Transaction transaction : Transactions) {
-                    // Customize employee display format as needed (e.g., name, ID, department)
+
                     TransactionsListStrings.add("   Transaction No  :    "+ transaction.getTransid() +
                             "         Transaction Account :" +transaction.getAccnumber()+
                             "       Type : "+transaction.getType()+ "       Amount :  "+transaction.getAmount()+
-                            "     To: "+transaction.getAccnumber()+"     Date  :"+transaction.getDate());
+                            "     To: "+transaction.getAccnumber()+"     Date  :"+transaction.getDate()+
+                            "      Made by : "+transaction.getMade_by());
 
                 }
                 for(Moneytrans transfer : Transfers){
@@ -286,14 +285,42 @@ public class AdminController implements Initializable {
                 myListView.setItems(TransactionsListStrings);
                 Displaytext.setText("Transactions : ");
 
-            } else if (employeeradio.isSelected() && clientradio.isSelected()) {
-                utility.ShowErrorAlert("You can't choose both!  Pick one of them or None.");
             }
-            else if (employeeradio.isSelected() ) {
 
-            }
             else if (clientradio.isSelected() ) {
 
+                ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
+                ObservableList<Transaction> Transactions = TransactionObservableList;
+
+                ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.BankMoneyTransfers);
+                ObservableList<Moneytrans> Transfers = TransferObservableList;
+
+                // Create an ObservableList of Strings to display in the ListView
+                ObservableList<String> TransactionsListStrings = FXCollections.observableArrayList();
+                for (Transaction transaction : Transactions) {
+                    if(searchName.equals(transaction.getMade_by())) {
+                        TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
+                                "         Transaction Account :" + transaction.getAccnumber() +
+                                "       Type : " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
+                                "     To: " + transaction.getAccnumber() + "     Date  :" + transaction.getDate() +
+                                "      Made by : " + transaction.getMade_by());
+                    }
+                }
+                for(Moneytrans transfer : Transfers){
+                    if(searchName.equals(transfer.getMade_by())) {
+                        TransactionsListStrings.add("   Transaction No :" + transfer.getTransid() +
+                                "         Transaction Account :" + transfer.getAccnumber() +
+                                "       Type : " + transfer.getType() + "       Amount :  " + transfer.getAmount() +
+                                "     From : " + transfer.getAccnumber() + "      Date  :" + transfer.getDate() +
+                                "      Reciever :" + transfer.getRecieveraccnum() +
+                                "       Made By ; " + transfer.getMade_by());
+
+                    }
+
+                }
+
+                myListView.setItems(TransactionsListStrings);
+                Displaytext.setText("Transactions : ");
             }
 
         } catch (Exception e) {

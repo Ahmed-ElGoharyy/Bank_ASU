@@ -53,6 +53,8 @@ public class Transaction {
         return Date;
     }
 
+    public String getMade_by() { return made_by;}
+
     public Transaction(Long accnumber, double amount, String type, Date Date){
         counter++;
         this.transid=counter;
