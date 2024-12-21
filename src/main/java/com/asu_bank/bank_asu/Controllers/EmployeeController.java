@@ -156,7 +156,7 @@ public class EmployeeController implements Initializable {
                 PasswordclientText.getText(),
                 Long.parseLong(TeleclientText.getText()));
         bank.BankClients.add(c);
-        utility.ShowSuccessAlert("New Client added  successfully!");
+        utility.ShowSuccessAlert("New Client added successfully!: \n "+"ID: "+c.getClient_id()+"\n FirstName: "+c.getFirstName()+"\n LastName: "+c.getLastName()+"\n Username: "+c.getUserName()+"\n Phone Num.: "+c.getTelephoneNumber());
     }
     public void CreateSavingAccButton() {
         try {
