@@ -139,10 +139,7 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></RadioButton>
-      <RadioButton fx:id="All" layoutX="1147.0" layoutY="274.0" mnemonicParsing="false" text="All" textFill="WHITE">
-         <toggleGroup>
-            <ToggleGroup fx:id="radioo1" />
-         </toggleGroup>
+      <RadioButton fx:id="All" layoutX="1147.0" layoutY="274.0" mnemonicParsing="false" text="All" textFill="WHITE" toggleGroup="$radioo">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
