@@ -346,30 +346,47 @@ public class ClientController {
 
                 for (SavingAccount account : savingaccountObservableList) {
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
-                         if(account.getAccountnumber().equals(currentAccount.getAccountnumber()))
-                        for (Transaction transaction : TransactionObservableList ) {
-                            if (account.getAccountnumber().equals(transaction.getAccnumber())) {
-                                TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
-                                        "         Transaction Account :" + transaction.getAccnumber() +
-                                        "       Type : " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
-                                        "     Date  :" + transaction.getDate());
-                            }
-                        }
+                         if(account.getAccountnumber().equals(currentAccount.getAccountnumber())) {
+                             for (Transaction transaction : TransactionObservableList) {
+                                 if (account.getAccountnumber().equals(transaction.getAccnumber())) {
+                                     TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
+                                             "         Transaction Account :" + transaction.getAccnumber() +
+                                             "       Type : " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
+                                             "     Date  :" + transaction.getDate());
+                                 }
+                             }
+                             for(Moneytrans trans: account.moneytransfer){
+                                 if (account.getAccountnumber().equals(trans.getAccnumber())||account.getAccountnumber().equals(trans.getRecieveraccnum())) {
+                                     TransactionsListStrings.add("   Transaction No  :    " + trans.getTransid() +
+                                             "         Transaction Account :  " + trans.getAccnumber() +
+                                             "       Type :  " + trans.getType() + "       Amount :  " + trans.getAmount() +
+                                             "    Date  :  " + trans.getDate());
+                                 }
+                             }
+                         }
 
                     }
                 }
                 for (CurrentAccount account : currentaccountObservableList) {
                     if (currentUser.getClient_id().equals(account.getClient_id())) {
-                        if(account.getAccountnumber().equals(currentAccount.getAccountnumber()))
-                        for (Transaction transaction :TransactionObservableList  ) {
-                            if (account.getAccountnumber().equals(transaction.getAccnumber())) {
-                                TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
-                                        "         Transaction Account :  " + transaction.getAccnumber() +
-                                        "       Type :  " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
-                                        "    Date  :  " + transaction.getDate());
+                        if(account.getAccountnumber().equals(currentAccount.getAccountnumber())) {
+                            for (Transaction transaction : TransactionObservableList) {
+                                if (account.getAccountnumber().equals(transaction.getAccnumber())) {
+                                    TransactionsListStrings.add("   Transaction No  :    " + transaction.getTransid() +
+                                            "         Transaction Account :  " + transaction.getAccnumber() +
+                                            "       Type :  " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
+                                            "    Date  :  " + transaction.getDate());
+                                }
+                            }
+                            for(Moneytrans trans: account.moneytransfer){
+                                if (account.getAccountnumber().equals(trans.getAccnumber())||account.getAccountnumber().equals(trans.getRecieveraccnum())) {
+                                    TransactionsListStrings.add("   Transaction No  :    " + trans.getTransid() +
+                                            "         Transaction Account :  " + trans.getAccnumber() +
+                                            "       Type :  " + trans.getType() + "       Amount :  " + trans.getAmount() +
+                                            "    Date  :  " + trans.getDate());
+                                }
                             }
                         }
-
                     }
                 }
                 for(Transaction tr : currentUser.getCredittrans()){
