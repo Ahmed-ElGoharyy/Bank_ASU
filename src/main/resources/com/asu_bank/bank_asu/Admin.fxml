@@ -128,16 +128,24 @@
             <Font size="17.0" />
          </font>
       </TextField>
-      <RadioButton fx:id="clientradio" layoutX="963.0" layoutY="275.0" mnemonicParsing="false" text="Client" textFill="WHITE">
+      <RadioButton fx:id="clientradio" layoutX="893.0" layoutY="274.0" mnemonicParsing="false" text="Client" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
          <toggleGroup>
             <ToggleGroup fx:id="radioo" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="empradio" layoutX="1069.0" layoutY="275.0" mnemonicParsing="false" text="Employee" textFill="WHITE" toggleGroup="$radioo">
+      <RadioButton fx:id="empradio" layoutX="1002.0" layoutY="274.0" mnemonicParsing="false" text="Employee" textFill="WHITE" toggleGroup="$radioo">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></RadioButton>
+      <RadioButton fx:id="All" layoutX="1147.0" layoutY="274.0" mnemonicParsing="false" text="All" textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="radioo1" />
+         </toggleGroup>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>

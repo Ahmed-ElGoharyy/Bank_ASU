@@ -241,6 +241,9 @@ public class AdminController implements Initializable {
     @FXML
     private RadioButton  clientradio;
     @FXML
+    private RadioButton All;
+
+    @FXML
     private TextField byfullname;
 
     @FXML
@@ -249,26 +252,75 @@ public class AdminController implements Initializable {
         myListView.getItems().clear();
         boolean isfound = false;
 
-        // Add null check for byfullname and validate for letters only
-        if (byfullname == null || byfullname.getText() == null || byfullname.getText().trim().isEmpty()) {
-            utility.ShowErrorAlert("Please enter a valid name to search");
-            return;
-        }
 
         String searchName = byfullname.getText().trim();
 
-        // Check if the name contains only letters and spaces
-        if (!searchName.matches("^[a-zA-Z\\s]+$")) {
-            utility.ShowErrorAlert("Name can only contain letters and spaces");
-            return;
-        }
 
         try {
             if (bank == null) {
                 System.out.println("Warning bank is Empty");
-            } if (empradio.isSelected()) {
+            }
+            if(All.isSelected()){
+                    ObservableList<Transaction> TransactionObservableList2 = FXCollections.observableArrayList(bank.BankATMTrans);
+                    ObservableList<Transaction> Transactions2 = TransactionObservableList2;
+
+                    ObservableList<Moneytrans> TransferObservableList2 = FXCollections.observableArrayList(bank.BankMoneyTransfers);
+                    ObservableList<Moneytrans> Transfers2 = TransferObservableList2;
+
+                    // Create a HashSet to track unique transactions
+                    Set<String> uniqueTransactions = new HashSet<>();
+                    // Create an ObservableList of Strings to display in the ListView
+                    ObservableList<String> TransactionsListStrings = FXCollections.observableArrayList();
+
+                    for (Transaction transaction : bank.BankATMTrans) {
+                            String transactionStr = "   Transaction No  :    " + transaction.getTransid() +
+                                    "         Transaction Account :" + transaction.getAccnumber() +
+                                    "       Type : " + transaction.getType() + "       Amount :  " + transaction.getAmount() +
+                                    "     To: " + transaction.getAccnumber() + "     Date  :" + transaction.getDate() +
+                                    "      Made by : " + transaction.getMade_by();
+
+                            // Only add if it's not a duplicate
+                            if (uniqueTransactions.add(transactionStr)) {
+                                TransactionsListStrings.add(transactionStr);
+                                isfound = true;
+                            } else {
+                                System.out.println("Duplicate transaction found and skipped: " + transaction.getTransid());
+                            }
+                        }
+
+                    for (Moneytrans transfer : bank.BankMoneyTransfers) {
+                            String transactionStr = "   Transaction No :" + transfer.getTransid() +
+                                    "         Transaction Account :" + transfer.getAccnumber() +
+                                    "       Type : " + transfer.getType() + "       Amount :  " + transfer.getAmount() +
+                                    "     From : " + transfer.getAccnumber() + "      Date  :" + transfer.getDate() +
+                                    "      Reciever :" + transfer.getRecieveraccnum() +
+                                    "       Made By ; " + transfer.getMade_by();
+
+                            // Only add if it's not a duplicate
+                            if (uniqueTransactions.add(transactionStr)) {
+                                TransactionsListStrings.add(transactionStr);
+                                isfound = true;
+                            } else {
+                                System.out.println("Duplicate transaction found and skipped: " + transfer.getTransid());
+                            }
+                    }
+
+                    myListView.setItems(TransactionsListStrings);
+                    Displaytext.setText("Transactions : ");
+                    return;
+            }
+            // Add null check for byfullname and validate for letters only
+            if (byfullname == null || byfullname.getText() == null || byfullname.getText().trim().isEmpty()) {
+                utility.ShowErrorAlert("Please enter a valid name to search");
+                return;
+            }
+            // Check if the name contains only letters and spaces
+            if (!searchName.matches("^[a-zA-Z\\s]+$")) {
+                utility.ShowErrorAlert("Name can only contain letters and spaces");
+                return;
+            }
+            if (empradio.isSelected()) {
                 ObservableList<Transaction> TransactionObservableList = FXCollections.observableArrayList(bank.BankATMTrans);
-                ObservableList<Transaction> Transactions = TransactionObservableList;
 
                 ObservableList<Moneytrans> TransferObservableList = FXCollections.observableArrayList(bank.BankMoneyTransfers);
                 ObservableList<Moneytrans> Transfers = TransferObservableList;

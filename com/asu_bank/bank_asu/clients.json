@@ -20,7 +20,7 @@
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 8900.0,
+          "balance": 7900.0,
           "counter": 8020
         },
         {
@@ -32,7 +32,7 @@
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 17815.0,
+          "balance": 18315.0,
           "counter": 8020
         }
       ],
