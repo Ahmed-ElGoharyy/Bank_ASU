@@ -389,39 +389,6 @@ public class ClientController {
 
                     }
                 }
-
-                for (CurrentAccount account : currentaccountObservableList) {
-                    if (currentUser.getClient_id().equals(account.getClient_id())) {
-                        if(account.getAccountnumber().equals(currentAccount.getAccountnumber()))
-                        for (Moneytrans transfer : TransferObservableList) {
-                            if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
-                            {
-                                TransactionsListStrings.add("   Transaction No  :  " + transfer.getTransid() +
-                                        "       Transaction Acc number  :   " + transfer.getAccnumber()+
-                                         "       Type :  " + transfer.getType()+"       Amount :  " + transfer.getAmount()
-                                        + "      Date  :  " + transfer.getDate() + "          Reciever :  " + transfer.getRecieveraccnum());
-                            }
-                        }
-
-                    }
-                }
-
-
-                for (SavingAccount account : savingaccountObservableList) {
-                    if (currentUser.getClient_id().equals(account.getClient_id())) {
-                        if(account.getAccountnumber().equals(currentAccount.getAccountnumber()))
-                        for (Moneytrans transfer : TransferObservableList) {
-                            if (account.getAccountnumber().equals(transfer.getAccnumber())&&(transfer.getRecieveraccnum()!=0))
-                            {
-                                TransactionsListStrings.add("   Transaction No  :   " + transfer.getTransid() +
-                                        "       Transaction Acc number  :    " + transfer.getAccnumber() +
-                                        "       Type :  " + transfer.getType()+"       Amount :  " + transfer.getAmount()
-                                        + "     Date  :" + transfer.getDate() + "         Reciever :   " + transfer.getRecieveraccnum());
-                            }
-                        }
-
-                    }
-                }
                 for(Transaction tr : currentUser.getCredittrans()){
 
                     TransactionsListStrings.add("   Transaction No  :   " + tr.getTransid() +
@@ -463,6 +430,10 @@ public class ClientController {
             // Validate amount
             if (amount < 0) {
                 utility.ShowErrorAlert("Deposit amount cannot be negative!");
+                return;
+            }
+            if(currentAccount.getAccountState().equalsIgnoreCase("Inactive")){
+                utility.ShowErrorAlert("Account Is Inactive");
                 return;
             }
 
@@ -510,6 +481,10 @@ public class ClientController {
             // Parse amount after validation
             double amount = Double.valueOf(AmountField2.getText().trim());
 
+            if(currentAccount.getAccountState().equalsIgnoreCase("Inactive")){
+                utility.ShowErrorAlert("Account Is Inactive");
+                return;
+            }
             // Validate amount
             if (amount < 0) {
                 utility.ShowErrorAlert("Withdraw amount cannot be negative!");
@@ -562,6 +537,10 @@ public class ClientController {
                return;
            }
 
+           if(currentAccount.getAccountState().equalsIgnoreCase("Inactive")){
+               utility.ShowErrorAlert("Sender Account Is Inactive");
+               return;
+           }
            if (currentAccount == null) {
                utility.ShowErrorAlert("You must choose an Account first.");
                return;
@@ -583,6 +562,10 @@ public class ClientController {
 
                for (CurrentAccount Rec : bank.BankCurrentAccounts) {
                    if (Receiver.equals(Rec.getAccountnumber())) {
+                       if(Rec.getAccountState().equalsIgnoreCase("Inactive")){
+                           utility.ShowErrorAlert("Reciever Account Is Inactive");
+                           return;
+                       }
                        receiverfound = true;
                        currentAccount.setBalance(currentAccount.getBalance() - Amount4);
                        Rec.setBalance(Rec.getBalance() + Amount4);
@@ -600,6 +583,10 @@ public class ClientController {
                if (!receiverfound) {
                    for (SavingAccount Rec : bank.BankSavingAccounts) {
                        if (Receiver.equals(Rec.getAccountnumber())) {
+                           if(Rec.getAccountState().equalsIgnoreCase("Inactive")){
+                               utility.ShowErrorAlert("Reciever Account Is Inactive");
+                               return;
+                           }
                            receiverfound = true;
                            currentAccount.setBalance(currentAccount.getBalance() - Amount4);
                            Rec.setBalance(Rec.getBalance() + Amount4);

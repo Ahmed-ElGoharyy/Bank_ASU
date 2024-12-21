@@ -13,8 +13,8 @@ public class Bank {
     public List<Employee> BankEmployees;
     public List<Transaction>  BankATMTrans=new ArrayList<>();
     public List<Moneytrans>  BankMoneyTransfers=new ArrayList<>();
-    public List<SavingAccount>  BankSavingAccounts;
-    public List<CurrentAccount> BankCurrentAccounts;
+    public List<SavingAccount>  BankSavingAccounts=new ArrayList<>();
+    public List<CurrentAccount> BankCurrentAccounts=new ArrayList<>();
 
 
 

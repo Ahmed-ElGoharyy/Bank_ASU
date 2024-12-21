@@ -172,15 +172,13 @@ public class EmployeeController implements Initializable {
 
             SavingAccount newSavingAcc = new SavingAccount(startBalance, clientId);
 
-            // Add to the bank's list of saving accounts
-            bank.BankSavingAccounts.add(newSavingAcc);
-
             // Find the client with the matching client ID and add the account to their list
 
             boolean clientFound = false;
             for (Client client : bank.BankClients) {
                 if (client.getClient_id().equals(clientId)) {
                     client.getSaving().add(newSavingAcc);
+                    bank.BankSavingAccounts.add(newSavingAcc);
                     clientFound = true;
                     break;
 
@@ -242,12 +240,12 @@ public class EmployeeController implements Initializable {
             if(startBalance < 3000) {
                 if (utility.ConfirmAction("Warning :\nThere will be Fees of 100 EGP since the Balance is less than 3000 EGP \n\n"
                         +"Would you like to continue ?")) {
-                    bank.BankCurrentAccounts.add(newCurrentAcc);
 
                     // Find the client with the matching client ID and add the account to their list
                     for (Client client : bank.BankClients) {
                         if (client.getClient_id().equals(clientId)) {
                             client.getCurrent().add(newCurrentAcc);
+                            bank.BankCurrentAccounts.add(newCurrentAcc);
                             break;
                         }
                     }
@@ -428,6 +426,13 @@ public class EmployeeController implements Initializable {
                 if (acc.getAccountnumber().equals(currentAcc)) {
                     accfound = true;
                     acc.setAccountState(newAccState);
+                    for(Client c: bank.BankClients){
+                        for(SavingAccount sav:c.getSaving()){
+                            if(sav.getAccountnumber().equals(currentAcc)){
+                                sav.setAccountState(newAccState);
+                            }
+                        }
+                    }
                     AccountNofield.setText("");
                     utility.ShowSuccessAlert("Account State updated to :  " + newAccState);
                 }
@@ -438,6 +443,13 @@ public class EmployeeController implements Initializable {
                 if (acc.getAccountnumber().equals(currentAcc)) {
                     accfound = true;
                     acc.setAccountState(newAccState);
+                    for(Client c: bank.BankClients){
+                        for(CurrentAccount curr:c.getCurrent()){
+                            if(curr.getAccountnumber().equals(currentAcc)){
+                                curr.setAccountState(newAccState);
+                            }
+                        }
+                    }
                     AccountNofield.setText("");
                     utility.ShowSuccessAlert("Account State updated to :  " + newAccState);
                 }
@@ -471,30 +483,43 @@ public class EmployeeController implements Initializable {
             if (utility.ConfirmAction("Are you sure You want to delete Acc No :" + currentAcc)) {
 
                 boolean accfound = false;
-                for (int i = 0; i < bank.BankSavingAccounts.size(); i++) {
-                    SavingAccount acc = bank.BankSavingAccounts.get(i);
+                    for(CurrentAccount curr: bank.BankCurrentAccounts){
+                        if(currentAcc.equals(curr.getAccountnumber())){
+                            accfound=true;
+                            bank.BankCurrentAccounts.remove(curr);
+                            for(Client c : bank.BankClients){
+                                for(CurrentAccount cr:c.getCurrent()) {
+                                    if (currentAcc.equals(cr.getAccountnumber())) {
+                                        c.getCurrent().remove(cr);
+                                        CurrentAccount.counter--;
+                                        utility.ShowSuccessAlert("Account Deleted Successfully");
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
 
-                    if (acc.getAccountnumber().equals(currentAcc)) {
-                        accfound = true;
-
-                        // Remove the account from the list
-                        bank.BankSavingAccounts.remove(i);
-                        AccountNofield.setText("");
-                        utility.ShowSuccessAlert("Account deleted successfully!");
+                        }
                     }
-                }
-                for (int i = 0; i < bank.BankCurrentAccounts.size(); i++) {
-                    CurrentAccount acc = bank.BankCurrentAccounts.get(i);
-
-                    if (acc.getAccountnumber().equals(currentAcc)) {
-                        accfound = true;
-
-                        // Remove the account from the list
-                        bank.BankCurrentAccounts.remove(i);
-                        AccountNofield.setText("");
-                        utility.ShowSuccessAlert("Account deleted successfully!");
+                    if(!accfound) {
+                        for (SavingAccount sav: bank.BankSavingAccounts){
+                            if(currentAcc.equals(sav.getAccountnumber())){
+                                accfound=true;
+                                bank.BankSavingAccounts.remove(sav);
+                                for(Client c : bank.BankClients){
+                                    for(SavingAccount sv:c.getSaving()) {
+                                        if (currentAcc.equals(sv.getAccountnumber())) {
+                                            c.getSaving().remove(sv);
+                                            SavingAccount.counter--;
+                                            utility.ShowSuccessAlert("Account Deleted Successfully");
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
                     }
-                }
                 if (!accfound) {
                     throw new AccountNotFoundException("Account Number is incorrect!");
                 }
@@ -602,6 +627,10 @@ public class EmployeeController implements Initializable {
             boolean accfound = false;
             for (SavingAccount acc : bank.BankSavingAccounts) {
                 if (acc.getAccountnumber().equals(accn)) {
+                    if(acc.getAccountState().equalsIgnoreCase("Inactive")){
+                        utility.ShowErrorAlert("Sender Account Is Inactive");
+                        return;
+                    }
                     accfound = true;
                     long l = Long.parseLong(transrec.getText());
                     double k = Double.parseDouble(transamout.getText());
@@ -614,6 +643,10 @@ public class EmployeeController implements Initializable {
 
             for (CurrentAccount acc : bank.BankCurrentAccounts) {
                 if (acc.getAccountnumber().equals(accn)) {
+                    if(acc.getAccountState().equalsIgnoreCase("Inactive")){
+                        utility.ShowErrorAlert("Sender Account Is Inactive");
+                        return;
+                    }
                     accfound = true;
                     long l = Long.parseLong(transrec.getText());
                     double k = Double.parseDouble(transamout.getText());
@@ -661,6 +694,10 @@ public class EmployeeController implements Initializable {
                     // Check Current Account as receiver
                     for (CurrentAccount recc : bank.BankCurrentAccounts) {
                         if (recc.getAccountnumber().equals(recaccnum)) {
+                            if(recc.getAccountState().equalsIgnoreCase("Inactive")){
+                                utility.ShowErrorAlert("Reciever Account Is Inactive");
+                                return;
+                            }
                             recaccisfound = true;
                             if (sendc.getBalance() < balance) {
                                 utility.ShowErrorAlert("No Enough Balance In Account!");
@@ -684,6 +721,10 @@ public class EmployeeController implements Initializable {
                     if (!transferCompleted) {
                         for (SavingAccount recs : bank.BankSavingAccounts) {
                             if (recs.getAccountnumber().equals(recaccnum)) {
+                                if(recs.getAccountState().equalsIgnoreCase("Inactive")){
+                                    utility.ShowErrorAlert("Reciever Account Is Inactive");
+                                    return;
+                                }
                                 recaccisfound = true;
                                 if (sendc.getBalance() < balance) {
                                     utility.ShowErrorAlert("No Enough Balance In Account!");

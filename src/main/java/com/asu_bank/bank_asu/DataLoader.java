@@ -32,7 +32,7 @@ public class DataLoader {
      * @return boolean indicating if the read operation was successful
      */
 
-    public static boolean loadDataFromFiles() {
+    public static boolean loadDataFromFiles(Bank bank) {
         try {
             // Create directory structure if it doesn't exist
             File directory = new File(BASE_PATH);
@@ -265,7 +265,7 @@ public class DataLoader {
         }
     }
     public static void loadData(Bank bank){
-        DataLoader.loadDataFromFiles();
+        DataLoader.loadDataFromFiles(bank);
         bank.BankClients=clientsList;
         bank.BankEmployees=employeesList;
         bank.BankCurrentAccounts=new ArrayList<>();

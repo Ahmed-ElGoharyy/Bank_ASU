@@ -10,12 +10,13 @@ abstract public class Account {
  public List<Moneytrans> moneytransfer = new ArrayList<>();
  protected String AccountState;
  protected String AccountType;
- private Double balance;
- private static Integer counter = 8020;
+ protected Double balance;
+ public static Integer counter = 8020;
 
  public Account(){
   counter++;
-  this.accountnumber = Long.valueOf(counter);// For data loading
+  this.accountnumber = Long.valueOf(counter);
+  this.AccountState = "InActive";// For data loading
  }
 
  public Long getClient_id() {

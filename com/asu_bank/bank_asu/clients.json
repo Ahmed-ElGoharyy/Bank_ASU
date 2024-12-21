@@ -8,7 +8,7 @@
       "password": "ahmed",
       "telephoneNumber": 123124,
       "client_id": 1,
-      "counterr": 2005,
+      "counterr": 5,
       "creditCard": null,
       "current": [
         {
@@ -16,22 +16,12 @@
           "Fees": 100.0,
           "client_id": 1,
           "accountnumber": 8001,
-          "trasactions": [
-            {
-              "accnumber": 8001,
-              "transid": 1,
-              "amount": 200.0,
-              "counter": 2,
-              "type": "Withdraw",
-              "Date": "Dec 21, 2024, 1:19:16 PM",
-              "made_by": "Ahmed Dahy"
-            }
-          ],
+          "trasactions": [],
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 3700.0,
-          "counter": 9
+          "balance": 2600.0,
+          "counter": 8020
         },
         {
           "minimumBalance": 3000.0,
@@ -39,22 +29,11 @@
           "client_id": 1,
           "accountnumber": 8002,
           "trasactions": [],
-          "moneytransfer": [
-            {
-              "recieveraccnum": 8003,
-              "accnumber": 8002,
-              "transid": 2,
-              "amount": 85.0,
-              "counter": 2,
-              "type": "Money Transfer",
-              "Date": "Dec 21, 2024, 1:19:58 PM",
-              "made_by": "Ahmed Gohary"
-            }
-          ],
+          "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 13415.0,
-          "counter": 9
+          "balance": 14015.0,
+          "counter": 8020
         }
       ],
       "saving": [
@@ -63,22 +42,11 @@
           "client_id": 1,
           "accountnumber": 8003,
           "trasactions": [],
-          "moneytransfer": [
-            {
-              "recieveraccnum": 8003,
-              "accnumber": 8002,
-              "transid": 2,
-              "amount": 85.0,
-              "counter": 2,
-              "type": "Money Transfer",
-              "Date": "Dec 21, 2024, 1:19:58 PM",
-              "made_by": "Ahmed Gohary"
-            }
-          ],
+          "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 10785.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "interestRate": 0.05,
@@ -89,7 +57,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 15400.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "credittrans": []
@@ -102,7 +70,7 @@
       "password": "esraa",
       "telephoneNumber": 12345678902,
       "client_id": 2,
-      "counterr": 2005,
+      "counterr": 5,
       "creditCard": null,
       "current": [
         {
@@ -115,7 +83,7 @@
           "AccountState": "Active",
           "AccountType": "Current",
           "balance": 6000.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "minimumBalance": 3000.0,
@@ -127,7 +95,7 @@
           "AccountState": "Active",
           "AccountType": "Current",
           "balance": 8500.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "saving": [
@@ -140,7 +108,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 12000.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "interestRate": 0.05,
@@ -151,7 +119,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 17000.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "credittrans": []
@@ -164,7 +132,7 @@
       "password": "mostafa",
       "telephoneNumber": 12345678903,
       "client_id": 3,
-      "counterr": 2005,
+      "counterr": 5,
       "creditCard": null,
       "current": [
         {
@@ -177,7 +145,7 @@
           "AccountState": "Active",
           "AccountType": "Current",
           "balance": 5500.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "minimumBalance": 3000.0,
@@ -189,7 +157,7 @@
           "AccountState": "Active",
           "AccountType": "Current",
           "balance": 9500.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "saving": [
@@ -202,7 +170,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 11000.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "interestRate": 0.05,
@@ -213,7 +181,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 16000.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "credittrans": []
@@ -226,7 +194,7 @@
       "password": "sama",
       "telephoneNumber": 12345678904,
       "client_id": 4,
-      "counterr": 2005,
+      "counterr": 5,
       "creditCard": null,
       "current": [
         {
@@ -239,7 +207,7 @@
           "AccountState": "Active",
           "AccountType": "Current",
           "balance": 4500.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "minimumBalance": 3000.0,
@@ -251,7 +219,7 @@
           "AccountState": "Active",
           "AccountType": "Current",
           "balance": 8000.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "saving": [
@@ -264,7 +232,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 13000.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "interestRate": 0.05,
@@ -275,7 +243,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 18000.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "credittrans": []
@@ -288,7 +256,7 @@
       "password": "toka",
       "telephoneNumber": 12345678905,
       "client_id": 5,
-      "counterr": 2005,
+      "counterr": 5,
       "creditCard": null,
       "current": [
         {
@@ -301,7 +269,7 @@
           "AccountState": "Active",
           "AccountType": "Current",
           "balance": 5200.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "minimumBalance": 3000.0,
@@ -313,7 +281,7 @@
           "AccountState": "Active",
           "AccountType": "Current",
           "balance": 7800.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "saving": [
@@ -326,7 +294,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 14000.0,
-          "counter": 9
+          "counter": 8020
         },
         {
           "interestRate": 0.05,
@@ -337,7 +305,7 @@
           "AccountState": "Active",
           "AccountType": "Saving",
           "balance": 19000.0,
-          "counter": 9
+          "counter": 8020
         }
       ],
       "credittrans": []
