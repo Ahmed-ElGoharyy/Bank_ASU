@@ -110,6 +110,12 @@ public class EmployeeController implements Initializable {
                 return;
             }
         }
+        for(Employee e :bank.BankEmployees){
+            if (e.getUserName().equals(UsernameclientText.getText())) {
+                utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
+                return;
+            }
+        }
         if (FirstNameclientText.getText().matches(".*\\d.*")) {
             utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
             return;

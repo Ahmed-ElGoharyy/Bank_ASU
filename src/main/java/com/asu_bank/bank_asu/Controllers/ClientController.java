@@ -624,6 +624,12 @@ public class ClientController {
                 return;
             }
         }
+        for(Employee e :bank.BankEmployees){
+            if (e.getUserName().equals(UsernameText.getText())) {
+                utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
+                return;
+            }
+        }
         try {
             telephoneNumber = Long.parseLong(TeleText.getText());
             if (String.valueOf(telephoneNumber).length() < 6 || String.valueOf(telephoneNumber).length() > 10) {
