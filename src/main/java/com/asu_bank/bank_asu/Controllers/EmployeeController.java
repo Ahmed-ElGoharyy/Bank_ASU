@@ -105,7 +105,7 @@ public class EmployeeController implements Initializable {
             return;
         }
         for (Client c : bank.BankClients) {
-            if (c.getUserName().equals(UsernameclientText.getText())) {
+            if (c.getUserName().equals(UsernameclientText.getText()) || c.getUserName().equalsIgnoreCase("admin")) {
                 utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
                 return;
             }

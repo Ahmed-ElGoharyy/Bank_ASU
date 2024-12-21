@@ -615,7 +615,11 @@ public class ClientController {
             return;
         }
         for (Client c : bank.BankClients) {
-            if (c.getUserName().equals(UsernameText.getText()) ||UsernameText.getText().equals(adminUsername) ) {
+            if (c.getUserName().equals(UsernameText.getText())) {
+                utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
+                return;
+            }
+            if(UsernameText.getText().equals(adminUsername)){
                 utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
                 return;
             }
