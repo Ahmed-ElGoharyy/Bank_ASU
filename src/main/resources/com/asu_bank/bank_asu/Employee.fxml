@@ -106,31 +106,6 @@
       </Button>
       <SplitMenuButton fx:id="EditPersButton" alignment="CENTER" layoutX="46.0" layoutY="26.0" mnemonicParsing="false" onAction="#EditPersonalButtonClick" prefHeight="54.0" prefWidth="207.0" style="-fx-border-color: #0b3e1a; -fx-border-width: 5px; -fx-background-radius: 15px; -fx-border-radius: 10px;" text="Edit Personal Info" textAlignment="CENTER" textFill="#0b3e1a">
          <items>
-            <MenuItem mnemonicParsing="false" text="FirstName">
-               <graphic>
-                  <TextField fx:id="FirstNameText" alignment="CENTER" promptText="FirstName" style="-fx-border-width: 2px;" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" text="LastName">
-               <graphic>
-                  <TextField fx:id="LastNameText" alignment="CENTER" promptText="LastName" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Username">
-               <graphic>
-                  <TextField fx:id="UsernameText" alignment="CENTER" promptText="Username" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Passowrd">
-               <graphic>
-                  <TextField fx:id="PasswordText" alignment="CENTER" promptText="Password" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" text="TelephoneNumber">
-               <graphic>
-                  <TextField fx:id="TeleText" alignment="CENTER" promptText="TelNumber" />
-               </graphic>
-            </MenuItem>
             <MenuItem mnemonicParsing="false" text="Address">
                <graphic>
                   <TextField fx:id="AddressText" alignment="CENTER" promptText="Address" />
@@ -139,21 +114,6 @@
             <MenuItem mnemonicParsing="false" text="Position">
                <graphic>
                   <TextField fx:id="PositionText" alignment="CENTER" promptText="Position" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Graduated College">
-               <graphic>
-                  <TextField fx:id="GradCollegeText" alignment="CENTER" promptText="GraduatedCollege" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Graduation year">
-               <graphic>
-                  <TextField fx:id="GradYearText" alignment="CENTER" promptText="GradYear" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Total Grade">
-               <graphic>
-                  <TextField fx:id="TotalGradeText" alignment="CENTER" promptText="TotalGrade" />
                </graphic>
             </MenuItem>
          </items>

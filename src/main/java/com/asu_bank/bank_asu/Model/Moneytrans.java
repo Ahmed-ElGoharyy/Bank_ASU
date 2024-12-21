@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Moneytrans extends Transaction{
     protected Long recieveraccnum ;
-    protected String made_by;
 
 
 

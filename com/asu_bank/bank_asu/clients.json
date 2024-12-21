@@ -9,19 +9,7 @@
       "telephoneNumber": 123124,
       "client_id": 1,
       "counterr": 2005,
-      "creditCard": {
-        "cardNumber": "4532-7845-9632-0001",
-        "cvv": 123,
-        "isActive": false,
-        "loyaltyPoints": 0.0,
-        "limit": 20000.0,
-        "spending": 0.0,
-        "client_id": 1,
-        "cvvmax": 999,
-        "cvvmin": 100,
-        "cardmax": 9999,
-        "cardmin": 1001
-      },
+      "creditCard": null,
       "current": [
         {
           "minimumBalance": 3000.0,
@@ -32,7 +20,7 @@
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 3300.0,
+          "balance": 3900.0,
           "counter": 9
         },
         {
@@ -44,7 +32,7 @@
           "moneytransfer": [],
           "AccountState": "Active",
           "AccountType": "Current",
-          "balance": 12900.0,
+          "balance": 13300.0,
           "counter": 9
         }
       ],

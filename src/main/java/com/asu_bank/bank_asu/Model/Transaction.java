@@ -9,10 +9,21 @@ public class Transaction {
     public static int counter=0;
     protected String type;
     protected Date Date;
+    protected String made_by;
 
 
     public Transaction(){
         counter++;
+        transid=counter;
+    }
+    public Transaction(long accn,Double balance,String type,Date d,String madeby){
+        counter++;
+        transid=counter;
+        this.accnumber=accn;
+        this.amount=balance;
+        this.type=type;
+        this.Date=d;
+        this.made_by=madeby;
     }
 
 
