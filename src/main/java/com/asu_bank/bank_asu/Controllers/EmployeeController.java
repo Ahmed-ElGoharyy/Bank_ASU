@@ -73,25 +73,9 @@ public class EmployeeController implements Initializable {
     private TextField TeleclientText;
 
     @FXML
-    private TextField FirstNameText;
-    @FXML
-    private TextField LastNameText;
-    @FXML
-    private TextField UsernameText;
-    @FXML
-    private TextField PasswordText;
-    @FXML
-    private TextField TeleText;
-    @FXML
     private TextField AddressText;
     @FXML
     private TextField PositionText;
-    @FXML
-    private TextField GradCollegeText;
-    @FXML
-    private TextField GradYearText;
-    @FXML
-    private TextField TotalGradeText;
 
     @FXML
     private TextField transrec;
@@ -396,87 +380,21 @@ public class EmployeeController implements Initializable {
 
 
     public void EditPersonalButtonClick(){
-        String adminUsername = "admin";
-        int graduationYear;
-        Long telephoneNumber;
-        try {
-            telephoneNumber = Long.parseLong(TeleText.getText());
-            if (String.valueOf(telephoneNumber).length() < 6 || String.valueOf(telephoneNumber).length() > 10) {
-                utility.ShowErrorAlert("Error: The Telephone Number must be 7-11 digits.");
-                return;
-            }
-            if (telephoneNumber < 0) {
-                utility.ShowErrorAlert("Error: The Telephone Number cannot be negative!");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            utility.ShowErrorAlert("Error: The Telephone Number must be a valid number!");
-            return;
-        }
-        try {
-            graduationYear = Integer.parseInt(GradYearText.getText());
-            if (graduationYear < 1980 || graduationYear > 2024) {
-                utility.ShowErrorAlert("Error: The Graduation Year must be between 1980-2024.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            utility.ShowErrorAlert("The Graduation Year must be a valid number!");
-            return;
-        }
-        String totalGradeInput = TotalGradeText.getText();
-        if (totalGradeInput.length() != 1 || !("ABC".contains(totalGradeInput))) {
-            utility.ShowErrorAlert(" The Total Grade must be a single character (A, B, or C)!");
-            return;
-        }
         try {
             String newAdd = AddressText.getText();
-            if (UsernameText.getText().equals(adminUsername)) {
-                utility.ShowErrorAlert("Error: The Username '" + adminUsername + "' is reserved for the admin only.");
-                return;
-            }
 
-            if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
-                    UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
-                    TeleText.getText().isEmpty() || AddressText.getText().isEmpty() ||
-                    PositionText.getText().isEmpty() || GradCollegeText.getText().isEmpty() ||
-                    GradYearText.getText().isEmpty() || TotalGradeText.getText().isEmpty()) {
+            if (AddressText.getText().isEmpty() || PositionText.getText().isEmpty()) {
                 utility.ShowErrorAlert("Error: All fields must be filled out.");
                 return;
-            }
-            for (Employee employee : bank.BankEmployees) {
-                if (employee.getUserName().equals(UsernameText.getText())) {
-                    utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
-                    return;
-                }
             }
             if (PositionText.getText().matches(".*\\d.*")) {
                 utility.ShowErrorAlert("Error: The Position cannot be numbers! Please enter a valid Job Title.");
                 return;
             }
-            if (GradCollegeText.getText().matches(".*\\d.*")) {
-                utility.ShowErrorAlert("Error: The Graduated College cannot be numbers. Please enter a valid College Name.");
-                return;
-            }
             if (!newAdd.matches(".*[a-zA-Z].*") || !newAdd.matches(".*[0-9].*")) {
                 throw new IllegalArgumentException("The Address must contain numbers and names!");
             }
-            if (FirstNameText.getText().matches(".*\\d.*")) {
-                utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
-                return;
-            }
-            if (LastNameText.getText().matches(".*\\d.*")) {
-                utility.ShowErrorAlert("Error: The Lastname cannot contain numbers!");
-                return;
-            }
-            currentUser.setUserName(UsernameText.getText());
-            currentUser.setFirstName(FirstNameText.getText());
-            currentUser.setLastName(LastNameText.getText());
-            currentUser.setPassword(PasswordText.getText());
-            currentUser.setTelephoneNumber(telephoneNumber);
             currentUser.setAddress(AddressText.getText());
-            currentUser.setGraduatedCollege(GradCollegeText.getText());
-            currentUser.setTotalGrade(TotalGradeText.getText().charAt(0));
-            currentUser.setYearOfGraduation(Integer.parseInt(GradYearText.getText()));
             currentUser.setPosition(PositionText.getText());
 
 

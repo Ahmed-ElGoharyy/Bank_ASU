@@ -12,18 +12,16 @@ public class CreditCard {
 
     static int  cvvmax=999;
     static int cvvmin=100;
-    static int cardmax=9999,cardmin=1000 ;
+    static int cardcounter=1000 ;
 
     public CreditCard(long id ){
         this.client_id=id;
         this.isActive=true;
         // Generate Random Card Number
         String part1;
-        part1="1111 1111 1111 ";
-        this.cardNumber=part1 +cardmin;
-         cardmin++;
-
-
+        part1="7894 1547 2355 ";
+        this.cardNumber=part1 + cardcounter;
+        cardcounter++;
         // Generate Random Cvv
 
         this.cvv=cvvmin + (int)(Math.random() * ((cvvmax - cvvmin) + 1));

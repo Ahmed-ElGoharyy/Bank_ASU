@@ -53,10 +53,6 @@ public class ClientController {
     private Text Accountnotext;
 
     @FXML
-    private TextField FirstNameText;
-    @FXML
-    private TextField LastNameText;
-    @FXML
     private TextField UsernameText;
     @FXML
     private TextField PasswordText;
@@ -478,8 +474,9 @@ public class ClientController {
                     currentAccount.getAccountnumber(),
                     amount,
                     "Deposit",
-                    new Date()
+                    new Date(),currentUser.getFirstName()+" "+currentUser.getLastName()
             );
+
             bank.BankATMTrans.add(transaction);
 
             // Show success message
@@ -532,7 +529,7 @@ public class ClientController {
                     currentAccount.getAccountnumber(),
                     amount,
                     "Withdraw",
-                    new Date()
+                    new Date(),currentUser.getFirstName()+" "+currentUser.getLastName()
             );
             bank.BankATMTrans.add(transaction);
 
@@ -636,29 +633,19 @@ public class ClientController {
     public void EditPersonalInfo() {
 
         String adminUsername = "admin";
-        int graduationYear;
         Long telephoneNumber;
 
 
-        if (FirstNameText.getText().isEmpty() || LastNameText.getText().isEmpty() ||
-                UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
+        if (UsernameText.getText().isEmpty() || PasswordText.getText().isEmpty() ||
                 TeleText.getText().isEmpty()) {
             utility.ShowErrorAlert("Error: All fields must be filled out.");
             return;
         }
         for (Client c : bank.BankClients) {
-            if (c.getUserName().equals(UsernameText.getText())) {
+            if (c.getUserName().equals(UsernameText.getText()) ||UsernameText.getText().equals(adminUsername) ) {
                 utility.ShowErrorAlert("Error: This username is already taken! Please enter another Username.");
                 return;
             }
-        }
-        if (FirstNameText.getText().matches(".*\\d.*")) {
-            utility.ShowErrorAlert("Error: The Firstname cannot contain numbers!");
-            return;
-        }
-        if (LastNameText.getText().matches(".*\\d.*")) {
-            utility.ShowErrorAlert("Error: The Lastname cannot contain numbers!");
-            return;
         }
         try {
             telephoneNumber = Long.parseLong(TeleText.getText());
@@ -675,8 +662,6 @@ public class ClientController {
             return;
         }
         currentUser.setUserName(UsernameText.getText());
-        currentUser.setFirstName(FirstNameText.getText());
-        currentUser.setLastName(LastNameText.getText());
         currentUser.setTelephoneNumber(telephoneNumber);
         currentUser.setPassword(PasswordText.getText());
         utility.ShowSuccessAlert("Your Info Edited Successfully!");
